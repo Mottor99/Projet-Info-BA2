@@ -12,6 +12,7 @@ public class Main {
         Mouse mouse = new Mouse(game);
         window.setKeyListener(keyboard);
         window.setMouseListener(mouse);
+        //test2
         
     }
 }

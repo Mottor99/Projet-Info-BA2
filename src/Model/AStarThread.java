@@ -1,4 +1,5 @@
-package Model; //le modele
+package Model; //le modele de luderic
+//deuxieme ligne
 
 public class AStarThread implements Runnable{
 	private Game g;

@@ -1,4 +1,5 @@
-package Model; //permiere ligne
+package Model; 
+//permiere ligne
 //deuxieme changement
 //troisieme ligne
 public class AStarThread implements Runnable{

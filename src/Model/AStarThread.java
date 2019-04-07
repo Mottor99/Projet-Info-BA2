@@ -1,4 +1,4 @@
-package Model; //lasdal;fjas
+package Model; //las    jas
 //deuxieme ligne
 
 public class AStarThread implements Runnable{

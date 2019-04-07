@@ -1,4 +1,4 @@
-package Model; //le modele de luderic
+package Model; //le mod
 //deuxieme ligne
 
 public class AStarThread implements Runnable{

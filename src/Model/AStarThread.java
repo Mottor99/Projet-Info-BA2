@@ -9,7 +9,7 @@ public class AStarThread implements Runnable{
 	private int y;
 	private volatile boolean running = false;
 	private Thread t;
-//quatrieme lig--
+//quatrieme lig
 	public AStarThread(Game g, Player p, int x, int y) {
 		this.g= g;
 		this.p = p;

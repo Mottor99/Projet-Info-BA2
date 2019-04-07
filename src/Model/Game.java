@@ -6,9 +6,9 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
+//import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
-import org.omg.CosNaming.IstringHelper;
+//import org.omg.CosNaming.IstringHelper;
 
 public class Game implements DeletableObserver {
     private ArrayList<GameObject> objects = new ArrayList<GameObject>();

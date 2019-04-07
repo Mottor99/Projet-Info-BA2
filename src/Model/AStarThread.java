@@ -1,4 +1,5 @@
 package Model; 
+//deuxieme ligne
 
 public class AStarThread implements Runnable{
 	private Game g;

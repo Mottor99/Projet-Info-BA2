@@ -9,8 +9,6 @@ public class AStarThread implements Runnable{
 	private volatile boolean running = false;
 	private Thread t;
 
-//quatrieme ligneeeeeeeeeeeeeeeeeeeeeeeee luderic est un gros kik
-	// mm
 
 	public AStarThread(Game g, Player p, int x, int y) {
 		this.g = g;

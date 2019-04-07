@@ -4,11 +4,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import Model.Game;
-import View.Map;
 
 public class Keyboard implements KeyListener {
     private Game game;
-    private Map map;
 
     public Keyboard(Game game) {
         this.game = game;

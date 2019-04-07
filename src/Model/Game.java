@@ -1,7 +1,6 @@
 package Model;
 
 import View.Window;
-
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Random;

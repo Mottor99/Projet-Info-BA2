@@ -1,4 +1,4 @@
-package Model;
+package Model; //le modele
 
 public class AStarThread implements Runnable{
 	private Game g;

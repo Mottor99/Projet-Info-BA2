@@ -51,9 +51,9 @@ public class Map extends JPanel {
             for (int j = 0; j < MAP_SIZE; j++) {
                 int x = i-viewPosX;
                 int y = j-viewPosY;
-                g.setColor(Color.LIGHT_GRAY);
+                g.setColor(Color.LIGHT_GRAY); //color of the area
                 g.fillRect(x * BLOC_SIZE, y * BLOC_SIZE, BLOC_SIZE - 2, BLOC_SIZE - 2);
-                g.setColor(Color.BLACK);
+                g.setColor(Color.BLACK); //color in the space between squares
                 g.drawRect(x * BLOC_SIZE, y * BLOC_SIZE, BLOC_SIZE - 2, BLOC_SIZE - 2);
             }
         }

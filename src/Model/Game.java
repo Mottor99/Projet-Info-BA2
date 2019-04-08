@@ -38,7 +38,7 @@ public class Game implements DeletableObserver {
             objects.add(new BlockUnbreakable(size - 1, i));
         }
         Random rand = new Random();
-        for (int i = 0; i < numberOfBreakableBlocks; i++) {
+        for (int i = 0; i < numberOfBreakableBlocks; i++) {  //puts breakable blocks at random places and give them random lifepoints
             int x = rand.nextInt(size-4) + 2;
             int y = rand.nextInt(size-4) + 2;
             int lifepoints = rand.nextInt(5) + 1;
@@ -47,7 +47,7 @@ public class Game implements DeletableObserver {
             objects.add(block);
         }
 
-        window.setGameObjects(this.getGameObjects());
+        window.setGameObjects(this.getGameObjects());  //draws GameObjects
         notifyView();
     }
 

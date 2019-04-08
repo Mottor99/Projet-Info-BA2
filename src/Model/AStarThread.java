@@ -1,6 +1,5 @@
 package Model; 
 
-
 public class AStarThread implements Runnable{
 	private Game g;
 	private Player p;
@@ -8,11 +7,6 @@ public class AStarThread implements Runnable{
 	private int y;
 	private volatile boolean running = false;
 	private Thread t;
-
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/Mottor99/Projet-Info-BA2.git
 
 	public AStarThread(Game g, Player p, int x, int y) {
 		this.g = g;

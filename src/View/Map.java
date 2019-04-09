@@ -120,13 +120,6 @@ public class Map extends JPanel {
     public void redraw() {
         this.repaint();  //appelle paint() du JPanel (Map extends JPanel)
     }
-    public int getBLOC_SIZE() {
-		return BLOC_SIZE;
-	}
-
-	public void setBLOC_SIZE(int bLOC_SIZE) {
-		this.BLOC_SIZE = bLOC_SIZE;
-	}
 
 	public void addMouse(Mouse m) {
 		this.mouseController = m;
@@ -147,7 +140,13 @@ public class Map extends JPanel {
 		this.viewPosY = viewPosY;
 	}
 
-	
+	public int getBLOC_SIZE() {
+		return BLOC_SIZE;
+	}
+
+	public void setBLOC_SIZE(int bLOC_SIZE) {
+		this.BLOC_SIZE = bLOC_SIZE;
+	}
 	public void moveCamera(int x, int y){
 		this.viewPosX += x;
 		this.viewPosY += y;

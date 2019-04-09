@@ -4,9 +4,7 @@ import Model.Directable;
 import Model.GameObject;
 import Model.Player;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -29,9 +27,9 @@ public class Map extends JPanel {
 	private Mouse mouseController = null;
 
     public Map(Window window) {
-    	
     	this.viewPosX = 12-(int)window.getWidth()/(BLOC_SIZE*2);
     	this.viewPosY = 12-(int)window.getHeight()/(BLOC_SIZE*2);
+    	System.out.println(viewPosX+ " "+ viewPosY);
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
@@ -45,21 +43,17 @@ public class Map extends JPanel {
 			public void mouseEntered(MouseEvent arg0) {}
 			public void mouseExited(MouseEvent arg0) {}
 			public void mouseReleased(MouseEvent arg0) {}
-			
 		});
-        
-        //this.add(HUD.button, BorderLayout.NORTH);
     }
 
     public void paint(Graphics g) {
-    	//this.requestFocus();
         for (int i = 0; i < MAP_SIZE; i++) { 
             for (int j = 0; j < MAP_SIZE; j++) {
                 int x = i-viewPosX;
                 int y = j-viewPosY;
-                g.setColor(Color.LIGHT_GRAY);
+                g.setColor(Color.LIGHT_GRAY); //color of the area
                 g.fillRect(x * BLOC_SIZE, y * BLOC_SIZE, BLOC_SIZE - 2, BLOC_SIZE - 2);
-                g.setColor(Color.BLACK);
+                g.setColor(Color.BLACK); //color in the space between squares
                 g.drawRect(x * BLOC_SIZE, y * BLOC_SIZE, BLOC_SIZE - 2, BLOC_SIZE - 2);
             }
         }

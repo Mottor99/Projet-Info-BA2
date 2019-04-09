@@ -23,7 +23,6 @@ public class HUD {
 	private boolean buttonPressed = false;
 
     protected static JButton button = new JButton("Shop");
-	//private static int AVATAR_SIZE = 100;
 
     public HUD(Map m, Window w){
     	map = m;
@@ -51,7 +50,6 @@ public class HUD {
 				shopPanel.setVisible(!buttonPressed);
 				
 				map.redraw();
-				//window.setVisible(true);
 				buttonPressed = !buttonPressed;
 				System.out.println("Test");
 			}
@@ -65,9 +63,7 @@ public class HUD {
     
     
 	public static void render(Graphics g) {
-		// draw avatar
-        //g.setColor(Color.BLUE);
-        //g.fillRect(150, 25, AVATAR_SIZE, AVATAR_SIZE);
+		
 
 		// bars 
         // Energy 
@@ -84,8 +80,8 @@ public class HUD {
         g.drawString("Energy", 30, 25); 
         
         
-        //button.repaint(17L);
-        //shopPanel.repaint(17L);
+        button.repaint(17L);
+        shopPanel.repaint(17L);
     }
 
 

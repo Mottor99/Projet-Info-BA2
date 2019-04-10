@@ -47,6 +47,7 @@ public class Map extends JPanel {
     }
 
     public void paint(Graphics g) {
+    	super.paintComponents(g);
         for (int i = 0; i < MAP_SIZE; i++) { 
             for (int j = 0; j < MAP_SIZE; j++) {
                 int x = i-viewPosX;

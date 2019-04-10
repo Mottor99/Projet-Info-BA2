@@ -18,10 +18,10 @@ public class Window extends JFrame {
 	private int height = 720;
 	private int width = 1280;
     private Map map = new Map(this);
-    private Status status = new Status();
 
     public Window(String title) {
     	super(title);
+    	HUD hud = new HUD(map, this);
         // JFrame window = new JFrame("Game");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(0, 0, width, height);
@@ -30,6 +30,7 @@ public class Window extends JFrame {
         //groupPanel.add(status, BorderLayout.LINE_END);
         this.getContentPane().add(this.groupPanel);
         this.setVisible(true);
+        
     }
 
     public void setGameObjects(ArrayList<GameObject> objects) {
@@ -39,7 +40,6 @@ public class Window extends JFrame {
 
     public void update() {
         this.map.redraw();
-        this.status.redraw();
     }
 
     public void setKeyListener(KeyListener keyboard) {
@@ -55,7 +55,7 @@ public class Window extends JFrame {
 	}
 	
 	public void setPlayer(Player p) {
-		status.setPlayer(p);
+		HUD.setPlayer(p);
 	}
 	public Map getMap(){
 		return map;
@@ -85,4 +85,5 @@ public class Window extends JFrame {
 	public void zoomCamera(int zoom){
 		map.zoom(zoom);
 	}
+	
 }

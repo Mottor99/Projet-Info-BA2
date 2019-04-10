@@ -109,6 +109,9 @@ public class Map extends JPanel {
                 g.drawLine(xCenter, yCenter, xCenter + deltaX, yCenter + deltaY);
             }
         }
+        HUD.render(g);
+        
+        
     }
 
     public void setObjects(ArrayList<GameObject> objects) {

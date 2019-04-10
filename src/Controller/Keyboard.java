@@ -10,7 +10,6 @@ public class Keyboard implements KeyListener {
 
     public Keyboard(Game game) {
         this.game = game;
-        //this.map = this.game.getWindow().getMap();
     }
 
     @Override

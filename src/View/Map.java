@@ -9,8 +9,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import Controller.Mouse;
@@ -21,12 +25,12 @@ public class Map extends JPanel {
     private int BLOC_SIZE = 40;
     private int viewPosX;
     private int viewPosY;
-    
+    private BufferedImage img = null;
     
 
 	private Mouse mouseController = null;
 
-    public Map(Window window) {
+    public Map(Window window){
     	this.viewPosX = 12-(int)window.getWidth()/(BLOC_SIZE*2);
     	this.viewPosY = 12-(int)window.getHeight()/(BLOC_SIZE*2);
     	System.out.println(viewPosX+ " "+ viewPosY);
@@ -44,10 +48,15 @@ public class Map extends JPanel {
 			public void mouseExited(MouseEvent arg0) {}
 			public void mouseReleased(MouseEvent arg0) {}
 		});
+       try {
+    	   img = ImageIO.read(new File("src/tile.png"));
+       }catch(IOException e) {
+    	   e.printStackTrace();
+       }
     }
 
     public void paint(Graphics g) {
-    	super.paintComponent(g);
+    	super.paintComponents(g);
         for (int i = 0; i < MAP_SIZE; i++) { 
             for (int j = 0; j < MAP_SIZE; j++) {
                 int x = i-viewPosX;
@@ -65,7 +74,8 @@ public class Map extends JPanel {
             int color = object.getColor();
 
             if (color == 0) {
-                g.setColor(Color.DARK_GRAY);
+                //g.setColor(Color.DARK_GRAY);
+                g.drawImage(img, x*BLOC_SIZE,y*BLOC_SIZE, BLOC_SIZE, BLOC_SIZE, null);
             } else if (color == 1) {
                 g.setColor(Color.GRAY);
             } else if (color == 2) {
@@ -77,11 +87,11 @@ public class Map extends JPanel {
             } else if (color == 5) {
                 g.setColor(Color.ORANGE);
             }
-
-            g.fillRect(x * BLOC_SIZE, y * BLOC_SIZE, BLOC_SIZE - 2, BLOC_SIZE - 2);
-            g.setColor(Color.BLACK);
-            g.drawRect(x * BLOC_SIZE, y * BLOC_SIZE, BLOC_SIZE - 2, BLOC_SIZE - 2);
-            
+            if (color!= 0) {
+	            g.fillRect(x * BLOC_SIZE, y * BLOC_SIZE, BLOC_SIZE - 2, BLOC_SIZE - 2);
+	            g.setColor(Color.BLACK);
+	            g.drawRect(x * BLOC_SIZE, y * BLOC_SIZE, BLOC_SIZE - 2, BLOC_SIZE - 2);
+            }
             // Decouper en fontions
             if(object instanceof Directable) {
                 int direction = ((Directable) object).getDirection();

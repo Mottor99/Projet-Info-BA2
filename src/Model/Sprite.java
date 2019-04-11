@@ -19,7 +19,7 @@ public class Sprite {
 	    	   }
 	}
 	
-	public BufferedImage getSprite() {
+	public BufferedImage getImage() {
 		return this.img;
 	}
 	

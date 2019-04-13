@@ -43,7 +43,7 @@ public class Game implements DeletableObserver {
             int y = rand.nextInt(size-4) + 2;
             int lifepoints = rand.nextInt(5) + 1;
             BlockBreakable block = new BlockBreakable(x, y, lifepoints);
-            block.attachDeletable(this);
+            block.attachDeletable(this); //game(this) notifié que bloc a été cassé
             objects.add(block);
         }
 

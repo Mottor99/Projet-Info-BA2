@@ -17,17 +17,17 @@ public class HUD {
 	private static Player p;
 	private static int BAR_LENGTH = 120;
 	private static int BAR_WIDTH = 40;
-	protected static Map map;
+	protected static Screen screen;
 	protected static Window window;
 	private static JPanel shopPanel = new JPanel();
 	private boolean buttonPressed = false;
 
     protected static JButton button = new JButton("Shop");
 
-    public HUD(Map m, Window w){
-    	map = m;
+    public HUD(Screen m, Window w){
+    	screen = m;
     	window = w;
-    	map.setLayout(new BorderLayout());
+    	screen.setLayout(new BorderLayout());
     	button.setPreferredSize(new Dimension(200, 50));
     	button.setBorderPainted(false);
     	button.setContentAreaFilled(false);
@@ -49,15 +49,15 @@ public class HUD {
 			public void actionPerformed(ActionEvent e) {
 				shopPanel.setVisible(!buttonPressed);
 				
-				map.redraw();
+				screen.redraw();
 				buttonPressed = !buttonPressed;
 				System.out.println("Test");
 			}
         	
         });
         
-        map.add(button, BorderLayout.NORTH);
-        map.add(shopPanel, BorderLayout.EAST);
+        screen.add(button, BorderLayout.NORTH);
+        screen.add(shopPanel, BorderLayout.EAST);
         
     }
     

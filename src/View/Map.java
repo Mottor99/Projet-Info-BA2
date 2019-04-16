@@ -2,61 +2,37 @@ package View;
 
 import Model.Directable;
 import Model.GameObject;
-import Model.Player;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 
-import Controller.Mouse;
 
-public class Map extends JPanel {
+public class Map extends Level {
     private ArrayList<GameObject> objects = null;
-    public final int MAP_SIZE = 25;
-    private int BLOC_SIZE = 40;
-    private int viewPosX;
-    private int viewPosY;
+    
     private BufferedImage img = null;
     
 
-	private Mouse mouseController = null;
-
-    public Map(Window window){
-    	this.viewPosX = 12-(int)window.getWidth()/(BLOC_SIZE*2);
-    	this.viewPosY = 12-(int)window.getHeight()/(BLOC_SIZE*2);
+    public Map(Screen screen){
+    	this.viewPosX = 12-(int)screen.getWidth()/(BLOC_SIZE*2);
+    	this.viewPosY = 12-(int)screen.getHeight()/(BLOC_SIZE*2);
     	System.out.println(viewPosX+ " "+ viewPosY);
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-        this.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
-        addMouseListener(new MouseListener() {
-			public void mousePressed(MouseEvent e) {
-				int x = e.getX()/BLOC_SIZE + viewPosX;
-				int y = e.getY()/BLOC_SIZE + viewPosY;
-				mouseController.mapEvent(x, y);
-			}
-			public void mouseClicked(MouseEvent arg0) {}
-			public void mouseEntered(MouseEvent arg0) {}
-			public void mouseExited(MouseEvent arg0) {}
-			public void mouseReleased(MouseEvent arg0) {}
-		});
-       try {
-    	   img = ImageIO.read(new File("src/tile.png"));
-       }catch(IOException e) {
-    	   e.printStackTrace();
-       }
+    
+		try {
+			   img = ImageIO.read(new File("src/tile.png"));
+			}catch(IOException e) {
+			   e.printStackTrace();
+		}
     }
 
-    public void paint(Graphics g) {
-    	super.paintComponent(g);
+    public void render(Graphics g) {
         for (int i = 0; i < MAP_SIZE; i++) { 
             for (int j = 0; j < MAP_SIZE; j++) {
                 int x = i-viewPosX;
@@ -119,7 +95,7 @@ public class Map extends JPanel {
                 g.drawLine(xCenter, yCenter, xCenter + deltaX, yCenter + deltaY);
             }
         }
-        //HUD.render(g);
+        HUD.render(g);
         
         
     }
@@ -128,47 +104,8 @@ public class Map extends JPanel {
         this.objects = objects;
     }
 
-    public void redraw() {
-        this.repaint();  //appelle paint() du JPanel (Map extends JPanel)
-    }
+    
 
-	public void addMouse(Mouse m) {
-		this.mouseController = m;
-	}
-	public int getViewPosX() {
-		return viewPosX;
-	}
-
-	public int getViewPosY() {
-		return viewPosY;
-	}
-
-	public void setViewPosX(int viewPosX) {
-		this.viewPosX = viewPosX;
-	}
-
-	public void setViewPosY(int viewPosY) {
-		this.viewPosY = viewPosY;
-	}
-
-	public int getBLOC_SIZE() {
-		return BLOC_SIZE;
-	}
-
-	public void setBLOC_SIZE(int bLOC_SIZE) {
-		this.BLOC_SIZE = bLOC_SIZE;
-	}
-	public void moveCamera(int x, int y){
-		this.viewPosX += x;
-		this.viewPosY += y;
-		
-	}
-	public void centerCamera(Player p, int width, int height){
-		this.viewPosX = p.getPosX()-(int)(width/(2*BLOC_SIZE));
-		this.viewPosY = p.getPosY()-(int)(height/(2*BLOC_SIZE));
-	}
-	public void zoom(int zoomAmount){
-		this.BLOC_SIZE += zoomAmount;
-	}
+	
 	
 }

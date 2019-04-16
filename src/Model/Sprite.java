@@ -10,6 +10,8 @@ public class Sprite {
 	private BufferedImage img = null;
 	private String path;
 	public static Sprite brick = new Sprite("src/tile.png");
+	public static Sprite grass = new Sprite("src/grass.png");
+	public static Sprite player = new Sprite("src/homme.png");
 	
 	public Sprite(String path) {
 		this.path = path;

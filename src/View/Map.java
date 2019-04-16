@@ -18,18 +18,26 @@ public class Map extends Level {
     private ArrayList<GameObject> objects = null;
     
     private BufferedImage img = null;
+    private BufferedImage img2 = null;
+    private BufferedImage img3 = null;
+    private Screen screen;
     
 
     public Map(Screen screen){
+    	this.screen = screen;
     	this.viewPosX = 12-(int)screen.getWidth()/(BLOC_SIZE*2);
     	this.viewPosY = 12-(int)screen.getHeight()/(BLOC_SIZE*2);
     	System.out.println(viewPosX+ " "+ viewPosY);
     
 		try {
 			   img = ImageIO.read(new File("src/tile.png"));
+			   img2 = ImageIO.read(new File("src/grass.png"));
+			   img3 = ImageIO.read(new File("src/homme.png"));
+			   
 			}catch(IOException e) {
 			   e.printStackTrace();
 		}
+	
     }
 
     public void render(Graphics g) {
@@ -53,9 +61,11 @@ public class Map extends Level {
                 //g.setColor(Color.DARK_GRAY);
                 g.drawImage(img, x*BLOC_SIZE,y*BLOC_SIZE, BLOC_SIZE, BLOC_SIZE, null);
             } else if (color == 1) {
-                g.setColor(Color.GRAY);
+                //g.setColor(Color.GRAY);
+            	g.drawImage(img2, x*BLOC_SIZE,y*BLOC_SIZE, BLOC_SIZE, BLOC_SIZE, null);
             } else if (color == 2) {
-                g.setColor(Color.BLUE);
+                //g.setColor(Color.BLUE);
+            	g.drawImage(img3, x*BLOC_SIZE,y*BLOC_SIZE, BLOC_SIZE, BLOC_SIZE, null);
             } else if (color == 3) {
                 g.setColor(Color.GREEN);
             } else if (color == 4) {
@@ -93,8 +103,12 @@ public class Map extends Level {
                 int xCenter = x * BLOC_SIZE + (BLOC_SIZE-2)/2;
                 int yCenter = y * BLOC_SIZE + (BLOC_SIZE-2)/2;
                 g.drawLine(xCenter, yCenter, xCenter + deltaX, yCenter + deltaY);
+                
             }
+            
         }
+        //g.setColor(new Color(200,200,200,127));
+        //g.fillRect(0, 0, screen.getWidth(), screen.getHeight());
         HUD.render(g);
         
         

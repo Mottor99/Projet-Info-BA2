@@ -8,7 +8,7 @@ import Model.Player;
 
 public abstract class Level {
 	public final int MAP_SIZE = 25;
-    protected int BLOC_SIZE = 40;
+    protected int BLOC_SIZE = 80;
     protected int viewPosX;
     protected int viewPosY;
 	

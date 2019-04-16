@@ -17,9 +17,6 @@ public class Screen extends JPanel{
 	private Mouse mouseController = null;
 	private Level level;
 	public final int MAP_SIZE = 25;
-    private int BLOC_SIZE = 40;
-    private int viewPosX;
-    private int viewPosY;
     private Window window;
 	
 	public Screen(Window window){
@@ -31,8 +28,8 @@ public class Screen extends JPanel{
         this.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
         addMouseListener(new MouseListener() {
 			public void mousePressed(MouseEvent e) {
-				int x = e.getX()/BLOC_SIZE + level.getViewPosX();
-				int y = e.getY()/BLOC_SIZE + level.getViewPosY();
+				int x = e.getX()/getBLOC_SIZE() + level.getViewPosX();
+				int y = e.getY()/getBLOC_SIZE() + level.getViewPosY();
 				mouseController.mapEvent(x, y);
 			}
 			public void mouseClicked(MouseEvent arg0) {}

@@ -8,7 +8,7 @@ public class BlockBreakable extends Block implements Deletable, Activable {
     private int lifepoints = 0;
     public BlockBreakable(int X, int Y, int lifepoints) {
         super(X, Y, 1);
-        this.lifepoints = lifepoints; 
+        this.lifepoints = lifepoints;
     }
     
     public void activate(){
@@ -17,7 +17,7 @@ public class BlockBreakable extends Block implements Deletable, Activable {
         }
         else {
             lifepoints--;
-            this.color = lifepoints + 2; // pour Ã©viter de retourner au gris
+            this.color = lifepoints + 2; // pour éviter de retourner au gris
         }
     }
 
@@ -34,9 +34,9 @@ public class BlockBreakable extends Block implements Deletable, Activable {
 
     @Override
     public void notifyDeletableObserver() {
-        int i = 0;
+        //int i = 0;
         for (DeletableObserver o : observers) {
-            i++;
+            //i++;
             o.delete(this, null);
         }
     }

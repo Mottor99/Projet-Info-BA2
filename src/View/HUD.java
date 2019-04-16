@@ -79,8 +79,8 @@ public class HUD {
         g.setColor(Color.GRAY);
         g.drawString("Energy", 30, 25); 
         
-        button.repaint(17L);
-        shopPanel.repaint(17L);
+        button.repaint();
+        shopPanel.repaint();
     }
 
 

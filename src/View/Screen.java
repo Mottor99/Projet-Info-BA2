@@ -24,13 +24,15 @@ public class Screen extends JPanel{
 	
 	public Screen(Window window){
 		this.window = window;
+		level = new Map(this);
+		
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
         addMouseListener(new MouseListener() {
 			public void mousePressed(MouseEvent e) {
-				int x = e.getX()/BLOC_SIZE + viewPosX;
-				int y = e.getY()/BLOC_SIZE + viewPosY;
+				int x = e.getX()/BLOC_SIZE + level.getViewPosX();
+				int y = e.getY()/BLOC_SIZE + level.getViewPosY();
 				mouseController.mapEvent(x, y);
 			}
 			public void mouseClicked(MouseEvent arg0) {}
@@ -38,7 +40,7 @@ public class Screen extends JPanel{
 			public void mouseExited(MouseEvent arg0) {}
 			public void mouseReleased(MouseEvent arg0) {}
 		});
-        level = new Map(this);
+        
        
 	}
 	

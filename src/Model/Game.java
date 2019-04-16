@@ -21,6 +21,7 @@ public class Game implements DeletableObserver {
     private int numberOfBreakableBlocks = 40;
 
     public Game(Window window) {
+    	Loop gameLoop = new Loop(this);
         this.window = window;
         size = window.getMapSize();
         // Creating one Player at position (1,1)
@@ -48,7 +49,7 @@ public class Game implements DeletableObserver {
         }
 
         window.setGameObjects(this.getGameObjects());  //draws GameObjects
-        notifyView();
+       
     }
 
 
@@ -72,14 +73,14 @@ public class Game implements DeletableObserver {
             	window.moveCamera(x,y);
             }
         }
-        notifyView();
+        
     }
     public void moveCamera(int x, int y){
     	window.moveCamera(x, y);
     }
     public void centerCamera(){
     	window.centerCamera(active_player);
-    	notifyView();
+    	
     }
     public void zoomCamera(int zoom){
     	window.zoomCamera(zoom);
@@ -90,7 +91,7 @@ public class Game implements DeletableObserver {
 
     public void tirePlayer() {
     	active_player.tire();
-    	notifyView();
+    	
     }
     public void action() {
         Activable aimedObject = null;
@@ -103,12 +104,12 @@ public class Game implements DeletableObserver {
 		}
 		if(aimedObject != null){
 		    aimedObject.activate();
-            notifyView();
+            
 		}
         
     }
 
-    private void notifyView() {
+    public void update() {
         window.update();
     }
 
@@ -122,7 +123,7 @@ public class Game implements DeletableObserver {
         if (loot != null) {
             objects.addAll(loot);
         }
-        notifyView();
+        
     }
 
 

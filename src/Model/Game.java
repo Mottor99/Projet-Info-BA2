@@ -32,7 +32,7 @@ public class Game implements DeletableObserver {
         active_player = p;
 
         // Map building
-        for (int i = 24; i >= 0; i--) {
+        for (int i = 0; i < size; i++) {
             objects.add(new BlockUnbreakable(i, 0));
             objects.add(new BlockUnbreakable(0, i));
             objects.add(new BlockUnbreakable(i, size - 1));

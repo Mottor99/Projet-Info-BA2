@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 public class Sprite {
 	private BufferedImage img = null;
 	private String path;
+	public static Sprite brick = new Sprite("src/tile.png");
 	
 	public Sprite(String path) {
 		this.path = path;

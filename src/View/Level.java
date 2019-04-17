@@ -53,8 +53,8 @@ public abstract class Level {
 		
 	}
 	public void centerCamera(Player p, int width, int height){
-		this.viewPosX = p.getPosX()-(int)(width/(2*BLOC_SIZE));
-		this.viewPosY = p.getPosY()-(int)(height/(2*BLOC_SIZE));
+		this.viewPosX = p.getPosX()-width/(2*BLOC_SIZE);
+		this.viewPosY = p.getPosY()-height/(2*BLOC_SIZE);
 	}
 	public void zoom(int zoomAmount){
 		this.BLOC_SIZE += zoomAmount;

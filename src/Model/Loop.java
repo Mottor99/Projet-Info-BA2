@@ -1,7 +1,5 @@
 package Model;
 
-import View.Window;
-
 public class Loop implements Runnable{
 	private Thread t;
 	private boolean running = false;

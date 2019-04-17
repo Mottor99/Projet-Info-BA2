@@ -1,10 +1,8 @@
 package View;
 
-import Model.Directable;
 import Model.GameObject;
 import Model.Sprite;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import java.awt.image.BufferedImage;
@@ -25,8 +23,8 @@ public class Map extends Level {
 
     public Map(Screen screen){
     	this.screen = screen;
-    	this.viewPosX = 12-(int)screen.getWidth()/(BLOC_SIZE*2);
-    	this.viewPosY = 12-(int)screen.getHeight()/(BLOC_SIZE*2);
+    	this.viewPosX = 12-screen.getWidth()/(BLOC_SIZE*2);
+    	this.viewPosY = 12-screen.getHeight()/(BLOC_SIZE*2);
     	System.out.println(viewPosX+ " "+ viewPosY);
     
 		try {
@@ -36,7 +34,8 @@ public class Map extends Level {
 		}
     }
 
-    public void render(Graphics g) {
+    @Override
+	public void render(Graphics g) {
         /* for (int i = 0; i < MAP_SIZE; i++) { 
             for (int j = 0; j < MAP_SIZE; j++) {
                 int x = i-viewPosX;
@@ -124,7 +123,8 @@ public class Map extends Level {
         
     }
 
-    public void setObjects(ArrayList<GameObject> objects) {
+    @Override
+	public void setObjects(ArrayList<GameObject> objects) {
         this.objects = objects;
     }
 

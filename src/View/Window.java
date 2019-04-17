@@ -59,6 +59,7 @@ public class Window extends JFrame {
 	}
 	
 	
+	@Override
 	public int getHeight() {
 		return height;
 	}
@@ -67,6 +68,7 @@ public class Window extends JFrame {
 		this.height = height;
 	}
 
+	@Override
 	public int getWidth() {
 		return width;
 	}

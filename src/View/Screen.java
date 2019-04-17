@@ -27,20 +27,26 @@ public class Screen extends JPanel{
         this.requestFocusInWindow();
         this.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
         addMouseListener(new MouseListener() {
+			@Override
 			public void mousePressed(MouseEvent e) {
 				int x = e.getX()/getBLOC_SIZE() + level.getViewPosX();
 				int y = e.getY()/getBLOC_SIZE() + level.getViewPosY();
 				mouseController.mapEvent(x, y);
 			}
+			@Override
 			public void mouseClicked(MouseEvent arg0) {}
+			@Override
 			public void mouseEntered(MouseEvent arg0) {}
+			@Override
 			public void mouseExited(MouseEvent arg0) {}
+			@Override
 			public void mouseReleased(MouseEvent arg0) {}
 		});
         
        
 	}
 	
+	@Override
 	public void paint(Graphics g){
 		super.paintComponent(g);
 		level.render(g);
@@ -82,9 +88,11 @@ public class Screen extends JPanel{
 	public void zoom(int zoomAmount){
 		this.level.zoom(zoomAmount);
 	}
+	@Override
 	public int getWidth(){
 		return window.getWidth();
 	}
+	@Override
 	public int getHeight(){
 		return window.getHeight();
 	}

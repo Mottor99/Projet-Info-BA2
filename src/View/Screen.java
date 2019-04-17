@@ -44,7 +44,7 @@ public class Screen extends JPanel{
 	public void paint(Graphics g){
 		super.paintComponent(g);
 		level.render(g);
-		HUD.render(g);
+		//HUD.render(g);
 	}
 	public void redraw(){
 		this.repaint();

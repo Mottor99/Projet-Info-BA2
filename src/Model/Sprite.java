@@ -12,6 +12,9 @@ public class Sprite {
 	public static Sprite brick = new Sprite("src/tile.png");
 	public static Sprite grass = new Sprite("src/grass.png");
 	public static Sprite player = new Sprite("src/homme.png");
+	public static Sprite wall = new Sprite("src/wall.png");
+	public static Sprite wall_cobblestone = new Sprite("src/wall_cobblestone.png");
+	public static Sprite unknown = new Sprite("src/tile.png");
 	
 	public Sprite(String path) {
 		this.path = path;

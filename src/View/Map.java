@@ -2,6 +2,7 @@ package View;
 
 import Model.Directable;
 import Model.GameObject;
+import Model.Sprite;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.imageio.ImageIO;
 
@@ -35,7 +37,7 @@ public class Map extends Level {
     }
 
     public void render(Graphics g) {
-        for (int i = 0; i < MAP_SIZE; i++) { 
+        /* for (int i = 0; i < MAP_SIZE; i++) { 
             for (int j = 0; j < MAP_SIZE; j++) {
                 int x = i-viewPosX;
                 int y = j-viewPosY;
@@ -99,9 +101,25 @@ public class Map extends Level {
             }
             
         }
+        */
+    	for(int i = -20; i<45; i++){
+    		for(int j = -20; j<45;j++){
+    			int x = i-viewPosX;
+    			int y = j-viewPosY;
+    			g.drawImage(Sprite.grass.getImage(), x*BLOC_SIZE, y*BLOC_SIZE, BLOC_SIZE,BLOC_SIZE, null);
+    		}
+    	}
+    	Collections.sort(objects);
+    	for (GameObject object : this.objects) {
+            int x = object.getPosX()-viewPosX;
+            int y = object.getPosY()-viewPosY;
+            object.render(x, y, g, BLOC_SIZE);
+    	}
+    	
+    	
         //g.setColor(new Color(200,20,200,127));
-        g.fillRect(0, 0, screen.getWidth(), screen.getHeight());
-        HUD.render(g);
+        //g.fillRect(0, 0, screen.getWidth(), screen.getHeight());
+        
         
         
     }

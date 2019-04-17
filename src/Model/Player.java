@@ -1,5 +1,7 @@
 package Model;
 
+package Model;
+
 public class Player extends GameObject implements Directable {
 
     int energy = 100;
@@ -7,7 +9,7 @@ public class Player extends GameObject implements Directable {
     private boolean isFocused = true;
 
     public Player(int x, int y, int maxBomb) {
-        super(x, y, 2);
+        super(x, y, 1, 1, 2);
     }
 
     public void move(int X, int Y) {

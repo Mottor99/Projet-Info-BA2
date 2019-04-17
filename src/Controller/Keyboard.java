@@ -1,9 +1,9 @@
 package Controller;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+//import java.io.FileInputStream;
+//import java.io.FileNotFoundException;
 
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
+//import javazoom.jl.decoder.JavaLayerException;
+//import javazoom.jl.player.Player;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -40,6 +40,7 @@ public class Keyboard implements KeyListener {
              break;
         case KeyEvent.VK_SPACE:
              game.action();
+             break;
              /*try {
          		FileInputStream fileInputStream = new FileInputStream("bip.mp3");
          		Player player = new Player(fileInputStream);
@@ -52,7 +53,7 @@ public class Keyboard implements KeyListener {
          			e.printStackTrace();
          		}
          	
-             */
+             
             	  new Thread(new Runnable() {
             	  // The wrapper thread is unnecessary, unless it blocks on the
             	  // Clip finishing; see comments.
@@ -69,9 +70,9 @@ public class Keyboard implements KeyListener {
                      			e.printStackTrace();
                      		}
             	    }
-            	  }).start();
+            	  }).start();*/
              
-             	break;
+             
         case KeyEvent.VK_Q:
              game.stop();
              break;

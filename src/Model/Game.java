@@ -33,17 +33,17 @@ public class Game implements DeletableObserver {
 
         // Map building
         for (int i = 0; i < size; i++) {
-            objects.add(new BlockUnbreakable(i, 0));
-            objects.add(new BlockUnbreakable(0, i));
-            objects.add(new BlockUnbreakable(i, size - 1));
-            objects.add(new BlockUnbreakable(size - 1, i));
+            objects.add(new BlockUnbreakable(i, 0, 1, 1));
+            objects.add(new BlockUnbreakable(0, i, 1, 1));
+            objects.add(new BlockUnbreakable(i, size - 1, 1, 1));
+            objects.add(new BlockUnbreakable(size - 1, i, 1, 1));
         }
         Random rand = new Random();
         for (int i = 0; i < numberOfBreakableBlocks; i++) {  //puts breakable blocks at random places and give them random lifepoints
             int x = rand.nextInt(size-4) + 2;
             int y = rand.nextInt(size-4) + 2;
             int lifepoints = rand.nextInt(5) + 1;
-            BlockBreakable block = new BlockBreakable(x, y, lifepoints);
+            BlockBreakable block = new BlockBreakable(x, y, 1 , 1, lifepoints);
             block.attachDeletable(this); //game(this) notifié que bloc a été cassé
             objects.add(block);
         }

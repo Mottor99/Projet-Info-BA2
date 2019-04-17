@@ -1,8 +1,10 @@
 package View;
 
-import java.awt.Graphics;
 
-public interface Animation {
-	public void animate(Graphics g);
+
+public interface Animation extends Runnable{
+	static final int IDLE = 0;
+	static final int MOVING = 1;
+	public void animate();
 	
 }

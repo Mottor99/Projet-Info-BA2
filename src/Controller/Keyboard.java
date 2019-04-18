@@ -9,8 +9,13 @@ import java.awt.event.KeyListener;
 
 import Model.Game;
 
-public class Keyboard implements KeyListener {
+public class Keyboard implements KeyListener, Runnable {
     private Game game;
+    private static final int EAST = 0;
+    private static final int NORTH = 1;
+    private static final int WEST = 2;
+    private static final int SOUTH = 3;
+    private static final int NONE = -1;
 
     public Keyboard(Game game) {
         this.game = game;
@@ -106,4 +111,10 @@ public class Keyboard implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
     }
+
+	@Override
+	public void run() {
+		
+		
+	}
 }

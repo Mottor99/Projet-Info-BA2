@@ -29,8 +29,8 @@ public class Screen extends JPanel{
         addMouseListener(new MouseListener() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				int x = e.getX()/getBLOC_SIZE() + level.getViewPosX();
-				int y = e.getY()/getBLOC_SIZE() + level.getViewPosY();
+				int x = e.getX()/getBLOC_SIZE() + (int)level.getViewPosX();
+				int y = e.getY()/getBLOC_SIZE() + (int)level.getViewPosY();
 				mouseController.mapEvent(x, y);
 			}
 			@Override
@@ -62,11 +62,11 @@ public class Screen extends JPanel{
 	public void addMouse(Mouse m) {
 		this.mouseController = m;
 	}
-	public int getViewPosX() {
+	public double getViewPosX() {
 		return this.level.getViewPosX();
 	}
 
-	public int getViewPosY() {
+	public double getViewPosY() {
 		return this.level.getViewPosY();
 	}
 

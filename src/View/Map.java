@@ -103,15 +103,15 @@ public class Map extends Level {
         */
     	for(int i = -20; i<45; i++){
     		for(int j = -20; j<45;j++){
-    			int x = i-viewPosX;
-    			int y = j-viewPosY;
-    			g.drawImage(Sprite.grass.getImage(), x*BLOC_SIZE, y*BLOC_SIZE, BLOC_SIZE,BLOC_SIZE, null);
+    			double x = i-viewPosX;
+    			double y = j-viewPosY;
+    			g.drawImage(Sprite.grass.getImage(), (int)(x*BLOC_SIZE), (int)(y*BLOC_SIZE), BLOC_SIZE,BLOC_SIZE, null);
     		}
     	}
     	Collections.sort(objects);
     	for (GameObject object : this.objects) {
-            int x = object.getPosX()-viewPosX;
-            int y = object.getPosY()-viewPosY;
+            double x = object.getPosX()-viewPosX;
+            double y = object.getPosY()-viewPosY;
             object.render(x, y, g, BLOC_SIZE);
     	}
     	

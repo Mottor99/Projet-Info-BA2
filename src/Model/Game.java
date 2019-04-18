@@ -54,6 +54,7 @@ public class Game implements DeletableObserver {
 
 
     public void movePlayer(int x, int y) {
+    	if(active_player.getState() == Player.IDLE){
         int nextX = active_player.getPosX() + x;
         int nextY = active_player.getPosY() + y;
 
@@ -68,13 +69,18 @@ public class Game implements DeletableObserver {
         }
         active_player.rotate(x, y);
         if (obstacle == false) {
-            active_player.move(x, y);
+            
+            	active_player.move(x, y);
+	        
             if(active_player.isFocused()){
             	window.moveCamera(x,y);
             }
         }
+    	}
         
     }
+        
+    
     public void moveCamera(int x, int y){
     	window.moveCamera(x, y);
     }
@@ -109,7 +115,7 @@ public class Game implements DeletableObserver {
         
     }
 
-    public void update() {
+    public void render() {
         window.update();
     }
 

@@ -9,8 +9,8 @@ public class BlockUnbreakable extends Block {
         sprite = Sprite.wall_cobblestone;
     }
     @Override
-	public void render(int x, int y, Graphics g, int BLOC_SIZE){
-    	g.drawImage(sprite.getImage(), x*BLOC_SIZE,(y-1)*BLOC_SIZE, BLOC_SIZE*width, BLOC_SIZE*2, null);
+	public void render(double x, double y, Graphics g, int BLOC_SIZE){
+    	g.drawImage(sprite.getImage(), (int)(x*BLOC_SIZE),(int)((y-1)*BLOC_SIZE), BLOC_SIZE*width, BLOC_SIZE*2, null);
     }
     @Override
     public boolean isObstacle() {

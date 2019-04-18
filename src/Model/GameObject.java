@@ -18,8 +18,8 @@ public abstract class GameObject implements Comparable<GameObject>{
         
         this.color = color;
     }
-    public void render(int x, int y, Graphics g, int BLOC_SIZE){
-    	g.drawImage(sprite.getImage(), x*BLOC_SIZE,y*BLOC_SIZE, BLOC_SIZE*width, BLOC_SIZE*height, null);
+    public void render(double x, double y, Graphics g, int BLOC_SIZE){
+    	g.drawImage(sprite.getImage(), (int)(x*BLOC_SIZE),(int)(y*BLOC_SIZE), BLOC_SIZE*width, BLOC_SIZE*height, null);
     }
 
     public int getPosX() {
@@ -39,8 +39,8 @@ public abstract class GameObject implements Comparable<GameObject>{
     }
     @Override
     public int compareTo(GameObject compareObj){
-		int comparePos = compareObj.getPosX() + compareObj.getPosY();
-		return this.posX + this.posY - comparePos;
+		int comparePos = compareObj.getPosY();
+		return this.posY - comparePos;
     	
     }
 

@@ -1,6 +1,6 @@
 package Model;
 
-public class Player extends GameObject implements Directable {
+public class Player extends Entity implements Directable {
 
     int energy = 100;
     int direction = EAST;  

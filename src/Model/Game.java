@@ -1,5 +1,6 @@
 package Model;
 
+import View.Level;
 import View.Window;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -14,14 +15,14 @@ public class Game implements DeletableObserver {
     private ArrayList<Player> players = new ArrayList<Player>();
     private Player active_player = null;
     private AStarThread t = null;
-
+    private Loop gameLoop;
     private Window window;
     private int size;
     // private int bombTimer = 3000;
     private int numberOfBreakableBlocks = 40;
 
     public Game(Window window) {
-    	Loop gameLoop = new Loop(this);
+    	gameLoop = new Loop(this);
         this.window = window;
         size = window.getMapSize();
         // Creating one Player at position (1,1)
@@ -33,12 +34,14 @@ public class Game implements DeletableObserver {
 
         // Map building
         for (int i = 0; i < size; i++) {
-            objects.add(new BlockUnbreakable(i, 0, 1, 1));
-            objects.add(new BlockUnbreakable(0, i, 1, 1));
-            objects.add(new BlockUnbreakable(i, size - 1, 1, 1));
-            objects.add(new BlockUnbreakable(size - 1, i, 1, 1));
+            objects.add(new Wall(i, 0));
+            objects.add(new Wall(0, i));
+            objects.add(new Wall(i, size - 1));
+            objects.add(new Wall(size - 1, i));
         }
-        Random rand = new Random();
+        objects.add(new Couch(5, 3));
+        objects.add(new Table(5, 5));
+        /*Random rand = new Random();
         for (int i = 0; i < numberOfBreakableBlocks; i++) {  //puts breakable blocks at random places and give them random lifepoints
             int x = rand.nextInt(size-4) + 2;
             int y = rand.nextInt(size-4) + 2;
@@ -47,35 +50,37 @@ public class Game implements DeletableObserver {
             block.attachDeletable(this); //game(this) notifié que bloc a été cassé
             objects.add(block);
         }
+        */
 
         window.setGameObjects(this.getGameObjects());  //draws GameObjects
        
     }
 
 
-    public void movePlayer(int x, int y) {
-    	if(active_player.getState() == Player.IDLE){
-        int nextX = active_player.getPosX() + x;
-        int nextY = active_player.getPosY() + y;
-
-        boolean obstacle = false;
-        for (GameObject object : objects) {
-            if (object.isAtPosition(nextX, nextY)) {
-                obstacle = object.isObstacle();
-            }
-            if (obstacle == true) {
-                break;
-            }
-        }
-        active_player.rotate(x, y);
-        if (obstacle == false) {
-            
-            	active_player.move(x, y);
-	        
-            if(active_player.isFocused()){
-            	window.moveCamera(x,y);
-            }
-        }
+    public synchronized void movePlayer(int x, int y) {
+    	if(active_player.getState() == Player.IDLE && Level.getCameraState() == Level.IDLE){
+	        int nextX = active_player.getPosX() + x;
+	        int nextY = active_player.getPosY() + y;
+	
+	        boolean obstacle = false;
+	        for (GameObject object : objects) {
+	            if (object.isAtPosition(nextX, nextY)) {
+	                obstacle = object.isObstacle();
+	            }
+	            if (obstacle == true) {
+	                break;
+	            }
+	        }
+	        active_player.rotate(x, y);
+	        if (obstacle == false) {
+	            
+	            	
+		        
+	            if(active_player.isFocused()){
+	            	window.moveCamera(x,y);
+	            }
+	            active_player.move(x, y);
+	        }
     	}
         
     }

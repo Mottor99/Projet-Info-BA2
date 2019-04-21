@@ -54,7 +54,12 @@ public class AStar {
 		open.add(grid[startI][startJ]);
 		for(GameObject o: objects) {
 			if (o.isObstacle()) {
-				setBlocked(o.getPosX(),o.getPosY());
+				for(int i = 0; i<o.getWidth();i++){
+					for(int j = 0; j<o.getHeight();j++){
+						setBlocked(o.getPosX()+i,o.getPosY()+j);
+					}
+				}
+				
 			}
 		}
 

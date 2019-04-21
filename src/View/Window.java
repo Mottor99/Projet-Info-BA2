@@ -1,5 +1,6 @@
 package View;
 
+import Model.Camera;
 import Model.GameObject;
 import Model.Player;
 
@@ -80,8 +81,16 @@ public class Window extends JFrame {
 		this.screen.moveCamera(x,y);
 	}
 	public void centerCamera(Player p){
-		this.screen.centerCamera(p, this.width, this.height);
+		Camera.center(p, this.width, this.height);
 	}
+	public Screen getScreen() {
+		return screen;
+	}
+
+	public void setScreen(Screen screen) {
+		this.screen = screen;
+	}
+
 	public void zoomCamera(int zoom){
 		this.screen.zoom(zoom);
 	}

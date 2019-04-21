@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import Controller.Mouse;
+import Model.Camera;
 import Model.GameObject;
 import Model.Player;
 
@@ -29,8 +30,8 @@ public class Screen extends JPanel{
         addMouseListener(new MouseListener() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				int x = e.getX()/getBLOC_SIZE() + (int)level.getViewPosX();
-				int y = e.getY()/getBLOC_SIZE() + (int)level.getViewPosY();
+				int x = e.getX()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosX());
+				int y = e.getY()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosY());
 				mouseController.mapEvent(x, y);
 			}
 			@Override
@@ -68,6 +69,9 @@ public class Screen extends JPanel{
 
 	public double getViewPosY() {
 		return this.level.getViewPosY();
+	}
+	public int getCameraState(){
+		return this.level.getCameraState();
 	}
 
 

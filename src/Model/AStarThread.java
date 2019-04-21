@@ -21,8 +21,9 @@ public class AStarThread implements Runnable{
 	
 	@Override
 	public void run() {
+		//synchronized(g) {
 		int direction = 0;
-		synchronized(p) {
+		
 		while(direction != -1 && running) {
 			direction = (new AStar(p.getPosX(), p.getPosY(), x, y, g.getGameObjects())).getNextStep();
 			switch (direction) {
@@ -32,12 +33,12 @@ public class AStarThread implements Runnable{
 				case 3 : g.movePlayer(0,1); break;
 			}
 			try {
-				Thread.sleep(500);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		//}
 		}
 	}
 	public void stop(){

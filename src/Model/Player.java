@@ -140,7 +140,7 @@ public class Player extends GameObject implements Directable, Animation, Movemen
 			//System.out.println("MOVING, "+stage);
 			try {
 				
-				Thread.sleep(100);
+				Thread.sleep(105);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

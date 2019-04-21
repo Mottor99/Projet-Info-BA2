@@ -21,11 +21,13 @@ public class AStarThread implements Runnable{
 	
 	@Override
 	public void run() {
-		//synchronized(g) {
+		//
 		int direction = 0;
 		
 		while(direction != -1 && running) {
+			synchronized(g) {
 			direction = (new AStar(p.getPosX(), p.getPosY(), x, y, g.getGameObjects())).getNextStep();
+			}
 			switch (direction) {
 				case 0 : g.movePlayer(1,0); break;
 				case 1 : g.movePlayer(0,-1); break;

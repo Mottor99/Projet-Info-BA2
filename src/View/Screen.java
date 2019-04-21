@@ -5,10 +5,12 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JPanel;
 
 import Controller.Mouse;
+import Model.Camera;
 import Model.GameObject;
 import Model.Player;
 
@@ -29,8 +31,8 @@ public class Screen extends JPanel{
         addMouseListener(new MouseListener() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				int x = e.getX()/getBLOC_SIZE() + (int)level.getViewPosX();
-				int y = e.getY()/getBLOC_SIZE() + (int)level.getViewPosY();
+				int x = e.getX()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosX());
+				int y = e.getY()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosY());
 				mouseController.mapEvent(x, y);
 			}
 			@Override
@@ -55,8 +57,8 @@ public class Screen extends JPanel{
 	public void redraw(){
 		this.repaint();
 	}
-	public void setGameObjects(ArrayList<GameObject> objects) {
-        this.level.setObjects(objects);
+	public void setGameObjects(CopyOnWriteArrayList<GameObject> copyOnWriteArrayList) {
+        this.level.setObjects(copyOnWriteArrayList);
         this.redraw();
     }
 	public void addMouse(Mouse m) {
@@ -68,6 +70,9 @@ public class Screen extends JPanel{
 
 	public double getViewPosY() {
 		return this.level.getViewPosY();
+	}
+	public int getCameraState(){
+		return this.level.getCameraState();
 	}
 
 

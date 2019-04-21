@@ -2,19 +2,22 @@ package View;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import Model.GameObject;
 import Model.Movement;
 import Model.Player;
 
 public abstract class Level implements Movement{
+	protected Screen screen;
 	public final int MAP_SIZE = 25;
     public static int BLOC_SIZE = 40;
-    protected int cameraState = IDLE;
+    protected static int cameraState = IDLE;
     protected Thread cameraThread;
     protected double viewPosX;
     protected double viewPosY;
     protected double viewMovX, viewMovY;
+    public static GameObject KEY;
 	
 	
 	public Level(){
@@ -24,9 +27,12 @@ public abstract class Level implements Movement{
 		
 	}
 
-	public void setObjects(ArrayList<GameObject> objects) {
+	public void setObjects(CopyOnWriteArrayList<GameObject> copyOnWriteArrayList) {
 		// TODO Auto-generated method stub
 		
+	}
+	public static int getCameraState(){
+		return cameraState;
 	}
 	public double getViewPosX() {
 		return viewPosX;
@@ -52,12 +58,12 @@ public abstract class Level implements Movement{
 		BLOC_SIZE = bLOC_SIZE;
 	}
 	public void moveCamera(int x, int y){
-		viewMovX = x;
-		viewMovY = y;
-		if(cameraState == IDLE){
-			cameraThread = new Thread(new CameraMovement());
-			cameraThread.start();
-		}
+		//viewMovX = x;
+		//viewMovY = y;
+		//if(cameraState == IDLE){
+			//cameraThread = new Thread(new CameraMovement());
+			//cameraThread.start();
+		//}
 		
 		
 	}
@@ -73,19 +79,25 @@ public abstract class Level implements Movement{
 		@Override
 		public void run() {
 			cameraState = MOVING;
-			for(int i = 0; i<10;i++){
-				viewPosX += 0.1*viewMovX;
-				viewPosY += 0.1*viewMovY;
+			for(int i = 0; i<40;i++){
+				synchronized(screen){
+				viewPosX += viewMovX/40;
+				viewPosY += viewMovY/40;
+				}
 				try {
-					Thread.sleep(20);
+					Thread.sleep(5);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 			cameraState = IDLE;
+			viewMovX = viewMovY = 0;
+			
+			System.out.println(viewPosX+ ", " + viewPosY);
 			
 		}
 		
 	}
+	
 }

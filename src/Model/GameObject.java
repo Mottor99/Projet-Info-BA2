@@ -22,7 +22,19 @@ public abstract class GameObject implements Comparable<GameObject>{
     	g.drawImage(sprite.getImage(), (int)(x*BLOC_SIZE),(int)(y*BLOC_SIZE), BLOC_SIZE*width, BLOC_SIZE*height, null);
     }
 
-    public int getPosX() {
+    public int getWidth() {
+		return width;
+	}
+	public void setWidth(int width) {
+		this.width = width;
+	}
+	public int getHeight() {
+		return height;
+	}
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	public int getPosX() {
         return this.posX;
     }
 
@@ -35,7 +47,7 @@ public abstract class GameObject implements Comparable<GameObject>{
     }
 
     public boolean isAtPosition(int x, int y) {
-        return (this.posX <= x && x <= (this.posX + width - 1))  && (this.posY <= y && y <= (this.posY + height - 1));
+        return (this.posX <= x && x <= (this.posX + width - 1)) && (this.posY <= y && y <= (this.posY + height - 1));
     }
     @Override
     public int compareTo(GameObject compareObj){

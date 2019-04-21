@@ -1,5 +1,6 @@
 package View;
 
+import Model.Camera;
 import Model.GameObject;
 import Model.Player;
 
@@ -7,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -33,8 +35,8 @@ public class Window extends JFrame {
         
     }
 
-    public void setGameObjects(ArrayList<GameObject> objects) {
-        this.screen.setGameObjects(objects);
+    public void setGameObjects(CopyOnWriteArrayList<GameObject> copyOnWriteArrayList) {
+        this.screen.setGameObjects(copyOnWriteArrayList);
         this.screen.redraw();
     }
 
@@ -80,8 +82,16 @@ public class Window extends JFrame {
 		this.screen.moveCamera(x,y);
 	}
 	public void centerCamera(Player p){
-		this.screen.centerCamera(p, this.width, this.height);
+		Camera.center(p, this.width, this.height);
 	}
+	public Screen getScreen() {
+		return screen;
+	}
+
+	public void setScreen(Screen screen) {
+		this.screen = screen;
+	}
+
 	public void zoomCamera(int zoom){
 		this.screen.zoom(zoom);
 	}

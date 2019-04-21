@@ -13,6 +13,7 @@ public class Loop implements Runnable{
 		
 	}
 	
+	
 	@Override
 	public void run() {
 		System.out.println("booted" + running);
@@ -27,20 +28,21 @@ public class Loop implements Runnable{
 			lastTime = now;
 			while(delta>=1){
 				//game.update();
+				
 				updates++;
 				delta--;
 			}
 			
 			if(System.currentTimeMillis() - timer > 1000){
 				timer+=1000;
-				System.out.println(updates+" ups, "+ frames+" fps");
+				//System.out.println(updates+" ups, "+ frames+" fps");
 				frames = 0;
 				updates = 0;
 				
 			}
-			game.render();
-			frames++;
 			
+			frames++;
+			game.render();
 			
 		}
 		

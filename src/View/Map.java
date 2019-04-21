@@ -1,15 +1,15 @@
 package View;
 
-import Model.Directable;
 import Model.GameObject;
+import Model.Sprite;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.imageio.ImageIO;
 
@@ -18,11 +18,13 @@ public class Map extends Level {
     private ArrayList<GameObject> objects = null;
     
     private BufferedImage img = null;
+    private Screen screen;
     
 
     public Map(Screen screen){
-    	this.viewPosX = 12-(int)screen.getWidth()/(BLOC_SIZE*2);
-    	this.viewPosY = 12-(int)screen.getHeight()/(BLOC_SIZE*2);
+    	this.screen = screen;
+    	this.viewPosX = 12-screen.getWidth()/(BLOC_SIZE*2);
+    	this.viewPosY = 12-screen.getHeight()/(BLOC_SIZE*2);
     	System.out.println(viewPosX+ " "+ viewPosY);
     
 		try {
@@ -32,8 +34,9 @@ public class Map extends Level {
 		}
     }
 
-    public void render(Graphics g) {
-        for (int i = 0; i < MAP_SIZE; i++) { 
+    @Override
+	public void render(Graphics g) {
+        /* for (int i = 0; i < MAP_SIZE; i++) { 
             for (int j = 0; j < MAP_SIZE; j++) {
                 int x = i-viewPosX;
                 int y = j-viewPosY;
@@ -93,14 +96,35 @@ public class Map extends Level {
                 int xCenter = x * BLOC_SIZE + (BLOC_SIZE-2)/2;
                 int yCenter = y * BLOC_SIZE + (BLOC_SIZE-2)/2;
                 g.drawLine(xCenter, yCenter, xCenter + deltaX, yCenter + deltaY);
+                
             }
+            
         }
-        HUD.render(g);
+        */
+    	for(int i = -20; i<45; i++){
+    		for(int j = -20; j<45;j++){
+    			double x = i-viewPosX;
+    			double y = j-viewPosY;
+    			g.drawImage(Sprite.grass.getImage(), (int)(x*BLOC_SIZE), (int)(y*BLOC_SIZE), BLOC_SIZE,BLOC_SIZE, null);
+    		}
+    	}
+    	Collections.sort(objects);
+    	for (GameObject object : this.objects) {
+            double x = object.getPosX()-viewPosX;
+            double y = object.getPosY()-viewPosY;
+            object.render(x, y, g, BLOC_SIZE);
+    	}
+    	
+    	
+        //g.setColor(new Color(200,20,200,127));
+        //g.fillRect(0, 0, screen.getWidth(), screen.getHeight());
+        
         
         
     }
 
-    public void setObjects(ArrayList<GameObject> objects) {
+    @Override
+	public void setObjects(ArrayList<GameObject> objects) {
         this.objects = objects;
     }
 

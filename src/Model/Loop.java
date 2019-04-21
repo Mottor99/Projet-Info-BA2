@@ -1,7 +1,5 @@
 package Model;
 
-import View.Window;
-
 public class Loop implements Runnable{
 	private Thread t;
 	private boolean running = false;
@@ -28,7 +26,7 @@ public class Loop implements Runnable{
 			delta += (now-lastTime)/ns;
 			lastTime = now;
 			while(delta>=1){
-				game.update();
+				//game.update();
 				updates++;
 				delta--;
 			}
@@ -40,7 +38,7 @@ public class Loop implements Runnable{
 				updates = 0;
 				
 			}
-			
+			game.render();
 			frames++;
 			
 			

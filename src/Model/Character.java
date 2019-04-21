@@ -1,6 +1,6 @@
 package Model;
 
-public class Character extends Entity implements Directable{
+/*public class Character extends Entity implements Directable{
 
 	public Character(int X, int Y, int color) {
 		super(X, Y, color);
@@ -21,4 +21,4 @@ public class Character extends Entity implements Directable{
 
 	
 
-}
+}*/

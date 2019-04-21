@@ -17,9 +17,6 @@ public class Screen extends JPanel{
 	private Mouse mouseController = null;
 	private Level level;
 	public final int MAP_SIZE = 25;
-    private int BLOC_SIZE = 40;
-    private int viewPosX;
-    private int viewPosY;
     private Window window;
 	
 	public Screen(Window window){
@@ -30,24 +27,30 @@ public class Screen extends JPanel{
         this.requestFocusInWindow();
         this.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
         addMouseListener(new MouseListener() {
+			@Override
 			public void mousePressed(MouseEvent e) {
-				int x = e.getX()/BLOC_SIZE + level.getViewPosX();
-				int y = e.getY()/BLOC_SIZE + level.getViewPosY();
+				int x = e.getX()/getBLOC_SIZE() + (int)level.getViewPosX();
+				int y = e.getY()/getBLOC_SIZE() + (int)level.getViewPosY();
 				mouseController.mapEvent(x, y);
 			}
+			@Override
 			public void mouseClicked(MouseEvent arg0) {}
+			@Override
 			public void mouseEntered(MouseEvent arg0) {}
+			@Override
 			public void mouseExited(MouseEvent arg0) {}
+			@Override
 			public void mouseReleased(MouseEvent arg0) {}
 		});
         
        
 	}
 	
+	@Override
 	public void paint(Graphics g){
 		super.paintComponent(g);
 		level.render(g);
-		HUD.render(g);
+		//HUD.render(g);
 	}
 	public void redraw(){
 		this.repaint();
@@ -59,11 +62,11 @@ public class Screen extends JPanel{
 	public void addMouse(Mouse m) {
 		this.mouseController = m;
 	}
-	public int getViewPosX() {
+	public double getViewPosX() {
 		return this.level.getViewPosX();
 	}
 
-	public int getViewPosY() {
+	public double getViewPosY() {
 		return this.level.getViewPosY();
 	}
 
@@ -85,9 +88,11 @@ public class Screen extends JPanel{
 	public void zoom(int zoomAmount){
 		this.level.zoom(zoomAmount);
 	}
+	@Override
 	public int getWidth(){
 		return window.getWidth();
 	}
+	@Override
 	public int getHeight(){
 		return window.getHeight();
 	}

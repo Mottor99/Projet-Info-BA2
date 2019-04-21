@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import View.Animation;
 import View.Map;
+import View.Screen;
 
 public class Player extends GameObject implements Directable, Animation, Movement {
 
@@ -14,9 +15,7 @@ public class Player extends GameObject implements Directable, Animation, Movemen
     private Thread movement;
     private int movX, movY;
     private double dX, dY;
-    private int speed;
     private int state = IDLE;
-    private int stage = 0;
 
     public Player(int x, int y, int maxBomb) {
         super(x, y, 1, 1, 2);
@@ -30,6 +29,7 @@ public class Player extends GameObject implements Directable, Animation, Movemen
     	dX = dY = 0.0;	
     	
     	if(state == IDLE){
+    		state=MOVING;
     		movement = new Thread(new PlayerMovement());
     		movX = X;
     		movY = Y;
@@ -120,7 +120,7 @@ public class Player extends GameObject implements Directable, Animation, Movemen
 						animate();
 					}
 					try {
-						Thread.sleep(1);
+						Thread.sleep(2);
 						//System.out.println("Player animated");
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
@@ -140,7 +140,7 @@ public class Player extends GameObject implements Directable, Animation, Movemen
 			//System.out.println("MOVING, "+stage);
 			try {
 				
-				Thread.sleep(40);
+				Thread.sleep(105);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -156,24 +156,27 @@ public class Player extends GameObject implements Directable, Animation, Movemen
 		@Override
 		public void run() {
 			state = MOVING;
-			for(int i = 0; i<10; i++){
-				dX += 0.1*movX;
-				dY += 0.1*movY;
+			
+			for(int i = 0; i<100; i++){
+				dX += 0.01*movX;
+				dY += 0.01*movY;
+				if(isFocused)Camera.move(0.01*movX, 0.01*movY);
 				
 				//System.out.println("MOVING, "+stage);
 				try {
 					
-					Thread.sleep(20);
+					Thread.sleep(1);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			state = IDLE;
+			
 			posX += movX;
 			posY += movY;
 			movX = movY = 0;
 			dX = dY = 0.0;
+			state = IDLE;
 			
 		}
 		

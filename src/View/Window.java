@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -34,8 +35,8 @@ public class Window extends JFrame {
         
     }
 
-    public void setGameObjects(ArrayList<GameObject> objects) {
-        this.screen.setGameObjects(objects);
+    public void setGameObjects(CopyOnWriteArrayList<GameObject> copyOnWriteArrayList) {
+        this.screen.setGameObjects(copyOnWriteArrayList);
         this.screen.redraw();
     }
 

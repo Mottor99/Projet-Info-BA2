@@ -12,6 +12,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class AStar {
 	private static int mapSize = 25;
@@ -23,7 +24,7 @@ public class AStar {
 	private int V_H_COST = 1;
 	private int DIAGONAL_COST = 1000000;
 
-	public AStar(int xi, int yi, int xf, int yf, ArrayList<GameObject> objects) {
+	public AStar(int xi, int yi, int xf, int yf, CopyOnWriteArrayList<GameObject> objects) {
 		startI = xi;
 		startJ = yi;
 		endI = xf;

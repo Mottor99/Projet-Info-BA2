@@ -47,7 +47,7 @@ public abstract class GameObject implements Comparable<GameObject>{
     }
 
     public boolean isAtPosition(int x, int y) {
-        return (this.posX <= x && x <= (this.posX + width - 1))  && (this.posY <= y && y <= (this.posY + height - 1));
+        return (this.posX <= x && x <= (this.posX + width - 1)) && (this.posY <= y && y <= (this.posY + height - 1));
     }
     @Override
     public int compareTo(GameObject compareObj){

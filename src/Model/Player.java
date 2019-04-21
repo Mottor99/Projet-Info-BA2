@@ -15,7 +15,6 @@ public class Player extends GameObject implements Directable, Animation, Movemen
     private Thread movement;
     private int movX, movY;
     private double dX, dY;
-    private Player player = this;
     private int state = IDLE;
 
     public Player(int x, int y, int maxBomb) {
@@ -30,6 +29,7 @@ public class Player extends GameObject implements Directable, Animation, Movemen
     	dX = dY = 0.0;	
     	
     	if(state == IDLE){
+    		state=MOVING;
     		movement = new Thread(new PlayerMovement());
     		movX = X;
     		movY = Y;
@@ -120,7 +120,7 @@ public class Player extends GameObject implements Directable, Animation, Movemen
 						animate();
 					}
 					try {
-						Thread.sleep(1);
+						Thread.sleep(2);
 						//System.out.println("Player animated");
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
@@ -177,7 +177,6 @@ public class Player extends GameObject implements Directable, Animation, Movemen
 			movX = movY = 0;
 			dX = dY = 0.0;
 			state = IDLE;
-			
 			
 		}
 		

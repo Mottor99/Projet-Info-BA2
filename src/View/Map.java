@@ -11,12 +11,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.imageio.ImageIO;
 
 
 public class Map extends Level {
-    private ArrayList<GameObject> objects = null;
+    private CopyOnWriteArrayList<GameObject> objects = null;
     
 
     public Map(Screen screen){
@@ -56,7 +57,7 @@ public class Map extends Level {
     }
 
     @Override
-	public void setObjects(ArrayList<GameObject> objects) {
+	public void setObjects(CopyOnWriteArrayList<GameObject> objects) {
         this.objects = objects;
     }
 

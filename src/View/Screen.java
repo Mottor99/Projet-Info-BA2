@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JPanel;
 
@@ -56,8 +57,8 @@ public class Screen extends JPanel{
 	public void redraw(){
 		this.repaint();
 	}
-	public void setGameObjects(ArrayList<GameObject> objects) {
-        this.level.setObjects(objects);
+	public void setGameObjects(CopyOnWriteArrayList<GameObject> copyOnWriteArrayList) {
+        this.level.setObjects(copyOnWriteArrayList);
         this.redraw();
     }
 	public void addMouse(Mouse m) {

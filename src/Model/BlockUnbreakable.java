@@ -1,6 +1,5 @@
 package Model;
 
-import java.awt.Graphics;
 
 public class BlockUnbreakable extends Block {
 

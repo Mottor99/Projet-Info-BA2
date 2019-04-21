@@ -5,15 +5,17 @@ import View.Window;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 //import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 //import org.omg.CosNaming.IstringHelper;
 
 public class Game implements DeletableObserver {
-    private ArrayList<GameObject> objects = new ArrayList<GameObject>();
+    private CopyOnWriteArrayList<GameObject> objects = new CopyOnWriteArrayList<GameObject>();
     private ArrayList<Player> players = new ArrayList<Player>();
     private Player active_player = null;
+    public final static Object lock = new Object();
     private AStarThread t = null;
     private Loop gameLoop;
     private Window window;
@@ -58,6 +60,7 @@ public class Game implements DeletableObserver {
 
 
     public synchronized void movePlayer(int x, int y) {
+    	//System.out.println(objects.size());
     	if(active_player.getState() == Player.IDLE && Level.getCameraState() == Level.IDLE){
 	        int nextX = active_player.getPosX() + x;
 	        int nextY = active_player.getPosY() + y;
@@ -124,12 +127,12 @@ public class Game implements DeletableObserver {
         window.update();
     }
 
-    public ArrayList<GameObject> getGameObjects() {
+    public CopyOnWriteArrayList<GameObject> getGameObjects() {
         return this.objects;
     }
 
     @Override
-    synchronized public void delete(Deletable ps, ArrayList<GameObject> loot) {
+    synchronized public void delete(Deletable ps, CopyOnWriteArrayList<GameObject> loot) {
         objects.remove(ps);
         if (loot != null) {
             objects.addAll(loot);

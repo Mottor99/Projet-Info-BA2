@@ -2,6 +2,7 @@ package View;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import Model.GameObject;
 import Model.Movement;
@@ -26,7 +27,7 @@ public abstract class Level implements Movement{
 		
 	}
 
-	public void setObjects(ArrayList<GameObject> objects) {
+	public void setObjects(CopyOnWriteArrayList<GameObject> copyOnWriteArrayList) {
 		// TODO Auto-generated method stub
 		
 	}

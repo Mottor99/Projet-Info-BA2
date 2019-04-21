@@ -7,7 +7,7 @@ public class Camera{
 	public Camera(){
 		
 	}
-	public static synchronized void move(double x, double y){
+	public static void move(double x, double y){
 		
 		viewPosX += x;
 		viewPosY += y;

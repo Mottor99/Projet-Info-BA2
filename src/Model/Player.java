@@ -6,16 +6,11 @@ import View.Animation;
 import View.Map;
 import View.Screen;
 
-public class Player extends GameObject implements Directable, Animation, Movement {
+public class Player extends Entity implements Animation {
 
     int energy = 100;
-    int direction = EAST;  
-    private boolean isFocused = true;
     private Thread animation;
-    private Thread movement;
-    private int movX, movY;
-    private double dX, dY;
-    private int state = IDLE;
+    
 
     public Player(int x, int y, int maxBomb) {
         super(x, y, 1, 1, 2);
@@ -24,83 +19,19 @@ public class Player extends GameObject implements Directable, Animation, Movemen
         animation.start();
     }
 
-    public void move(int X, int Y) {
-    	
-    	dX = dY = 0.0;	
-    	
-    	if(state == IDLE){
-    		state=MOVING;
-    		movement = new Thread(new PlayerMovement());
-    		movX = X;
-    		movY = Y;
-    		movement.start();
-    		
-    	}
-    	
-		
-    	
-    }
+   
 
-    public void rotate(int x, int y) {
-        if(x == 0 && y == -1)
-            direction = NORTH;
-        else if(x == 0 && y == 1)
-            direction = SOUTH;
-        else if(x == 1 && y == 0)
-            direction = EAST;
-        else if(x == -1 && y == 0)
-            direction = WEST;
-    }
+    
 
    // //////////////////////////////////////////////////////////////////////////////////////
 
-    @Override
-	public void render(double x, double y, Graphics g, int BLOC_SIZE){
-    	g.drawImage(this.sprite.getImage(), (int)((x+dX)*BLOC_SIZE),(int)((y-1+dY)*BLOC_SIZE), BLOC_SIZE*width, BLOC_SIZE*2, null);
-    	//System.out.println("Sprite" + posX);
-    	
-    }
-    
-    @Override
-    public boolean isObstacle() {
-        return false;
-    }
+   
 
-    public boolean isFocused() {
-		return isFocused;
-	}
-
-	public void setFocused(boolean isFocused) {
-		this.isFocused = isFocused;
-	}
-
-	@Override
-    public int getDirection() {
-    return direction;
-    }
-
-    public int getFrontX() {
-        int delta = 0;
-        if (direction % 2 == 0){
-            delta += 1 - direction;
-        }
-        return this.posX + delta;
-    }
-
-    public int getFrontY() {
-        int delta = 0;
-        if (direction % 2 != 0){
-            delta += direction - 2;
-        }
-        return this.posY + delta;
-    }
     
     public double getEnergy() {
     	return energy/100.0;
     }
-    public int getState(){
-    	return this.state;
-    }
+    
 
 	public void tire() {
 		if (energy > 10)
@@ -111,7 +42,7 @@ public class Player extends GameObject implements Directable, Animation, Movemen
 	public void run() {
 		//System.out.println("Player animated");
 				while(state>-1){
-					
+					System.out.println(state);
 					if(state==IDLE){
 						this.sprite = Sprite.player;
 						
@@ -137,7 +68,6 @@ public class Player extends GameObject implements Directable, Animation, Movemen
 			if(state == MOVING){
 			this.sprite = Sprite.walking[i/2];
 			
-			//System.out.println("MOVING, "+stage);
 			try {
 				
 				Thread.sleep(105);
@@ -148,37 +78,7 @@ public class Player extends GameObject implements Directable, Animation, Movemen
 		}
 		
 		
-	//}
 		
 	}
-	class PlayerMovement implements Runnable{
-		
-		@Override
-		public void run() {
-			state = MOVING;
-			
-			for(int i = 0; i<100; i++){
-				dX += 0.01*movX;
-				dY += 0.01*movY;
-				if(isFocused)Camera.move(0.01*movX, 0.01*movY);
-				
-				//System.out.println("MOVING, "+stage);
-				try {
-					
-					Thread.sleep(1);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			posX += movX;
-			posY += movY;
-			movX = movY = 0;
-			dX = dY = 0.0;
-			state = IDLE;
-			
-		}
-		
-	}
+	
 }

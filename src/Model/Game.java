@@ -20,8 +20,6 @@ public class Game implements DeletableObserver {
     private Loop gameLoop;
     private Window window;
     private int size;
-    // private int bombTimer = 3000;
-    private int numberOfBreakableBlocks = 40;
 
     public Game(Window window) {
     	gameLoop = new Loop(this);

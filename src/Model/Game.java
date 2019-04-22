@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+
 //import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 //import org.omg.CosNaming.IstringHelper;
@@ -21,7 +27,9 @@ public class Game implements DeletableObserver {
     private Window window;
     private int size;
 
-    public Game(Window window) {
+
+    public Game(Window window) throws Exception {
+
     	gameLoop = new Loop(this);
         this.window = window;
         size = window.getMapSize();
@@ -33,7 +41,12 @@ public class Game implements DeletableObserver {
         active_player = p;
 
         // Map building
+
+        this.drawMap();
+        /*for (int i = 0; i < size; i++) {
+=======
         for (int i = 0; i < size; i++) {
+>>>>>>> refs/remotes/origin/master
             objects.add(new Wall(i, 0));
             objects.add(new Wall(0, i));
             objects.add(new Wall(i, size - 1));
@@ -41,7 +54,11 @@ public class Game implements DeletableObserver {
         }
         objects.add(new Couch(5, 3));
         objects.add(new Table(5, 5));
+<<<<<<< HEAD
+        Random rand = new Random();
+=======
         /*Random rand = new Random();
+>>>>>>> refs/remotes/origin/master
         for (int i = 0; i < numberOfBreakableBlocks; i++) {  //puts breakable blocks at random places and give them random lifepoints
             int x = rand.nextInt(size-4) + 2;
             int y = rand.nextInt(size-4) + 2;
@@ -56,6 +73,32 @@ public class Game implements DeletableObserver {
        
     }
 
+    public void drawMap() throws Exception {
+    	FileReader file = new FileReader("src/file.txt");
+    	BufferedReader reader = new BufferedReader(file);
+    	
+    	String line = reader.readLine();
+    	int x = 0;
+    	int y = 0;
+    	while (line != null) {
+    		for (int i=0; i<line.length(); i++) {
+    			switch (line.charAt(i)) {
+				case 'W' : objects.add(new Wall(x, y)); break;
+				case 'C' : objects.add(new Couch(x, y)); break;
+				case 'T' : objects.add(new Table(x, y)); break;
+				}
+    			x++;
+    		}
+    		
+    		line = reader.readLine();
+    		 
+        	x = 0;
+        	y++;
+    		
+    	}
+    	reader.close();
+    	
+    }
 
     public synchronized void movePlayer(int x, int y) {
     	//System.out.println(objects.size());

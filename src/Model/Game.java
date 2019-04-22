@@ -43,31 +43,7 @@ public class Game implements DeletableObserver {
         // Map building
 
         this.drawMap();
-        /*for (int i = 0; i < size; i++) {
-=======
-        for (int i = 0; i < size; i++) {
->>>>>>> refs/remotes/origin/master
-            objects.add(new Wall(i, 0));
-            objects.add(new Wall(0, i));
-            objects.add(new Wall(i, size - 1));
-            objects.add(new Wall(size - 1, i));
-        }
-        objects.add(new Couch(5, 3));
-        objects.add(new Table(5, 5));
-<<<<<<< HEAD
-        Random rand = new Random();
-=======
-        /*Random rand = new Random();
->>>>>>> refs/remotes/origin/master
-        for (int i = 0; i < numberOfBreakableBlocks; i++) {  //puts breakable blocks at random places and give them random lifepoints
-            int x = rand.nextInt(size-4) + 2;
-            int y = rand.nextInt(size-4) + 2;
-            int lifepoints = rand.nextInt(5) + 1;
-            BlockBreakable block = new BlockBreakable(x, y, 1 , 1, lifepoints);
-            block.attachDeletable(this); //game(this) notifié que bloc a été cassé
-            objects.add(block);
-        }
-        */
+        
 
         window.setGameObjects(this.getGameObjects());  //draws GameObjects
        

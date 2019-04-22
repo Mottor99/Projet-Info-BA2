@@ -13,9 +13,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 
-//import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
-
-//import org.omg.CosNaming.IstringHelper;
 
 public class Game implements DeletableObserver {
     private CopyOnWriteArrayList<GameObject> objects = new CopyOnWriteArrayList<GameObject>();

@@ -81,7 +81,7 @@ public class Game implements DeletableObserver {
     		}
     		
     		line = reader.readLine();
-    		
+    		 
         	x = 0;
         	y++;
     		

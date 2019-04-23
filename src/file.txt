@@ -1,11 +1,8 @@
 WWWWWWWWWWWWWWWWWWWWWWWWW
 W                       W
+W    C                  W
 W                       W
-W                       W
-W            C          W
-W                       W
-W                       W
-W                       W
+W    T                  W
 W                       W
 W                       W
 W                       W
@@ -15,11 +12,14 @@ W                       W
 W                       W
 W                       W
 W                       W
-W           C           W
 W                       W
 W                       W
 W                       W
-W              T        W
+W                       W
+W                       W
+W                       W
+W                       W
+W                       W
 W                       W
 W                       W
 WWWWWWWWWWWWWWWWWWWWWWWWW

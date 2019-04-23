@@ -1,74 +1,83 @@
 package Model;
 
-public class Player extends GameObject implements Directable {
+import java.awt.Graphics;
+
+import View.Animation;
+import View.Map;
+import View.Screen;
+
+public class Player extends Entity implements Animation {
 
     int energy = 100;
-    int direction = EAST;  
-    private boolean isFocused = true;
+    private Thread animation;
+    
 
     public Player(int x, int y, int maxBomb) {
-        super(x, y, 2);
+        super(x, y, 1, 1, 2);
+        sprite = Sprite.player;
+        animation = new Thread(this);
+        animation.start();
     }
 
-    public void move(int X, int Y) {
-        this.posX = this.posX + X;
-        this.posY = this.posY + Y;
-    }
+   
 
-    public void rotate(int x, int y) {
-        if(x == 0 && y == -1)
-            direction = NORTH;
-        else if(x == 0 && y == 1)
-            direction = SOUTH;
-        else if(x == 1 && y == 0)
-            direction = EAST;
-        else if(x == -1 && y == 0)
-            direction = WEST;
-    }
+    
 
    // //////////////////////////////////////////////////////////////////////////////////////
 
+   
 
-    @Override
-    public boolean isObstacle() {
-        return false;
-    }
-
-    public boolean isFocused() {
-		return isFocused;
-	}
-
-	public void setFocused(boolean isFocused) {
-		this.isFocused = isFocused;
-	}
-
-	@Override
-    public int getDirection() {
-    return direction;
-    }
-
-    public int getFrontX() {
-        int delta = 0;
-        if (direction % 2 == 0){
-            delta += 1 - direction;
-        }
-        return this.posX + delta;
-    }
-
-    public int getFrontY() {
-        int delta = 0;
-        if (direction % 2 != 0){
-            delta += direction - 2;
-        }
-        return this.posY + delta;
-    }
     
     public double getEnergy() {
     	return energy/100.0;
     }
+    
 
 	public void tire() {
 		if (energy > 10)
 			energy -= 10;
 	}
+
+	@Override
+	public void run() {
+		//System.out.println("Player animated");
+				while(state>-1){
+					if(state==IDLE){
+						this.sprite = Sprite.player;
+						
+					}
+					else if(state==MOVING){
+						animate();
+					}
+					try {
+						Thread.sleep(2);
+						//System.out.println("Player animated");
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+	}
+
+	@Override
+	public void animate() {
+		
+		for(int i = 0; i<8; i++){
+			if(state == MOVING){
+			this.sprite = Sprite.walking[i/2];
+			
+			try {
+				
+				Thread.sleep(105);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}}
+		}
+		
+		
+		
+	}
+	
 }

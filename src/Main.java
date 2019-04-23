@@ -4,7 +4,7 @@ import Model.Game;
 import View.Window;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Window window = new Window("Game");
 
         Game game = new Game(window);
@@ -12,5 +12,6 @@ public class Main {
         Mouse mouse = new Mouse(game);
         window.setKeyListener(keyboard);
         window.setMouseListener(mouse);
+        
     }
 }

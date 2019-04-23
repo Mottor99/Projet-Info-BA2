@@ -1,26 +1,33 @@
 package Model;
 
+import View.Level;
 import View.Window;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-//import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
-//import org.omg.CosNaming.IstringHelper;
+
 
 public class Game implements DeletableObserver {
-    private ArrayList<GameObject> objects = new ArrayList<GameObject>();
+    private CopyOnWriteArrayList<GameObject> objects = new CopyOnWriteArrayList<GameObject>();
     private ArrayList<Player> players = new ArrayList<Player>();
     private Player active_player = null;
+    public final static Object lock = new Object();
     private AStarThread t = null;
-
+    private Loop gameLoop;
     private Window window;
     private int size;
-    // private int bombTimer = 3000;
-    private int numberOfBreakableBlocks = 40;
 
-    public Game(Window window) {
+
+    public Game(Window window) throws Exception {
+
+    	gameLoop = new Loop(this);
         this.window = window;
         size = window.getMapSize();
         // Creating one Player at position (1,1)
@@ -31,55 +38,77 @@ public class Game implements DeletableObserver {
         active_player = p;
 
         // Map building
-        for (int i = 0; i < size; i++) {
-            objects.add(new BlockUnbreakable(i, 0));
-            objects.add(new BlockUnbreakable(0, i));
-            objects.add(new BlockUnbreakable(i, size - 1));
-            objects.add(new BlockUnbreakable(size - 1, i));
-        }
-        Random rand = new Random();
-        for (int i = 0; i < numberOfBreakableBlocks; i++) {  //puts breakable blocks at random places and give them random lifepoints
-            int x = rand.nextInt(size-4) + 2;
-            int y = rand.nextInt(size-4) + 2;
-            int lifepoints = rand.nextInt(5) + 1;
-            BlockBreakable block = new BlockBreakable(x, y, lifepoints);
-            block.attachDeletable(this);
-            objects.add(block);
-        }
+
+        this.drawMap();
+        
 
         window.setGameObjects(this.getGameObjects());  //draws GameObjects
-        notifyView();
+       
     }
 
-
-    public void movePlayer(int x, int y) {
-        int nextX = active_player.getPosX() + x;
-        int nextY = active_player.getPosY() + y;
-
-        boolean obstacle = false;
-        for (GameObject object : objects) {
-            if (object.isAtPosition(nextX, nextY)) {
-                obstacle = object.isObstacle();
-            }
-            if (obstacle == true) {
-                break;
-            }
-        }
-        active_player.rotate(x, y);
-        if (obstacle == false) {
-            active_player.move(x, y);
-            if(active_player.isFocused()){
-            	window.moveCamera(x,y);
-            }
-        }
-        notifyView();
+    public void drawMap() throws Exception {
+    	FileReader file = new FileReader("src/file.txt");
+    	BufferedReader reader = new BufferedReader(file);
+    	
+    	String line = reader.readLine();
+    	int x = 0;
+    	int y = 0;
+    	while (line != null) {
+    		for (int i=0; i<line.length(); i++) {
+    			switch (line.charAt(i)) {
+				case 'W' : objects.add(new Wall(x, y)); break;
+				case 'C' : objects.add(new Couch(x, y)); break;
+				case 'T' : objects.add(new Table(x, y)); break;
+				}
+    			x++;
+    		}
+    		
+    		line = reader.readLine();
+    		 
+        	x = 0;
+        	y++;
+    		
+    	}
+    	reader.close();
+    	
     }
+
+    public synchronized void movePlayer(int x, int y) {
+    	//System.out.println(objects.size());
+    	if(active_player.getState() == Player.IDLE && Level.getCameraState() == Level.IDLE){
+	        int nextX = active_player.getPosX() + x;
+	        int nextY = active_player.getPosY() + y;
+	
+	        boolean obstacle = false;
+	        for (GameObject object : objects) {
+	            if (object.isAtPosition(nextX, nextY)) {
+	                obstacle = object.isObstacle();
+	            }
+	            if (obstacle == true) {
+	                break;
+	            }
+	        }
+	        active_player.rotate(x, y);
+	        if (obstacle == false) {
+	            
+	            	
+		        
+	            if(active_player.isFocused()){
+	            	window.moveCamera(x,y);
+	            }
+	            active_player.move(x, y);
+	        }
+    	}
+        
+    }
+        
+    
     public void moveCamera(int x, int y){
     	window.moveCamera(x, y);
     }
     public void centerCamera(){
     	window.centerCamera(active_player);
-    	notifyView();
+    	
     }
     public void zoomCamera(int zoom){
     	window.zoomCamera(zoom);
@@ -90,7 +119,7 @@ public class Game implements DeletableObserver {
 
     public void tirePlayer() {
     	active_player.tire();
-    	notifyView();
+    	
     }
     public void action() {
         Activable aimedObject = null;
@@ -103,26 +132,26 @@ public class Game implements DeletableObserver {
 		}
 		if(aimedObject != null){
 		    aimedObject.activate();
-            notifyView();
+            
 		}
         
     }
 
-    private void notifyView() {
+    public void render() {
         window.update();
     }
 
-    public ArrayList<GameObject> getGameObjects() {
+    public CopyOnWriteArrayList<GameObject> getGameObjects() {
         return this.objects;
     }
 
     @Override
-    synchronized public void delete(Deletable ps, ArrayList<GameObject> loot) {
+    synchronized public void delete(Deletable ps, CopyOnWriteArrayList<GameObject> loot) {
         objects.remove(ps);
         if (loot != null) {
             objects.addAll(loot);
         }
-        notifyView();
+        
     }
 
 

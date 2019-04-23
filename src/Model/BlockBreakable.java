@@ -6,18 +6,20 @@ public class BlockBreakable extends Block implements Deletable, Activable {
 
     private ArrayList<DeletableObserver> observers = new ArrayList<DeletableObserver>();
     private int lifepoints = 0;
-    public BlockBreakable(int X, int Y, int lifepoints) {
-        super(X, Y, 1);
-        this.lifepoints = lifepoints; 
+    public BlockBreakable(int X, int Y, int width, int height, int lifepoints) {
+        super(X, Y, width, height, 1);
+        this.lifepoints = lifepoints;
+        sprite = Sprite.brick;
     }
     
-    public void activate(){
+    @Override
+	public void activate(){
         if (lifepoints == 1){
             crush();
         }
         else {
             lifepoints--;
-            this.color = lifepoints + 2; // pour Ã©viter de retourner au gris
+            this.color = lifepoints + 2; // pour éviter de retourner au gris
         }
     }
 
@@ -34,9 +36,9 @@ public class BlockBreakable extends Block implements Deletable, Activable {
 
     @Override
     public void notifyDeletableObserver() {
-        int i = 0;
+        //int i = 0;
         for (DeletableObserver o : observers) {
-            i++;
+            //i++;
             o.delete(this, null);
         }
     }
@@ -45,5 +47,7 @@ public class BlockBreakable extends Block implements Deletable, Activable {
     public boolean isObstacle() {
         return true;
     }
+
+	
 
 }

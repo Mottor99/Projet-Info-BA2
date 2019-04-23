@@ -33,7 +33,6 @@ public class Map extends JPanel {
     public Map(Window window){
     	this.viewPosX = 12-(int)window.getWidth()/(BLOC_SIZE*2);
     	this.viewPosY = 12-(int)window.getHeight()/(BLOC_SIZE*2);
-    	System.out.println(viewPosX+ " "+ viewPosY);
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
@@ -56,7 +55,7 @@ public class Map extends JPanel {
     }
 
     public void paint(Graphics g) {
-    	super.paintComponents(g);
+    	super.paintComponent(g);
         for (int i = 0; i < MAP_SIZE; i++) { 
             for (int j = 0; j < MAP_SIZE; j++) {
                 int x = i-viewPosX;
@@ -119,7 +118,7 @@ public class Map extends JPanel {
                 g.drawLine(xCenter, yCenter, xCenter + deltaX, yCenter + deltaY);
             }
         }
-        //HUD.render(g);
+        HUD.render(g);
         
         
     }

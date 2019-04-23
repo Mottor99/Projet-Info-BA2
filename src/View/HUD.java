@@ -64,7 +64,7 @@ public class HUD {
     
 	public static void render(Graphics g) {
 		
-
+		
 		// bars 
         // Energy 
 		g.setColor(Color.RED);

@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Sprite {
+public abstract class Sprite {
 	private BufferedImage img = null;
 	private String path;
 	

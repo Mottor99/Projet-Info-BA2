@@ -25,11 +25,16 @@ public class Game implements DeletableObserver {
         this.window = window;
         size = window.getMapSize();
         // Creating one Player at position (1,1)
-        Player p = new Player(12, 12, 3);
+        Player p = new Player(6, 3, 3);
+        Woman w = new Woman(5, 3);
         currentLevel = new Map(this);
         objects.add(p);
+        objects.add(w);
         players.add(p);
-        
+
+        window.setPlayer(p);
+        window.setNPC(w);
+
         active_player = p;
         Camera.center(active_player, window.getWidth(), window.getHeight());
         

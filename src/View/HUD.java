@@ -11,10 +11,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import Model.NPC;
 import Model.Player;
 
 public class HUD {
 	private static Player p;
+	private static NPC npc;
 	private static int BAR_LENGTH = 120;
 	private static int BAR_WIDTH = 40;
 	protected static Screen screen;
@@ -86,6 +88,9 @@ public class HUD {
 
 	public static void setPlayer(Player p2) {
 		p = p2;
+	}
+	public static void setNPC(NPC npc2) {
+		npc = npc2;
 	}
 	
 }

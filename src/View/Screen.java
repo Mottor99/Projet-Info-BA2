@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JPanel;
@@ -12,18 +13,21 @@ import javax.swing.JPanel;
 import Controller.Mouse;
 import Model.Camera;
 import Model.GameObject;
+import Model.Level;
 import Model.Player;
+import Model.Sprite;
 
 
 public class Screen extends JPanel{
 	private Mouse mouseController = null;
 	private Level level;
+	public static int BLOC_SIZE = 40;
+	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	public final int MAP_SIZE = 25;
     private Window window;
 	
 	public Screen(Window window){
 		this.window = window;
-		level = new Map(this);
 		
         this.setFocusable(true);
         this.requestFocusInWindow();
@@ -51,47 +55,45 @@ public class Screen extends JPanel{
 	@Override
 	public void paint(Graphics g){
 		super.paintComponent(g);
-		level.render(g);
+		double viewPosX = Camera.getViewPosX();
+    	double viewPosY = Camera.getViewPosY();
+    	for(int i = -20; i<45; i++){
+    		for(int j = -20; j<45;j++){
+    			
+    			double x = i-viewPosX;
+    			double y = j-viewPosY;
+    			g.drawImage(Sprite.grass.getImage(), (int)Math.round((x*BLOC_SIZE)), (int)Math.round((y*BLOC_SIZE)), BLOC_SIZE, BLOC_SIZE, null);
+    		}
+    	}
+    	Collections.sort(objects);
+    	for (GameObject object : this.objects) {
+            double x = object.getPosX()-viewPosX;
+            double y = object.getPosY()-viewPosY;
+            object.render(x, y, g, BLOC_SIZE);
+    	}
 		//HUD.render(g);
 	}
 	public void redraw(){
 		this.repaint();
 	}
-	public void setGameObjects(CopyOnWriteArrayList<GameObject> copyOnWriteArrayList) {
-        this.level.setObjects(copyOnWriteArrayList);
+	public void setGameObjects(ArrayList<GameObject> arrayList) {
+        this.objects = arrayList;
         this.redraw();
     }
 	public void addMouse(Mouse m) {
 		this.mouseController = m;
 	}
-	public double getViewPosX() {
-		return this.level.getViewPosX();
-	}
-
-	public double getViewPosY() {
-		return this.level.getViewPosY();
-	}
-	public int getCameraState(){
-		return this.level.getCameraState();
-	}
-
 
 	public int getBLOC_SIZE() {
-		return this.level.getBLOC_SIZE();
+		return this.BLOC_SIZE;
 	}
 
 	public void setBLOC_SIZE(int bLOC_SIZE) {
-		this.level.setBLOC_SIZE(bLOC_SIZE);
+		this.BLOC_SIZE = bLOC_SIZE;
 	}
-	public void moveCamera(int x, int y){
-		this.level.moveCamera(x, y);
-		
-	}
-	public void centerCamera(Player p, int width, int height){
-		this.level.centerCamera(p, width, height);
-	}
+	
 	public void zoom(int zoomAmount){
-		this.level.zoom(zoomAmount);
+		this.BLOC_SIZE += zoomAmount;
 	}
 	@Override
 	public int getWidth(){

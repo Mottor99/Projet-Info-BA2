@@ -12,8 +12,8 @@ public abstract class Entity extends GameObject implements Directable, Movement{
     protected double dX, dY;
     protected int state = IDLE;
 
-	public Entity(int X, int Y, int width, int height, int color) {
-		super(X, Y, 1, 1, color);
+	public Entity(int X, int Y, int width, int height) {
+		super(X, Y, 1, 1);
 	}
 
 	public void move(int X, int Y) {

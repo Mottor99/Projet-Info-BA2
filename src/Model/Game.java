@@ -31,10 +31,13 @@ public class Game implements DeletableObserver {
         this.window = window;
         size = window.getMapSize();
         // Creating one Player at position (1,1)
-        Player p = new Player(12, 12, 3);
+        Player p = new Player(6, 3, 3);
+        Woman w = new Woman(5, 3);
         objects.add(p);
+        objects.add(w);
         players.add(p);
         window.setPlayer(p);
+        window.setNPC(w);
         active_player = p;
 
         // Map building
@@ -59,6 +62,7 @@ public class Game implements DeletableObserver {
 				case 'W' : objects.add(new Wall(x, y)); break;
 				case 'C' : objects.add(new Couch(x, y)); break;
 				case 'T' : objects.add(new Table(x, y)); break;
+				
 				}
     			x++;
     		}

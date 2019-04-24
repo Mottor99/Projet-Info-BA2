@@ -2,6 +2,7 @@ package View;
 
 import Model.Camera;
 import Model.GameObject;
+import Model.NPC;
 import Model.Player;
 
 import java.awt.BorderLayout;
@@ -59,7 +60,9 @@ public class Window extends JFrame {
 	public void setPlayer(Player p) {
 		HUD.setPlayer(p);
 	}
-	
+	public void setNPC(NPC npc) {
+		HUD.setNPC(npc);
+	}
 	
 	@Override
 	public int getHeight() {

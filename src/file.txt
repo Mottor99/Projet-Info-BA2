@@ -9,6 +9,7 @@ W                       W
 W                       W
 W                       W
 W                       W
+W                 F     W
 W                       W
 W                       W
 W                       W
@@ -20,6 +21,5 @@ W                       W
 W                       W
 W                       W
 W                       W
-W                       W
-W                       W
+W                      FW
 WWWWWWWWWWWWWWWWWWWWWWWWW

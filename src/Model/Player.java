@@ -13,7 +13,7 @@ public class Player extends Entity implements Animation {
     
 
     public Player(int x, int y, int maxBomb) {
-        super(x, y, 1, 1, 2);
+        super(x, y, 1, 1);
         sprite = Sprite.player;
         animation = new Thread(this);
         animation.start();
@@ -42,7 +42,7 @@ public class Player extends Entity implements Animation {
 	public void run() {
 		//System.out.println("Player animated");
 				while(state>-1){
-					System.out.println(state);
+					//System.out.println(state);
 					if(state==IDLE){
 						this.sprite = Sprite.player;
 						

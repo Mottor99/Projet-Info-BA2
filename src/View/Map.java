@@ -34,7 +34,7 @@ public class Map extends Level {
         
     	double viewPosX = Camera.getViewPosX();
     	double viewPosY = Camera.getViewPosY();
-    	for(double i = -20; i<45; i++){
+    	for(int i = -20; i<45; i++){
     		for(int j = -20; j<45;j++){
     			
     			double x = i-viewPosX;

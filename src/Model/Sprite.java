@@ -17,6 +17,10 @@ public class Sprite {
 	public static Sprite table = new Sprite("src/table.png");
 	public static Sprite couch = new Sprite("src/couch.png");
 	public static Sprite unknown = new Sprite("src/tile.png");
+	public static Sprite woman = new Sprite("src/femme.png");
+	//public static Sprite baby = new Sprite("src/bebe.png");
+	//public static Sprite wardrobe = new Sprite("src/armoire.png");
+	//public static Sprite computer = new Sprite("src/ordi.png");
 	
 	public static Sprite[] walking = {new Sprite("src/walking_1.png"), new Sprite("src/walking_2.png"),new Sprite("src/walking_3.png"),new Sprite("src/walking_4.png")};
 	

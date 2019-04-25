@@ -42,7 +42,6 @@ public class Player extends Entity implements Animation {
 	public void run() {
 		//System.out.println("Player animated");
 				while(state>-1){
-					System.out.println(state);
 					if(state==IDLE){
 						this.sprite = Sprite.player;
 						

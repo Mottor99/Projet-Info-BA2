@@ -1,4 +1,7 @@
-package Model; 
+package Model;
+
+import java.util.Collections;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class AStarThread implements Runnable{
 	private Game g;
@@ -25,7 +28,9 @@ public class AStarThread implements Runnable{
 		int direction = 0;
 		
 		while(direction != -1 && running) {
-			direction = (new AStar(p.getPosX(), p.getPosY(), x, y, g.getGameObjects())).getNextStep();
+			CopyOnWriteArrayList<GameObject> copy = new CopyOnWriteArrayList<GameObject>(); 
+			copy.addAll(g.getGameObjects());
+			direction = (new AStar(p.getAX(), p.getAY(), x, y, copy)).getNextStep();
 			
 			switch (direction) {
 				case 0 : g.movePlayer(1,0); break;
@@ -34,12 +39,13 @@ public class AStarThread implements Runnable{
 				case 3 : g.movePlayer(0,1); break;
 			}
 			try {
-				Thread.sleep(100);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		g.movePlayer(0, 0);
 		
 	}
 	public void stop(){

@@ -35,11 +35,11 @@ public class Window extends JFrame {
         
     }
 
-    public void setGameObjects(CopyOnWriteArrayList<GameObject> copyOnWriteArrayList) {
-        this.screen.setGameObjects(copyOnWriteArrayList);
+    public void setGameObjects(ArrayList<GameObject> arrayList) {
+        this.screen.setGameObjects(arrayList);
         this.screen.redraw();
     }
-
+    
     public void update() {
         this.screen.redraw();
     }
@@ -78,9 +78,7 @@ public class Window extends JFrame {
 	public void setWidth(int width) {
 		this.width = width;
 	}
-	public void moveCamera(int x, int y){
-		this.screen.moveCamera(x,y);
-	}
+	
 	public void centerCamera(Player p){
 		Camera.center(p, this.width, this.height);
 	}

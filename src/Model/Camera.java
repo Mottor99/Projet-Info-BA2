@@ -1,6 +1,6 @@
 package Model;
 
-import View.Level;
+import View.Screen;
 
 public class Camera{
 	private static double viewPosX, viewPosY;
@@ -14,8 +14,8 @@ public class Camera{
 		
 	}
 	public static void center(Player p, int width, int height){
-		viewPosX = p.getPosX()-width/(2*Level.BLOC_SIZE);
-		viewPosY = p.getPosY()-height/(2*Level.BLOC_SIZE);
+		viewPosX = p.getPosX()-width/(2*Screen.BLOC_SIZE);
+		viewPosY = p.getPosY()-height/(2*Screen.BLOC_SIZE);
 	}
 	public static double getViewPosX() {
 		return viewPosX;

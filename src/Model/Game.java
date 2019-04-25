@@ -1,26 +1,20 @@
 package Model;
 
-import View.Level;
 import View.Window;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 
 
 public class Game implements DeletableObserver {
-    private CopyOnWriteArrayList<GameObject> objects = new CopyOnWriteArrayList<GameObject>();
+    private ArrayList<GameObject> objects = new ArrayList<GameObject>();
     private ArrayList<Player> players = new ArrayList<Player>();
     private Player active_player = null;
-    public final static Object lock = new Object();
     private AStarThread t = null;
     private Loop gameLoop;
+    private Level currentLevel;
     private Window window;
     private int size;
 
@@ -32,50 +26,27 @@ public class Game implements DeletableObserver {
         size = window.getMapSize();
         // Creating one Player at position (1,1)
         Player p = new Player(12, 12, 3);
+        currentLevel = new Map(this);
         objects.add(p);
         players.add(p);
-        window.setPlayer(p);
+        
         active_player = p;
+        Camera.center(active_player, window.getWidth(), window.getHeight());
+        
 
         // Map building
 
-        this.drawMap();
+        //this.drawMap();
         
-
+        window.setPlayer(p);
         window.setGameObjects(this.getGameObjects());  //draws GameObjects
        
     }
 
-    public void drawMap() throws Exception {
-    	FileReader file = new FileReader("src/file.txt");
-    	BufferedReader reader = new BufferedReader(file);
-    	
-    	String line = reader.readLine();
-    	int x = 0;
-    	int y = 0;
-    	while (line != null) {
-    		for (int i=0; i<line.length(); i++) {
-    			switch (line.charAt(i)) {
-				case 'W' : objects.add(new Wall(x, y)); break;
-				case 'C' : objects.add(new Couch(x, y)); break;
-				case 'T' : objects.add(new Table(x, y)); break;
-				}
-    			x++;
-    		}
-    		
-    		line = reader.readLine();
-    		 
-        	x = 0;
-        	y++;
-    		
-    	}
-    	reader.close();
-    	
-    }
 
     public synchronized void movePlayer(int x, int y) {
     	//System.out.println(objects.size());
-    	if(active_player.getState() == Player.IDLE && Level.getCameraState() == Level.IDLE){
+    	if(active_player.getState() == Player.IDLE){
 	        int nextX = active_player.getPosX() + x;
 	        int nextY = active_player.getPosY() + y;
 	
@@ -90,13 +61,9 @@ public class Game implements DeletableObserver {
 	        }
 	        active_player.rotate(x, y);
 	        if (obstacle == false) {
-	            
-	            	
-		        
-	            if(active_player.isFocused()){
-	            	window.moveCamera(x,y);
-	            }
+	        	
 	            active_player.move(x, y);
+	            
 	        }
     	}
         
@@ -104,7 +71,7 @@ public class Game implements DeletableObserver {
         
     
     public void moveCamera(int x, int y){
-    	window.moveCamera(x, y);
+    	Camera.move(x, y);
     }
     public void centerCamera(){
     	window.centerCamera(active_player);
@@ -141,7 +108,7 @@ public class Game implements DeletableObserver {
         window.update();
     }
 
-    public CopyOnWriteArrayList<GameObject> getGameObjects() {
+    public ArrayList<GameObject> getGameObjects() {
         return this.objects;
     }
 
@@ -180,6 +147,12 @@ public class Game implements DeletableObserver {
 	}
 	public Player getActivePlayer(){
 		return active_player;
+	}
+
+
+	public void setGameObjects(ArrayList<GameObject> objects) {
+		this.objects = objects;
+		
 	}
 
 }

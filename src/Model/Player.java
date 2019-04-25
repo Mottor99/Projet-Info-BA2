@@ -3,7 +3,6 @@ package Model;
 import java.awt.Graphics;
 
 import View.Animation;
-import View.Map;
 import View.Screen;
 
 public class Player extends Entity implements Animation {

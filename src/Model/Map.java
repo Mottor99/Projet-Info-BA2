@@ -14,8 +14,6 @@ public class Map extends Level {
     public Map(Game game){
     	super(game);
     	fileName = "src/file.txt";
-    	Camera.setViewPosX(3);
-    	Camera.setViewPosY(3);
     	System.out.println(Camera.getViewPosX()+ " "+ Camera.getViewPosY());
     	try {
 			load();

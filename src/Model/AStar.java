@@ -24,7 +24,7 @@ public class AStar {
 	private int V_H_COST = 1;
 	private int DIAGONAL_COST = 1000000;
 
-	public AStar(int xi, int yi, int xf, int yf, ArrayList<GameObject> objects) {
+	public AStar(int xi, int yi, int xf, int yf, CopyOnWriteArrayList<GameObject> objects) {
 		startI = xi;
 		startJ = yi;
 		endI = xf;
@@ -159,7 +159,7 @@ public class AStar {
 			int deltaj = 0;
 		   //Trace back the path 
 			Cell current = grid[endI][endJ];
-			while(current.parent!=null){
+			while(current!= null && current.parent!=null){
 				if (current.parent.i == startI && current.parent.j == startJ) {
 					deltai = current.i - startI;
 					deltaj = current.j - startJ;

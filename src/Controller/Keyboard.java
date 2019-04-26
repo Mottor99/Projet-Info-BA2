@@ -11,11 +11,8 @@ import Model.Game;
 
 public class Keyboard implements KeyListener, Runnable {
     private Game game;
-    private static final int EAST = 0;
-    private static final int NORTH = 1;
-    private static final int WEST = 2;
-    private static final int SOUTH = 3;
-    private static final int NONE = -1;
+    private int xa, ya = 0;
+    private boolean[] pressed = {false, false, false, false}; // {right, left, down, up}
 
     public Keyboard(Game game) {
         this.game = game;
@@ -27,22 +24,40 @@ public class Keyboard implements KeyListener, Runnable {
 
         switch (key) {
         case KeyEvent.VK_RIGHT:
-            game.movePlayer(1, 0);
+        	if(!pressed[0]){
+        		pressed[0] = true;
+        		xa = 1;
+        		ya = 0;
+        		game.movePlayer(xa, ya);
+        	}
+            
             
             
             break;
         case KeyEvent.VK_LEFT:
-            game.movePlayer(-1, 0);
-            
+        	if(!pressed[1]){
+        		pressed[1] = true;
+        		xa = -1;
+        		ya = 0;
+        		game.movePlayer(xa, ya);
+        	}     
             break;
         case KeyEvent.VK_DOWN:
-            game.movePlayer(0, 1);
-            
+        	if(!pressed[2]){
+        		pressed[2] = true;
+        		xa = 0;
+        		ya = 1;
+        		game.movePlayer(xa, ya);
+        	}     
             break;
         case KeyEvent.VK_UP:
-            game.movePlayer(0, -1);
-            
-             break;
+        	if(!pressed[3]){
+        		pressed[3] = true;
+        		xa = 0;
+        		ya = -1;
+        		game.movePlayer(xa, ya);
+        	}
+            break;
         case KeyEvent.VK_SPACE:
              game.action();
              break;
@@ -102,6 +117,7 @@ public class Keyboard implements KeyListener, Runnable {
         	game.centerCamera();
         	break;
         }
+        System.out.println(pressed[0] + " " + pressed[1]+ " " + pressed[2]+ " " + pressed[3]);
     }
 
     @Override
@@ -110,6 +126,44 @@ public class Keyboard implements KeyListener, Runnable {
 
     @Override
     public void keyReleased(KeyEvent e) {
+    	int key = e.getKeyCode();
+    	
+
+        switch (key) {
+        case KeyEvent.VK_RIGHT:
+        	if(!pressed[1]){
+        		xa = 0;
+        	}else xa = -1;
+        	
+        	pressed[0] = false;
+        	game.movePlayer(xa, ya);
+            
+            break;
+        case KeyEvent.VK_LEFT:
+        	if(!pressed[0]){
+        		xa = 0;
+        	}else xa = 1;
+            pressed[1] = false;
+            game.movePlayer(xa, ya);
+            break;
+        case KeyEvent.VK_DOWN:
+        	if(!pressed[3]){
+        		ya = 0;
+        	}else ya = -1;
+        	pressed[2] = false;
+        	game.movePlayer(xa, ya);
+            
+            break;
+        case KeyEvent.VK_UP:
+        	if(!pressed[2]){
+        		ya = 0;
+        	}else ya = 1;
+        	pressed[3] = false;
+        	game.movePlayer(xa, ya);
+            
+             break;
+        }
+        System.out.println(pressed[0] + " " + pressed[1]+ " " + pressed[2]+ " " + pressed[3]);
     }
 
 	@Override

@@ -1,33 +1,41 @@
 package Model;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 
 public abstract class Entity extends GameObject implements Directable, Movement{
 
     int direction = EAST;  
     protected boolean isFocused = true;
-	protected Thread movement;
+	protected Thread movement = new Thread(new EntityMovement());
     protected int movX, movY;
-    protected double dX, dY;
+    protected double dX, dY = 0.0;
     protected int state = IDLE;
+    protected int aX = posX;
+    protected int aY = posY;
+    protected ArrayList<GameObject> objects;
 
 	public Entity(int X, int Y, int width, int height, int color) {
 		super(X, Y, 1, 1, color);
 	}
 
-	public void move(int X, int Y) {
-	    	
-	    	dX = dY = 0.0;	
-	    	
-	    	if(state == IDLE){
-	    		state=MOVING;
-	    		movement = new Thread(new EntityMovement());
+	public void move(int X, int Y, ArrayList<GameObject> objects) {
+	    	this.objects = objects;
+	    	if(X!= 0 || Y != 0){
+	    		aX = posX;
+	    		aY = posY;
+		    	state=MOVING;
 	    		movX = X;
 	    		movY = Y;
-	    		movement.start();
-	    		
+	    		if(!movement.isAlive()){
+	    			movement = new Thread(new EntityMovement());
+	    			movement.start();
+	    		}
 	    	}
+	    	else state = IDLE;
+    		
+	    		
 	    	
 		
     	
@@ -71,7 +79,12 @@ public abstract class Entity extends GameObject implements Directable, Movement{
 		return 0;
 	}
 
-	
+	public int getAX(){
+		return aX;
+	}
+	public int getAY(){
+		return aY;
+	}
 
     public int getFrontX() {
         int delta = 0;
@@ -97,29 +110,44 @@ class EntityMovement implements Runnable{
 		
 		@Override
 		public void run() {
-			state = MOVING;
-			
-			for(int i = 0; i<100; i++){
-				dX += 0.01*movX;
-				dY += 0.01*movY;
-				if(isFocused)Camera.move(0.01*movX, 0.01*movY);
-				
-				//System.out.println("MOVING, "+stage);
-				try {
+			while(state == MOVING){
+				int x = movX;
+				int y = movY;
+				int nextX = posX + x;
+		        int nextY = posY + y;
+				boolean obstacle = false;
+		        for (GameObject object : objects) {
+		            if (object.isAtPosition(nextX, nextY)) {
+		                obstacle = object.isObstacle();
+		            }
+		            if (obstacle == true) {
+		                break;
+		            }
+		        }
+				if(!obstacle){
+					aX = nextX;
+					aY = nextY;
+					for(int i = 0; i<100; i++){
+						dX += 0.01*x;
+						dY += 0.01*y;
+						if(isFocused)Camera.move(0.01*x, 0.01*y);
+						
+						//System.out.println("MOVING, "+stage);
+						try {
+							
+							Thread.sleep(1);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 					
-					Thread.sleep(1);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					posX += x;
+					posY += y;
+					dX = dY = 0.0;
+					
+				}else state = IDLE;
 			}
-			
-			posX += movX;
-			posY += movY;
-			movX = movY = 0;
-			dX = dY = 0.0;
-			state = IDLE;
-			
 		}
 		
 	}

@@ -116,11 +116,17 @@ class EntityMovement implements Runnable{
 				int nextX = posX + x;
 		        int nextY = posY + y;
 				boolean obstacle = false;
+				boolean isEntrance = false;
+				Entrance entrance = null;
 		        for (GameObject object : objects) {
 		            if (object.isAtPosition(nextX, nextY)) {
 		                obstacle = object.isObstacle();
+		                isEntrance = object instanceof Entrance;
 		            }
-		            if (obstacle == true) {
+		            if (obstacle || isEntrance) {
+		            	if(isEntrance) {
+		            		entrance = (Entrance) object;
+		            	}
 		                break;
 		            }
 		        }
@@ -145,6 +151,10 @@ class EntityMovement implements Runnable{
 					posX += x;
 					posY += y;
 					dX = dY = 0.0;
+					if(isEntrance && entrance != null) {
+						state = IDLE;
+						entrance.notifyLevelSwitchObservers();
+					}
 					
 				}else state = IDLE;
 			}

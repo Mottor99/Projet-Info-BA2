@@ -37,7 +37,7 @@ public class Window extends JFrame {
 
     public void setGameObjects(ArrayList<GameObject> arrayList) {
         this.screen.setGameObjects(arrayList);
-        this.screen.redraw();
+        //this.screen.redraw();
     }
     
     public void update() {

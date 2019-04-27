@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import Controller.Mouse;
 import Model.Camera;
+import Model.Entrance;
 import Model.GameObject;
 import Model.Level;
 import Model.Player;
@@ -70,6 +71,7 @@ public class Screen extends JPanel{
             double x = object.getPosX()-viewPosX;
             double y = object.getPosY()-viewPosY;
             object.render(x, y, g, BLOC_SIZE);
+            
     	}
 		//HUD.render(g);
 	}

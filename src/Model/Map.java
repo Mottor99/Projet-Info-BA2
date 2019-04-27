@@ -12,9 +12,7 @@ public class Map extends Level {
 
 
     public Map(Game game){
-    	super(game);
-    	fileName = "src/file.txt";
-    	System.out.println(Camera.getViewPosX()+ " "+ Camera.getViewPosY());
+    	super(game, "src/map.txt");
     	try {
 			load();
 		} catch (Exception e) {

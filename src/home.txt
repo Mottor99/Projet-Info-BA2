@@ -2,7 +2,6 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
 W                       W
 W                       W
 W                       W
-W            C          W
 W                       W
 W                       W
 W                       W
@@ -10,16 +9,17 @@ W                       W
 W                       W
 W                       W
 W                       W
+W          W            W
+W                       W
+W                       W
+W                       W
+W    W                  W
+W                       W
+W                   W   W
 W                       W
 W                       W
 W                       W
 W                       W
-W                       W
-W           C           W
-W                       W
-W                       W
-W                       W
-W              T        W
-W                       W
+W            M          W
 W                       W
 WWWWWWWWWWWWWWWWWWWWWWWWW

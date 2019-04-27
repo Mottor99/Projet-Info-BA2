@@ -117,7 +117,7 @@ public class Keyboard implements KeyListener, Runnable {
         	game.centerCamera();
         	break;
         }
-        System.out.println(pressed[0] + " " + pressed[1]+ " " + pressed[2]+ " " + pressed[3]);
+        //System.out.println(pressed[0] + " " + pressed[1]+ " " + pressed[2]+ " " + pressed[3]);
     }
 
     @Override
@@ -163,7 +163,7 @@ public class Keyboard implements KeyListener, Runnable {
             
              break;
         }
-        System.out.println(pressed[0] + " " + pressed[1]+ " " + pressed[2]+ " " + pressed[3]);
+        //System.out.println(pressed[0] + " " + pressed[1]+ " " + pressed[2]+ " " + pressed[3]);
     }
 
 	@Override

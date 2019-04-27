@@ -51,8 +51,12 @@ public abstract class GameObject implements Comparable<GameObject>{
     }
     @Override
     public int compareTo(GameObject compareObj){
+    	if(compareObj instanceof Entrance) {
+    		return 1;
+    	}else {
 		int comparePos = compareObj.getPosY();
 		return this.posY - comparePos;
+    	}
     	
     }
 

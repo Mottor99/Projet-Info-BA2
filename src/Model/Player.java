@@ -63,13 +63,14 @@ public class Player extends Entity implements Animation {
 	@Override
 	public void animate() {
 		
-		for(int i = 0; i<8; i++){
+		for(int i = 0; i<4; i++){
 			if(state == MOVING){
-			this.sprite = Sprite.walking[i/2];
+			this.sprite = Sprite.walking[i];
 			
 			try {
 				
-				Thread.sleep(75);
+				Thread.sleep(150);
+
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

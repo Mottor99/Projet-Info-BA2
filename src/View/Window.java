@@ -20,11 +20,10 @@ public class Window extends JFrame {
 	private JPanel groupPanel = new JPanel(new BorderLayout());
 	private int height = 720;
 	private int width = 1280;
-    private Screen screen = new Screen(this);
+    private Screen screen = new Screen(this, new BorderLayout());
 
     public Window(String title) {
     	super(title);
-    	HUD hud = new HUD(screen, this);
         // JFrame window = new JFrame("Game");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(0, 0, width, height);
@@ -38,7 +37,7 @@ public class Window extends JFrame {
 
     public void setGameObjects(ArrayList<GameObject> arrayList) {
         this.screen.setGameObjects(arrayList);
-        this.screen.redraw();
+        //this.screen.redraw();
     }
     
     public void update() {

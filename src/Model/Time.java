@@ -7,5 +7,9 @@ public class Time {
 	public Time(int jour, int min) {
 		
 	}
-
+	
+	public void update() {
+		
+	}
+	
 }

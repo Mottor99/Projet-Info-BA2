@@ -8,7 +8,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 
 
-public class Game implements DeletableObserver {
+public class Game implements DeletableObserver, LevelSwitchObserver {
     private ArrayList<GameObject> objects = new ArrayList<GameObject>();
     private ArrayList<Player> players = new ArrayList<Player>();
     private Player active_player = null;
@@ -22,7 +22,7 @@ public class Game implements DeletableObserver {
 
     public Game(Window window) throws Exception {
 
-    	gameLoop = new Loop(this);
+    	
         this.window = window;
         size = window.getMapSize();
         // Creating one Player at position (1,1)
@@ -46,12 +46,16 @@ public class Game implements DeletableObserver {
         
         window.setPlayer(p);
         window.setGameObjects(this.getGameObjects());  //draws GameObjects
+
         Time time = new Time(1, 0);
+
+        gameLoop = new Loop(this);
+
        
     }
 
 
-    public synchronized void movePlayer(int x, int y) {
+    synchronized public void movePlayer(int x, int y) {
     	//System.out.println(objects.size());
     	
 	        
@@ -152,6 +156,32 @@ public class Game implements DeletableObserver {
 	
 	public void updateTime() {
 		time.update();
+	}
+
+
+	@Override
+	public synchronized void switchLevel(LevelSwitch s, String destination) {
+		
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		switch(destination){
+		case "map" : currentLevel = new Map(this); break;
+		case "home" : currentLevel = new Home(this); break;
+		}
+		objects.add(active_player);
+		window.setGameObjects(this.getGameObjects()); 
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 }

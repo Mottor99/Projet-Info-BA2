@@ -18,8 +18,9 @@ public abstract class Level{
     protected Game game;
 	
 	
-	public Level(Game game){
+	public Level(Game game, String fileName){
 		this.game = game;
+		this.fileName = fileName;
 	}
 	public void load() throws Exception {
     	FileReader file = new FileReader(this.fileName);
@@ -34,6 +35,20 @@ public abstract class Level{
 				case 'W' : objects.add(new Wall(x, y)); break;
 				case 'C' : objects.add(new Couch(x, y)); break;
 				case 'T' : objects.add(new Table(x, y)); break;
+				case 'E' : 
+					Entrance home_entrance = new Entrance(x, y, "home"); 
+					System.out.println("Entrance added to home");
+					home_entrance.attachLevelSwitch(game);
+					objects.add(home_entrance);
+					
+					break;
+				case 'M' : 
+					Entrance map_entrance = new Entrance(x, y, "map"); 
+					System.out.println("Entrance added to map");
+					map_entrance.attachLevelSwitch(game);
+					objects.add(map_entrance);
+					
+					break;
 				}
     			x++;
     		}

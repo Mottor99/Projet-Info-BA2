@@ -38,11 +38,12 @@ public class Screen extends JPanel{
 		
 		
 
-    	HUD hud = new HUD(this, window);
+    	
 		this.setLayout(new BorderLayout());
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
+        HUD hud = new HUD(this, window);
         addMouseListener(new MouseListener() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -59,15 +60,7 @@ public class Screen extends JPanel{
 			@Override
 			public void mouseReleased(MouseEvent arg0) {}
 		});
-        button = new JButton("Test");
-        //button.setForeground(Color.DARK_GRAY);
-        button.setOpaque(true);
-        button.setBackground(Color.GRAY);
-        //button.setFocusable(false);
-        //button.setVisible(true);
-        button.setPreferredSize(new Dimension(200,200));
-        this.add(button, BorderLayout.NORTH);
-       
+        
 	}
 	
 	@Override

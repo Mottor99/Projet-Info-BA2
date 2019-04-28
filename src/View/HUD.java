@@ -32,12 +32,21 @@ public class HUD {
     	window = w;
     	
         
-        shopPanel.setFocusable(false);;
-		shopPanel.setOpaque(true);
-		shopPanel.setVisible(false);
-		shopPanel.setBackground(Color.RED);
-		shopPanel.setPreferredSize(new Dimension(window.getWidth()/5,window.getHeight()));
+        //shopPanel.setFocusable(false);;
+		//shopPanel.setOpaque(true);
+		//shopPanel.setVisible(false);
+		//shopPanel.setBackground(Color.RED);
+		//shopPanel.setPreferredSize(new Dimension(window.getWidth()/5,window.getHeight()));
 		
+		button = new JButton("Test");
+        //button.setForeground(Color.DARK_GRAY);
+        button.setOpaque(true);
+        button.setBackground(Color.GRAY);
+        //button.setFocusable(false);
+        //button.setVisible(true);
+        button.setPreferredSize(new Dimension(200,200));
+        screen.add(button, BorderLayout.NORTH);
+       
 		
         button.addActionListener(new ActionListener() {
 

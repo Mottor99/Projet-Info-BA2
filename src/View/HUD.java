@@ -22,7 +22,7 @@ public class HUD {
 	private static int BAR_WIDTH = 40;
 	private Screen screen;
 	private Window window;
-	private static JPanel shopPanel = new JPanel();
+	private JPanel shopPanel = new JPanel();
 	private boolean buttonPressed = false;
 
     private JButton button; 
@@ -35,12 +35,12 @@ public class HUD {
         shopPanel.setFocusable(false);;
 		shopPanel.setOpaque(true);
 		shopPanel.setVisible(false);
-		shopPanel.setBackground(Color.RED);
+		shopPanel.setBackground(new Color(255, 0 , 0, 170));
 		shopPanel.setPreferredSize(new Dimension(window.getWidth()/5,window.getHeight()));
 		
         //button.setForeground(Color.DARK_GRAY);
 		button = new JButton("Shop");
-        button.setFocusable(true);
+        button.setFocusable(false);
         
         button.setBackground(Color.GRAY);
         button.setVisible(true);
@@ -51,7 +51,7 @@ public class HUD {
         	
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//shopPanel.setVisible(!buttonPressed);
+				shopPanel.setVisible(!buttonPressed);
 				
 				buttonPressed = !buttonPressed;
 				System.out.println("Test");
@@ -60,7 +60,7 @@ public class HUD {
         });
         
         screen.add(button, BorderLayout.NORTH);
-        System.out.println("Button added");
+        //System.out.println("Button added");
         screen.add(shopPanel, BorderLayout.EAST);
         //window.setVisible(true);
         
@@ -88,6 +88,7 @@ public class HUD {
         g.drawString("Day : " + String.valueOf(Time.getDay()) + " " + String.valueOf(Time.getHour()) + ":" + String.valueOf(Time.getMin()), 300, 25);
 */
         this.button.repaint();
+        this.shopPanel.repaint();
         //shopPanel.repaint();
         //window.setVisible(true);
     }

@@ -28,11 +28,10 @@ public class Loop implements Runnable{
 			lastTime = now;
 			while(delta>=1){ //60fois par sec
 				game.updateTime();
+				game.render();//aussi vite que possible
 				
 				updates++;
 				delta--;
-				game.render();//aussi vite que possible (mtnt 60fois/sec)
-				
 			}
 			
 			if(System.currentTimeMillis() - timer > 1000){ 
@@ -45,7 +44,6 @@ public class Loop implements Runnable{
 
 			
 			frames++;
-			//game.render();//aussi vite que possible
 			
 			
 		}

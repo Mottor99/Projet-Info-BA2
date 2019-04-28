@@ -18,7 +18,7 @@ public class Player extends Entity implements Animation {
         animation.start();
     }
 
-
+   
 
     
 

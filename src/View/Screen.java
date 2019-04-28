@@ -29,6 +29,7 @@ public class Screen extends JPanel{
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	public final int MAP_SIZE = 25;
     private Window window;
+    private HUD hud;
 
 	private JButton button; 
 	
@@ -36,10 +37,6 @@ public class Screen extends JPanel{
 		super(bl);
 		this.window = window;
 		
-		
-
-    	HUD hud = new HUD(this, window);
-		this.setLayout(new BorderLayout());
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
@@ -59,14 +56,19 @@ public class Screen extends JPanel{
 			@Override
 			public void mouseReleased(MouseEvent arg0) {}
 		});
+
+    	hud = new HUD(this, window);
+        /*
         button = new JButton("Test");
         //button.setForeground(Color.DARK_GRAY);
+        button.setFocusable(false);
         button.setOpaque(true);
         button.setBackground(Color.GRAY);
-        //button.setFocusable(false);
-        //button.setVisible(true);
+        button.setVisible(true);
         button.setPreferredSize(new Dimension(200,200));
         this.add(button, BorderLayout.NORTH);
+        */
+        //window.setVisible(true);
        
 	}
 	
@@ -91,10 +93,14 @@ public class Screen extends JPanel{
             object.render(x, y, g, BLOC_SIZE);
             
     	}
-    	
-
+    	this.requestFocusInWindow();
     	//button.repaint();
-		HUD.render(g);
+		this.hud.render(g);
+		
+	}
+	@Override
+	public void update(Graphics g){
+		paint(g);
 	}
 	public void redraw(){
 		this.repaint();

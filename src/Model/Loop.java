@@ -28,6 +28,7 @@ public class Loop implements Runnable{
 			lastTime = now;
 			while(delta>=1){ //60fois par sec
 				game.updateTime();
+				game.render();//aussi vite que possible
 				
 				updates++;
 				delta--;
@@ -41,7 +42,7 @@ public class Loop implements Runnable{
 				
 			}
 
-			game.render();//aussi vite que possible
+			
 			frames++;
 			
 			

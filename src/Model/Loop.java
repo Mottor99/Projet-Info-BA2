@@ -7,7 +7,7 @@ public class Loop implements Runnable{
 	
 	public Loop(Game game){
 		this.game = game;
-		t = new Thread(this);
+		t = new Thread(this); //loop tourne en continu, indépendamment du reste
 		running = true;
 		t.start();
 		
@@ -26,14 +26,14 @@ public class Loop implements Runnable{
 			long now = System.nanoTime();
 			delta += (now-lastTime)/ns;
 			lastTime = now;
-			while(delta>=1){
-				//game.update();
+			while(delta>=1){ //60fois par sec
+				game.updateTime();
 				
 				updates++;
 				delta--;
 			}
 			
-			if(System.currentTimeMillis() - timer > 1000){
+			if(System.currentTimeMillis() - timer > 1000){ 
 				timer+=1000;
 				System.out.println(updates+" ups, "+ frames+" fps");
 				frames = 0;
@@ -41,7 +41,7 @@ public class Loop implements Runnable{
 				
 			}
 
-			game.render();
+			game.render();//aussi vite que possible
 			frames++;
 			
 			

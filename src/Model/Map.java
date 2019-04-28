@@ -12,7 +12,9 @@ public class Map extends Level {
 
 
     public Map(Game game){
+
     	super(game, "src/map.txt");
+
     	try {
 			load();
 		} catch (Exception e) {

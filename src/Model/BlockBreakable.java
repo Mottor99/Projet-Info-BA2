@@ -7,7 +7,7 @@ public class BlockBreakable extends Block implements Deletable, Activable {
     private ArrayList<DeletableObserver> observers = new ArrayList<DeletableObserver>();
     private int lifepoints = 0;
     public BlockBreakable(int X, int Y, int width, int height, int lifepoints) {
-        super(X, Y, width, height, 1);
+        super(X, Y, width, height);
         this.lifepoints = lifepoints;
         sprite = Sprite.brick;
     }
@@ -19,7 +19,7 @@ public class BlockBreakable extends Block implements Deletable, Activable {
         }
         else {
             lifepoints--;
-            this.color = lifepoints + 2; // pour éviter de retourner au gris
+           
         }
     }
 

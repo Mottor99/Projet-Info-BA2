@@ -92,6 +92,8 @@ public class Screen extends JPanel{
             
     	}
     	
+
+    	//button.repaint();
 		HUD.render(g);
 	}
 	public void redraw(){

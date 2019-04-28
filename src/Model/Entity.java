@@ -17,8 +17,8 @@ public abstract class Entity extends GameObject implements Directable, Movement{
     protected int aY = posY;
     protected ArrayList<GameObject> objects;
 
-	public Entity(int X, int Y, int width, int height, int color) {
-		super(X, Y, 1, 1, color);
+	public Entity(int X, int Y, int width, int height) {
+		super(X, Y, 1, 1);
 	}
 
 	public void move(int X, int Y, ArrayList<GameObject> objects) {

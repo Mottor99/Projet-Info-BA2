@@ -11,10 +11,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import Model.NPC;
 import Model.Player;
+import Model.Time;
 
 public class HUD {
 	private static Player p;
+	private static NPC npc;
 	private static int BAR_LENGTH = 120;
 	private static int BAR_WIDTH = 40;
 	protected static Screen screen;
@@ -71,7 +74,9 @@ public class HUD {
         g.setFont(new Font("Helvetica", Font.BOLD, 20));
         g.setColor(Color.WHITE);
         g.drawString("Energy", 30, 25); 
-        //g.drawString("Day : " + Time.getDay()+ " " + (String)Time.getHours() + ":" + (String)Time.getMinutes(), 300, 25);
+
+        g.drawString("Day : " + String.valueOf(Time.getDay()) + " " + String.valueOf(Time.getHour()) + ":" + String.valueOf(Time.getMin()), 300, 25);
+
         button.repaint();
         shopPanel.repaint();
     }
@@ -79,6 +84,9 @@ public class HUD {
 
 	public static void setPlayer(Player p2) {
 		p = p2;
+	}
+	public static void setNPC(NPC npc2) {
+		npc = npc2;
 	}
 	
 }

@@ -17,6 +17,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver {
     private Level currentLevel;
     private Window window;
     private int size;
+    private Time time;
 
     public Game(Window window) throws Exception {
 
@@ -24,11 +25,16 @@ public class Game implements DeletableObserver, LevelSwitchObserver {
         this.window = window;
         size = window.getMapSize();
         // Creating one Player at position (1,1)
-        Player p = new Player(12, 12, 3);
+        Player p = new Player(6, 3, 3);
+        Woman w = new Woman(5, 3);
         currentLevel = new Map(this);
         objects.add(p);
+        objects.add(w);
         players.add(p);
-        
+
+        window.setPlayer(p);
+        window.setNPC(w);
+
         active_player = p;
         Camera.center(active_player, window.getWidth(), window.getHeight());
         
@@ -39,7 +45,11 @@ public class Game implements DeletableObserver, LevelSwitchObserver {
         
         window.setPlayer(p);
         window.setGameObjects(this.getGameObjects());  //draws GameObjects
+
+        time = new Time(1, 0, 0, 100);
+
         gameLoop = new Loop(this);
+
        
     }
 
@@ -141,6 +151,10 @@ public class Game implements DeletableObserver, LevelSwitchObserver {
 	public void setGameObjects(ArrayList<GameObject> objects) {
 		this.objects = objects;
 		
+	}
+	
+	public void updateTime() {
+		time.update();
 	}
 
 

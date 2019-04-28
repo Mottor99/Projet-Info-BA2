@@ -7,16 +7,14 @@ public abstract class GameObject implements Comparable<GameObject>{
     protected int posY;
     protected int width = 1;
     protected int height = 1;
-    protected int color;
     protected Sprite sprite = Sprite.brick;
 
-    public GameObject(int X, int Y, int width, int height, int color) {
+    public GameObject(int X, int Y, int width, int height) {
         this.posX = X;
         this.posY = Y;
         this.width = width;
         this.height = height;
         
-        this.color = color;
     }
     public void render(double x, double y, Graphics g, int BLOC_SIZE){
     	g.drawImage(sprite.getImage(), (int)(x*BLOC_SIZE),(int)(y*BLOC_SIZE), BLOC_SIZE*width, BLOC_SIZE*height, null);
@@ -42,9 +40,6 @@ public abstract class GameObject implements Comparable<GameObject>{
         return this.posY;
     }
 
-    public int getColor() {
-        return this.color;
-    }
 
     public boolean isAtPosition(int x, int y) {
         return (this.posX <= x && x <= (this.posX + width - 1)) && (this.posY <= y && y <= (this.posY + height - 1));

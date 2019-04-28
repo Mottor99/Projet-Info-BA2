@@ -1,8 +1,15 @@
+import java.util.ArrayList;
+
+import Model.GameObject;
 
 public class SaveData {
+	ArrayList<GameObject> objects = new ArrayList<GameObject>();
 
 	public SaveData() {
-		// TODO Auto-generated constructor stub
+		for (GameObject o :objects) {
+			
+			
+		}
 	}
 
 }

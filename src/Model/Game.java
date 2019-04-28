@@ -17,6 +17,7 @@ public class Game implements DeletableObserver {
     private Level currentLevel;
     private Window window;
     private int size;
+    private Time time;
 
 
     public Game(Window window) throws Exception {
@@ -45,6 +46,7 @@ public class Game implements DeletableObserver {
         
         window.setPlayer(p);
         window.setGameObjects(this.getGameObjects());  //draws GameObjects
+        Time time = new Time(1, 0);
        
     }
 
@@ -146,6 +148,10 @@ public class Game implements DeletableObserver {
 	public void setGameObjects(ArrayList<GameObject> objects) {
 		this.objects = objects;
 		
+	}
+	
+	public void updateTime() {
+		time.update();
 	}
 
 }

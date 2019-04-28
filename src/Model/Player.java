@@ -69,7 +69,7 @@ public class Player extends Entity implements Animation {
 			
 			try {
 				
-				Thread.sleep(105);
+				Thread.sleep(75);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

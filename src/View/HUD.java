@@ -69,9 +69,9 @@ public class HUD {
         g.drawRect(30, 30, BAR_LENGTH, BAR_WIDTH);
         
         g.setFont(new Font("Helvetica", Font.BOLD, 20));
-        g.setColor(Color.GRAY);
+        g.setColor(Color.WHITE);
         g.drawString("Energy", 30, 25); 
-        
+        //g.drawString("Day : " + Time.getDay()+ " " + (String)Time.getHours() + ":" + (String)Time.getMinutes(), 300, 25);
         button.repaint();
         shopPanel.repaint();
     }

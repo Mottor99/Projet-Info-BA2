@@ -18,7 +18,6 @@ public class Game implements DeletableObserver, LevelSwitchObserver {
     private Window window;
     private int size;
 
-
     public Game(Window window) throws Exception {
 
     	

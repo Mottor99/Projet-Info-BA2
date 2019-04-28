@@ -2,6 +2,7 @@ package Model;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public abstract class Entity extends GameObject implements Directable, Movement{
@@ -115,10 +116,12 @@ class EntityMovement implements Runnable{
 				int y = movY;
 				int nextX = posX + x;
 		        int nextY = posY + y;
+		        CopyOnWriteArrayList<GameObject> copy = new CopyOnWriteArrayList<GameObject>();
+		        copy.addAll(objects);
 				boolean obstacle = false;
 				boolean isEntrance = false;
 				Entrance entrance = null;
-		        for (GameObject object : objects) {
+		        for (GameObject object : copy) {
 		            if (object.isAtPosition(nextX, nextY)) {
 		                obstacle = object.isObstacle();
 		                isEntrance = object instanceof Entrance;

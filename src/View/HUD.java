@@ -27,13 +27,7 @@ public class HUD {
     public HUD(Screen m, Window w){
     	screen = m;
     	window = w;
-    	screen.setLayout(new BorderLayout());
-    	button.setPreferredSize(new Dimension(200, 50));
-    	button.setBorderPainted(false);
-    	button.setContentAreaFilled(false);
-        button.setForeground(Color.DARK_GRAY);
-        button.setOpaque(true);
-        button.setFocusable(false);
+    	
         
         shopPanel.setFocusable(false);;
 		shopPanel.setOpaque(true);
@@ -49,14 +43,13 @@ public class HUD {
 			public void actionPerformed(ActionEvent e) {
 				shopPanel.setVisible(!buttonPressed);
 				
-				screen.redraw();
 				buttonPressed = !buttonPressed;
 				System.out.println("Test");
 			}
         	
         });
         
-        screen.add(button, BorderLayout.NORTH);
+        //screen.add(button, BorderLayout.NORTH);
         screen.add(shopPanel, BorderLayout.EAST);
         
     }

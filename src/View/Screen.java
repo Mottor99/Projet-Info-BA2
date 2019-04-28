@@ -1,5 +1,7 @@
 package View;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import Controller.Mouse;
@@ -26,10 +29,17 @@ public class Screen extends JPanel{
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	public final int MAP_SIZE = 25;
     private Window window;
+
+	private JButton button; 
 	
-	public Screen(Window window){
+	public Screen(Window window, BorderLayout bl){
+		super(bl);
 		this.window = window;
 		
+		
+
+    	//HUD hud = new HUD(this, window);
+		this.setLayout(new BorderLayout());
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
@@ -49,7 +59,14 @@ public class Screen extends JPanel{
 			@Override
 			public void mouseReleased(MouseEvent arg0) {}
 		});
-        
+        button = new JButton("Test");
+        //button.setForeground(Color.DARK_GRAY);
+        button.setOpaque(true);
+        button.setBackground(Color.GRAY);
+        //button.setFocusable(false);
+        //button.setVisible(true);
+        button.setPreferredSize(new Dimension(200,200));
+        this.add(button, BorderLayout.NORTH);
        
 	}
 	
@@ -73,6 +90,8 @@ public class Screen extends JPanel{
             object.render(x, y, g, BLOC_SIZE);
             
     	}
+    	
+    	//button.repaint();
 		//HUD.render(g);
 	}
 	public void redraw(){

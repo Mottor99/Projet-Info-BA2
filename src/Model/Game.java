@@ -47,7 +47,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver {
         window.setPlayer(p);
         window.setGameObjects(this.getGameObjects());  //draws GameObjects
 
-        Time time = new Time(1, 0);
+        time = new Time(1, 0, 0, 100);
 
         gameLoop = new Loop(this);
 

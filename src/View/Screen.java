@@ -38,7 +38,7 @@ public class Screen extends JPanel{
 		
 		
 
-    	//HUD hud = new HUD(this, window);
+    	HUD hud = new HUD(this, window);
 		this.setLayout(new BorderLayout());
         this.setFocusable(true);
         this.requestFocusInWindow();
@@ -92,7 +92,7 @@ public class Screen extends JPanel{
     	}
     	
     	//button.repaint();
-		//HUD.render(g);
+		HUD.render(g);
 	}
 	public void redraw(){
 		this.repaint();

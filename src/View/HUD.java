@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import Model.NPC;
 import Model.Player;
+import Model.Time;
 
 public class HUD {
 	private static Player p;
@@ -73,7 +74,7 @@ public class HUD {
         g.setFont(new Font("Helvetica", Font.BOLD, 20));
         g.setColor(Color.GRAY);
         g.drawString("Energy", 30, 25); 
-        
+        g.drawString("Day : " + String.valueOf(Time.getDay()) + " " + String.valueOf(Time.getHour()) + ":" + String.valueOf(Time.getMin()), 300, 25);
         button.repaint();
         shopPanel.repaint();
     }

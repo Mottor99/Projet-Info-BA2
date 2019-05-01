@@ -72,21 +72,30 @@ public class HUD {
 		
 		// bars 
         // Energy 
-		/*
+		
 		g.setColor(Color.RED);
         g.fillRect(30, 30, BAR_LENGTH, BAR_WIDTH);
+        g.fillRect(30, 105, BAR_LENGTH, BAR_WIDTH);
+        g.fillRect(30, 180, BAR_LENGTH, BAR_WIDTH);
         g.setColor(Color.GREEN);
         int length_ok = (int) Math.round(BAR_LENGTH*p.getEnergy());
+        int length_ok2 = (int) Math.round(BAR_LENGTH*p.getHunger());
+        int length_ok3 = (int) Math.round(BAR_LENGTH*p.getBladder());
         g.fillRect(30, 30, length_ok, BAR_WIDTH);
+        g.fillRect(30, 105, length_ok2, BAR_WIDTH);
+        g.fillRect(30, 180, length_ok3, BAR_WIDTH);
         g.setColor(Color.GRAY);
         g.drawRect(30, 30, BAR_LENGTH, BAR_WIDTH);
+        g.drawRect(30, 105, BAR_LENGTH, BAR_WIDTH);
+        g.drawRect(30, 180, BAR_LENGTH, BAR_WIDTH);
         
         g.setFont(new Font("Helvetica", Font.BOLD, 20));
         g.setColor(Color.WHITE);
         g.drawString("Energy", 30, 25); 
-
-        g.drawString("Day : " + String.valueOf(Time.getDay()) + " " + String.valueOf(Time.getHour()) + ":" + String.valueOf(Time.getMin()), 300, 25);
-*/
+        g.drawString("Hunger", 30, 100);
+        g.drawString("Bladder", 30, 175);
+        g.drawString("Day : " + Time.getDay() + " " + Time.getHour() + ":" + Time.getMin(), 300, 25);
+        
         this.button.repaint();
         this.shopPanel.repaint();
         //shopPanel.repaint();

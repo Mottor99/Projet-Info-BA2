@@ -65,4 +65,10 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 		return currentSentence;
 	}
 
+	@Override
+	public void activate(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

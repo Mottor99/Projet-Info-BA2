@@ -81,7 +81,7 @@ public class Player extends Entity implements Animation, Serializable {
 
 
 	public void tire(Game g) {
-		if (energy > 95)
+		if (energy > 10)
 			energy -= 0.1;
 		else {
 			g.sendPlayerToObject("Bed");

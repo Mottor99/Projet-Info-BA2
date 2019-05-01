@@ -81,31 +81,32 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     }
     
     public void sendPlayerToObject(String s) {
-    	boolean moved = false;
+    	CopyOnWriteArrayList<GameObject> copy = new CopyOnWriteArrayList<GameObject>();
+    	copy.addAll(objects);
     	switch (s) {
 		case "Bed" : 
-			for(GameObject object : objects) {
-				if (object instanceof Bed && !moved){
+			for(GameObject object : copy) {
+				if (object instanceof Bed){
 					this.sendPlayer(object.getPosX(), object.getPosY()-1);
-					moved = true;
 					((Bed) object).activate(active_player);
+					break;
 				}
 			}; break;
 			
 		case "Fridge" : 
-			for(GameObject object : objects) {
-				if (object instanceof Fridge && !moved){
+			for(GameObject object : copy) {
+				if (object instanceof Fridge){
 					this.sendPlayer(object.getPosX(), object.getPosY()-1);
-					moved = true;
 					((Fridge) object).activate(active_player);
+					break;
 			}
 		}; break;
 		case "Toilet" : 
-			for(GameObject object : objects) {
-				if (object instanceof Toilet && !moved){
+			for(GameObject object : copy) {
+				if (object instanceof Toilet){
 					this.sendPlayer(object.getPosX(), object.getPosY()-1);
-					moved = true;
 					((Toilet) object).activate(active_player);
+					break;
 				}
 			}; break;
 		}

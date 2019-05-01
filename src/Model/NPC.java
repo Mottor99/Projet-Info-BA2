@@ -37,11 +37,8 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	}
 
 	@Override
-	public void activate() {
-		
+	public void activate(Player p) {
 		talk();
-		
-		System.out.println(isTalking);
 	}
 
 	@Override
@@ -51,24 +48,22 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 		this.isTalking = true;
 		
 	}
+	@Override
 	public void nextSentence(){
 		if(this.dialogStage<this.sentences.length-1){
 			this.dialogStage++;
 			this.currentSentence = this.sentences[this.dialogStage];	
 		}else this.isTalking = false;
 	}
-
+	@Override
 	public boolean isTalking() {
 		return isTalking;
 	}
+	@Override
 	public String getCurrentSentence() {
 		return currentSentence;
 	}
 
-	@Override
-	public void activate(Player p) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

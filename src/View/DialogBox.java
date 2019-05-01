@@ -14,7 +14,7 @@ import Model.NPC;
 
 public class DialogBox extends JPanel{
 	private JLabel label = new JLabel();
-	private NPC npc = null;
+	private Dialog object = null;
 	private boolean hasFocus = false;
 	public DialogBox(){
 		this.setLayout(new BorderLayout());
@@ -31,8 +31,8 @@ public class DialogBox extends JPanel{
 
 		        switch (key) {
 		        case KeyEvent.VK_SPACE: 
-					if(npc != null){
-						npc.nextSentence();
+					if(object != null){
+						object.nextSentence();
 					}
 		        }
 			}
@@ -56,10 +56,10 @@ public class DialogBox extends JPanel{
 		label.setText("Test");
 		this.add(label, BorderLayout.LINE_START);
 	}
-	public void render(NPC npc){
-		if(npc!=null){
-			this.npc = npc;
-			this.label.setText(npc.getCurrentSentence());
+	public void render(Dialog object){
+		if(object!=null){
+			this.object = object;
+			this.label.setText(object.getCurrentSentence());
 			this.setVisible(true);
 			this.hasFocus = true;
 		}

@@ -60,7 +60,7 @@ public class Screen extends JPanel{
 			public void mouseReleased(MouseEvent arg0) {}
 		});
 
-    	//hud = new HUD(this, window);
+    	hud = new HUD(this, window);
     	db = new DialogBox();
         /*
         button = new JButton("Test");
@@ -81,7 +81,7 @@ public class Screen extends JPanel{
 	public void paintComponent(Graphics g){
 		
 		super.paintComponent(g);
-		NPC talkingNPC = null;
+		Dialog talkingObj = null;
 		double viewPosX = Camera.getViewPosX();
     	double viewPosY = Camera.getViewPosY();
     	for(int i = -20; i<45; i++){
@@ -98,18 +98,18 @@ public class Screen extends JPanel{
             double y = object.getPosY()-viewPosY;
             object.render(x, y, g, BLOC_SIZE);
             if(object instanceof Dialog){
-            	if(((NPC)object).isTalking()){
-            		talkingNPC = (NPC) object;
+            	if(((Dialog)object).isTalking()){
+            		talkingObj = (Dialog)object;
             	}
             }
             
     	}
-    	db.render(talkingNPC);
+    	db.render(talkingObj);
     	if(db.hasFocus()){
     		db.requestFocusInWindow();
     	}else this.requestFocusInWindow();
-    	//button.repaint();
-		//this.hud.render(g);
+    	
+		this.hud.render(g);
 		
 	}
 	

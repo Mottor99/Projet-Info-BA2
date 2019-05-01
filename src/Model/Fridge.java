@@ -39,10 +39,6 @@ public class Fridge extends BlockUnbreakable implements Activable, Deletable {
 		return this.posY;
 	}
 
-	@Override
-	public void activate() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

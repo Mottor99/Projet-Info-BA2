@@ -15,9 +15,11 @@ import javax.swing.JPanel;
 
 import Controller.Mouse;
 import Model.Camera;
+import Model.Dialog;
 import Model.Entrance;
 import Model.GameObject;
 import Model.Level;
+import Model.NPC;
 import Model.Player;
 import Model.Sprite;
 
@@ -30,6 +32,7 @@ public class Screen extends JPanel{
 	public final int MAP_SIZE = 25;
     private Window window;
     private HUD hud;
+    private DialogBox db;
 
 	private JButton button; 
 	
@@ -57,7 +60,8 @@ public class Screen extends JPanel{
 			public void mouseReleased(MouseEvent arg0) {}
 		});
 
-    	hud = new HUD(this, window);
+    	//hud = new HUD(this, window);
+    	db = new DialogBox();
         /*
         button = new JButton("Test");
         //button.setForeground(Color.DARK_GRAY);
@@ -69,6 +73,7 @@ public class Screen extends JPanel{
         this.add(button, BorderLayout.NORTH);
         */
         //window.setVisible(true);
+    	this.add(db, BorderLayout.SOUTH);
        
 	}
 	
@@ -76,6 +81,7 @@ public class Screen extends JPanel{
 	public void paintComponent(Graphics g){
 		
 		super.paintComponent(g);
+		NPC talkingNPC = null;
 		double viewPosX = Camera.getViewPosX();
     	double viewPosY = Camera.getViewPosY();
     	for(int i = -20; i<45; i++){
@@ -91,11 +97,19 @@ public class Screen extends JPanel{
             double x = object.getPosX()-viewPosX;
             double y = object.getPosY()-viewPosY;
             object.render(x, y, g, BLOC_SIZE);
+            if(object instanceof Dialog){
+            	if(((NPC)object).isTalking()){
+            		talkingNPC = (NPC) object;
+            	}
+            }
             
     	}
-    	this.requestFocusInWindow();
+    	db.render(talkingNPC);
+    	if(db.hasFocus()){
+    		db.requestFocusInWindow();
+    	}else this.requestFocusInWindow();
     	//button.repaint();
-		this.hud.render(g);
+		//this.hud.render(g);
 		
 	}
 	

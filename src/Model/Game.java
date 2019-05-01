@@ -26,7 +26,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     private int size;
     private Time time;
 
-    public Game(Window window) throws Exception {
+    public Game(Window window){
 
     	
         this.window = window;

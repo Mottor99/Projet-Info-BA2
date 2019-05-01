@@ -40,7 +40,7 @@ public class Screen extends JPanel{
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
-        addMouseListener(new MouseListener() {
+        this.addMouseListener(new MouseListener() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				int x = e.getX()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosX());
@@ -73,7 +73,7 @@ public class Screen extends JPanel{
 	}
 	
 	@Override
-	public void paint(Graphics g){
+	public void paintComponent(Graphics g){
 		
 		super.paintComponent(g);
 		double viewPosX = Camera.getViewPosX();
@@ -98,10 +98,7 @@ public class Screen extends JPanel{
 		this.hud.render(g);
 		
 	}
-	@Override
-	public void update(Graphics g){
-		paint(g);
-	}
+	
 	public void redraw(){
 		this.repaint();
 	}

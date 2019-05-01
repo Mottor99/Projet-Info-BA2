@@ -1,14 +1,22 @@
 package Model;
 
 import java.awt.Graphics;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 
 import View.Animation;
 import View.Screen;
 
-public class Player extends Entity implements Animation {
+public class Player extends Entity implements Animation, Serializable {
 
-    int energy = 100;
-    private Thread animation;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int energy = 100;
+	private int hunger = 100;
+	private int bladder = 100;
+    private transient Thread animation;
     
 
     public Player(int x, int y, int maxBomb) {
@@ -27,16 +35,74 @@ public class Player extends Entity implements Animation {
    
 
     
-    public double getEnergy() {
+    public double getBladder() {
+		return bladder/100.0;
+	}
+
+
+
+
+
+	public void setBladder(int bladder) {
+		this.bladder = bladder;
+	}
+
+
+
+
+
+	public double getHunger() {
+		return hunger/100.0;
+	}
+
+
+
+
+
+	public void setHunger(int hunger) {
+		this.hunger = hunger;
+	}
+
+
+
+
+
+	public double getEnergy() {
     	return energy/100.0;
     }
     
 
-	public void tire() {
-		if (energy > 10)
-			energy -= 10;
+	public void setEnergy(int energy) {
+		this.energy = energy;
 	}
 
+
+
+
+
+	public void tire(Game g) {
+		if (energy > 95)
+			energy -= 0.1;
+		else {
+			g.sendPlayerToObject("Bed");
+		}
+	}
+	public void growHunger(Game g) {
+		if (hunger > 20) {
+			hunger -= 0.1;
+		}
+		else {
+			g.sendPlayerToObject("Fridge");
+		}
+	}
+	public void growBladder(Game g) {
+		if (bladder > 20) {
+			bladder -= 0.1;
+		}
+		else {
+			g.sendPlayerToObject("Toilet");
+		}
+	}
 	@Override
 	public void run() {
 		//System.out.println("Player animated");
@@ -81,4 +147,6 @@ public class Player extends Entity implements Animation {
 		
 	}
 	
-}
+	}
+	
+

@@ -2,16 +2,23 @@ package Model;
 
 import View.Window;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
 
 
-public class Game implements DeletableObserver, LevelSwitchObserver {
+public class Game implements DeletableObserver, LevelSwitchObserver, Serializable {
     private ArrayList<GameObject> objects = new ArrayList<GameObject>();
     private ArrayList<Player> players = new ArrayList<Player>();
-    private Player active_player = null;
+    public Player active_player = null;
     private AStarThread t = null;
     private Loop gameLoop;
     private Level currentLevel;
@@ -26,11 +33,17 @@ public class Game implements DeletableObserver, LevelSwitchObserver {
         size = window.getMapSize();
         // Creating one Player at position (1,1)
         Player p = new Player(6, 3, 3);
-        Woman w = new Woman(5, 3);
+        //File fichier =  new File("src/sauvegarde.ser") ;
+        //ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(fichier)) ;
+        //Player p = (Player)ois.readObject() ;
+        //ois.close();
+        
+        Woman w = new Woman(2, 2);
         currentLevel = new Map(this);
         objects.add(p);
         objects.add(w);
         players.add(p);
+        
 
         window.setPlayer(p);
         window.setNPC(w);
@@ -46,25 +59,57 @@ public class Game implements DeletableObserver, LevelSwitchObserver {
         window.setPlayer(p);
         window.setGameObjects(this.getGameObjects());  //draws GameObjects
 
-        time = new Time(1, 0, 0, 100);
+        time = new Time(this, 1, 0, 7, 100);
 
         gameLoop = new Loop(this);
-
+        
+        
+       
+        
        
     }
 
 
-    synchronized public void movePlayer(int x, int y) {
+    synchronized public void movePlayer(int x, int y)  {
     	//System.out.println(objects.size());
     	
 	        
         active_player.rotate(x, y);
         active_player.move(x, y, objects);
-	            
-	        
+         
     	
-        
     }
+    
+    public void sendPlayerToObject(String s) {
+    	boolean moved = false;
+    	switch (s) {
+		case "Bed" : 
+			for(GameObject object : objects) {
+				if (object instanceof Bed && !moved){
+					this.sendPlayer(object.getPosX(), object.getPosY()-1);
+					moved = true;
+					((Bed) object).activate(active_player);
+				}
+			}; break;
+			
+		case "Fridge" : 
+			for(GameObject object : objects) {
+				if (object instanceof Fridge && !moved){
+					this.sendPlayer(object.getPosX(), object.getPosY()-1);
+					moved = true;
+					((Fridge) object).activate(active_player);
+			}
+		}; break;
+		case "Toilet" : 
+			for(GameObject object : objects) {
+				if (object instanceof Toilet && !moved){
+					this.sendPlayer(object.getPosX(), object.getPosY()-1);
+					moved = true;
+					((Toilet) object).activate(active_player);
+				}
+			}; break;
+		}
+    } 
     
         
     
@@ -75,16 +120,27 @@ public class Game implements DeletableObserver, LevelSwitchObserver {
     	window.centerCamera(active_player);
     	
     }
-    public void zoomCamera(int zoom){
+    public void zoomCamera(int zoom) throws IOException{
     	window.zoomCamera(zoom);
+    	//File fichier =  new File("src/sauvegarde.ser") ;
+        //ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(fichier));
+        //oos.writeObject(active_player) ;
+        //oos.close();
     }
     public void lockCamera(){
     	active_player.setFocused(!active_player.isFocused());
     }
 
     public void tirePlayer() {
-    	active_player.tire();
+    	active_player.tire(this);
     	
+    }
+    
+    public void growHunger() {
+    	active_player.growHunger(this);
+    }
+    public void growBladder() {
+    	active_player.growBladder(this);
     }
     public void action() {
         Activable aimedObject = null;
@@ -96,7 +152,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver {
 			}
 		}
 		if(aimedObject != null){
-		    aimedObject.activate();
+		    aimedObject.activate(active_player);
             
 		}
         

@@ -34,7 +34,10 @@ public abstract class Level{
     			switch (line.charAt(i)) {
 				case 'W' : objects.add(new Wall(x, y)); break;
 				case 'C' : objects.add(new Couch(x, y)); break;
+				case 'B' : objects.add(new Bed(x, y)); break;
 				case 'T' : objects.add(new Table(x, y)); break;
+				case 'P' : objects.add(new Toilet(x, y)); break;
+				case 'F' : objects.add(new Fridge(x, y)); break;
 				case 'E' : 
 					Entrance home_entrance = new Entrance(x, y, "home"); 
 					System.out.println("Entrance added to home");

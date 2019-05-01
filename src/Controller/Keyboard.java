@@ -6,6 +6,7 @@ package Controller;
 //import javazoom.jl.player.Player;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 import Model.Game;
 
@@ -96,7 +97,7 @@ public class Keyboard implements KeyListener, Runnable {
         case KeyEvent.VK_Q:
              game.stop();
              break;
-        case KeyEvent.VK_T:
+        case KeyEvent.VK_A:
              game.tirePlayer();
              break;
         case KeyEvent.VK_P:
@@ -104,12 +105,22 @@ public class Keyboard implements KeyListener, Runnable {
              break;
         
         case KeyEvent.VK_Z:
-        	 game.zoomCamera(1);
+        	 try {
+				game.zoomCamera(1);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	 game.centerCamera();
         	 break;
         
         case KeyEvent.VK_X:
-        	game.zoomCamera(-1);
+        	try {
+				game.zoomCamera(-1);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	game.centerCamera();
         	break;
         case KeyEvent.VK_Y:

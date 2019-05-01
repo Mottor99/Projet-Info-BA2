@@ -35,4 +35,10 @@ public class NPC extends Entity implements Activable, Animation {
 		
 	}
 
+	@Override
+	public void activate(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -31,6 +31,9 @@ public class Time {
 			if (min%3==0) {
 				game.growBladder();
 			}
+			if (min%10==0) {
+				game.growHygiene();
+			}
 			counter = 0;
 			
 		}

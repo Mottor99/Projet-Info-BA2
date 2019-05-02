@@ -16,6 +16,7 @@ public class Player extends Entity implements Animation, Serializable {
 	private int energy = 100;
 	private int hunger = 100;
 	private int bladder = 100;
+	private int hygiene = 100;
     private transient Thread animation;
     
 
@@ -35,7 +36,23 @@ public class Player extends Entity implements Animation, Serializable {
    
 
     
-    public double getBladder() {
+    public double getHygiene() {
+		return hygiene/100.0;
+	}
+
+
+
+
+
+	public void setHygiene(int hygiene) {
+		this.hygiene = hygiene;
+	}
+
+
+
+
+
+	public double getBladder() {
 		return bladder/100.0;
 	}
 
@@ -81,7 +98,7 @@ public class Player extends Entity implements Animation, Serializable {
 
 
 	public void tire(Game g) {
-		if (energy > 95)
+		if (energy > 20)
 			energy -= 0.1;
 		else {
 			g.sendPlayerToObject("Bed");
@@ -101,6 +118,14 @@ public class Player extends Entity implements Animation, Serializable {
 		}
 		else {
 			g.sendPlayerToObject("Toilet");
+		}
+	}
+	public void growHygiene(Game g) {
+		if (hygiene > 20) {
+			hygiene -= 0.1;
+		}
+		else {
+			g.sendPlayerToObject("Shower");
 		}
 	}
 	@Override

@@ -108,6 +108,14 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 					((Toilet) object).activate(active_player);
 				}
 			}; break;
+		case "Shower" : 
+			for(GameObject object : objects) {
+				if (object instanceof Shower && !moved){
+					this.sendPlayer(object.getPosX(), object.getPosY()-1);
+					moved = true;
+					((Shower) object).activate(active_player);
+				}
+			}; break;
 		}
     } 
     
@@ -141,6 +149,9 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     }
     public void growBladder() {
     	active_player.growBladder(this);
+    }
+    public void growHygiene() {
+    	active_player.growHygiene(this);
     }
     public void action() {
         Activable aimedObject = null;

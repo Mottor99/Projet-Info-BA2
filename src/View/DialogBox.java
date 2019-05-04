@@ -68,6 +68,7 @@ public class DialogBox extends JPanel{
 			this.hasFocus = false;
 		}
 		
+		
 	}
 	
 	public boolean hasFocus(){

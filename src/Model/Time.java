@@ -23,13 +23,13 @@ public class Time {
 		if (counter > 1000) {
 			min ++;
 			if (min%10==0) {
-				game.tirePlayer();
+				//game.tirePlayer();
 			}
 			if (min%4==0) {
-				game.growHunger();
+				//game.growHunger();
 			}
 			if (min%3==0) {
-				game.growBladder();
+				//game.growBladder();
 			}
 			counter = 0;
 			

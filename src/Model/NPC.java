@@ -2,7 +2,7 @@ package Model;
 
 import View.Animation;
 
-public abstract class NPC extends Entity implements Activable, Animation, Dialog {
+public abstract class NPC extends Entity implements Activable, Animation, Dialog, MenuActivable {
 	protected double hunger;
 	protected double mood;
 	
@@ -16,11 +16,17 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	protected int dialogStage = 0;
 	protected boolean isTalking = false;
 	
+	protected Menu menu;
+	protected boolean isInMenu = false;
+	
 
 	public NPC(int x, int y, int width, int height) {
 		super(x, y, 1, 1);
 		animation = new Thread(this);
 		animation.start();
+		this.menu = new Menu(this);
+		this.menu.addItem(new MenuItem("talk"));
+		this.menu.addItem(new MenuItem("cancel"));
 		
 	}
 
@@ -38,7 +44,7 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 
 	@Override
 	public void activate(Player p) {
-		talk();
+		openMenu();
 	}
 
 	@Override
@@ -62,6 +68,32 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	@Override
 	public String getCurrentSentence() {
 		return currentSentence;
+	}
+	public void openMenu(){
+		this.isInMenu = true;
+	}
+	public void closeMenu(){
+		this.isInMenu = false;
+	}
+	
+	@Override 
+	public void menuAction(String action){
+		switch(action){
+		case "talk": 
+			closeMenu();
+			talk();
+			break;
+		
+		case "cancel":
+			closeMenu();
+			break;
+		}
+	}
+	public boolean isInMenu(){
+		return this.isInMenu;
+	}
+	public Menu getMenu(){
+		return this.menu;
 	}
 
 	

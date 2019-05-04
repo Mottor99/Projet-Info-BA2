@@ -24,8 +24,7 @@ public abstract class Entity extends GameObject implements Directable, Movement{
 	public void move(int X, int Y, ArrayList<GameObject> objects) {
 	    	this.objects = objects;
 	    	if(X!= 0 || Y != 0){
-	    		aX = posX;
-	    		aY = posY;
+	    		
 		    	state=MOVING;
 	    		movX = X;
 	    		movY = Y;
@@ -140,6 +139,7 @@ class EntityMovement implements Runnable{
 						dX += 0.01*x;
 						dY += 0.01*y;
 						if(isFocused)Camera.move(0.01*x, 0.01*y);
+						
 						
 						//System.out.println("MOVING, "+stage);
 						try {

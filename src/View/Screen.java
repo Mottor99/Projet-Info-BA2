@@ -19,6 +19,7 @@ import Model.Dialog;
 import Model.Entrance;
 import Model.GameObject;
 import Model.Level;
+import Model.MenuActivable;
 import Model.NPC;
 import Model.Player;
 import Model.Sprite;
@@ -26,15 +27,15 @@ import Model.Sprite;
 
 public class Screen extends JPanel{
 	private Mouse mouseController = null;
-	private Level level;
 	public static int BLOC_SIZE = 40;
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	public final int MAP_SIZE = 25;
     private Window window;
     private HUD hud;
     private DialogBox db;
+    private MenuPanel menu;
+    private JPanel bottom = new JPanel(new BorderLayout());
 
-	private JButton button; 
 	
 	public Screen(Window window, BorderLayout bl){
 		super(bl);
@@ -62,6 +63,7 @@ public class Screen extends JPanel{
 
     	hud = new HUD(this, window);
     	db = new DialogBox();
+    	menu = new MenuPanel();
         /*
         button = new JButton("Test");
         //button.setForeground(Color.DARK_GRAY);
@@ -73,7 +75,10 @@ public class Screen extends JPanel{
         this.add(button, BorderLayout.NORTH);
         */
         //window.setVisible(true);
-    	this.add(db, BorderLayout.SOUTH);
+    	bottom.add(db, BorderLayout.LINE_START);
+    	bottom.add(menu, BorderLayout.LINE_END);
+    	bottom.setBackground(new Color(0, 0, 0 ,0));
+    	this.add(bottom, BorderLayout.SOUTH);
        
 	}
 	
@@ -82,6 +87,7 @@ public class Screen extends JPanel{
 		
 		super.paintComponent(g);
 		Dialog talkingObj = null;
+		MenuActivable menuObj = null;
 		double viewPosX = Camera.getViewPosX();
     	double viewPosY = Camera.getViewPosY();
     	for(int i = -20; i<45; i++){
@@ -102,14 +108,23 @@ public class Screen extends JPanel{
             		talkingObj = (Dialog)object;
             	}
             }
-            
-    	}
+            if(object instanceof MenuActivable){
+            	if(((MenuActivable)object).isInMenu()){
+            		menuObj = (MenuActivable)object;
+            	}
+            }
+    	} 
     	db.render(talkingObj);
-    	if(db.hasFocus()){
+    	menu.render(menuObj);
+    	if(menu.hasFocus()){
+    		menu.requestFocusInWindow();
+    	}
+    	else if(db.hasFocus()){
     		db.requestFocusInWindow();
     	}else this.requestFocusInWindow();
     	
 		this.hud.render(g);
+		
 		
 	}
 	
@@ -143,4 +158,8 @@ public class Screen extends JPanel{
 	public int getHeight(){
 		return window.getHeight();
 	}
+	
+	
+	
+	
 }

@@ -12,7 +12,8 @@ public class BlockBreakable extends Block implements Deletable, Activable {
         sprite = Sprite.brick;
     }
     
-    @Override
+    
+    /*
 	public void activate(){
         if (lifepoints == 1){
             crush();
@@ -21,7 +22,7 @@ public class BlockBreakable extends Block implements Deletable, Activable {
             lifepoints--;
            
         }
-    }
+    }*/
 
 
     public void crush(){

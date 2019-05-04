@@ -70,6 +70,7 @@ public abstract class Level{
 	public void addObject(GameObject object) {
 		objects.add(object);
 	}
+	
 	public void render(Graphics g){
 		
 	}

@@ -31,7 +31,7 @@ public class HUD {
     	screen = m;
     	window = w;
     	
-        
+        /*
         shopPanel.setFocusable(false);;
 		shopPanel.setOpaque(true);
 		shopPanel.setVisible(false);
@@ -59,11 +59,11 @@ public class HUD {
         	
         });
         
-        screen.add(button, BorderLayout.NORTH);
+        //screen.add(button, BorderLayout.NORTH);
         //System.out.println("Button added");
-        screen.add(shopPanel, BorderLayout.EAST);
+        //screen.add(shopPanel, BorderLayout.EAST);
         //window.setVisible(true);
-        
+        */
     }
     
     
@@ -101,8 +101,8 @@ public class HUD {
         g.drawString("Hygiene", 30, 250);
         g.drawString("Day : " + Time.getDay() + " " + Time.getHour() + ":" + Time.getMin(), 300, 25);
         
-        this.button.repaint();
-        this.shopPanel.repaint();
+        //this.button.repaint();
+        //this.shopPanel.repaint();
         //shopPanel.repaint();
         //window.setVisible(true);
     }

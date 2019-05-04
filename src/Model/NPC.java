@@ -2,12 +2,19 @@ package Model;
 
 import View.Animation;
 
-public class NPC extends Entity implements Activable, Animation {
+public abstract class NPC extends Entity implements Activable, Animation, Dialog {
 	protected double hunger;
 	protected double mood;
+	
 	protected Thread animation;
+	
 	protected int width; 
 	protected int height;
+	
+	protected String[] sentences = {"ooga", "booga", "bye bye"};
+	protected String currentSentence;
+	protected int dialogStage = 0;
+	protected boolean isTalking = false;
 	
 
 	public NPC(int x, int y, int width, int height) {
@@ -30,15 +37,33 @@ public class NPC extends Entity implements Activable, Animation {
 	}
 
 	@Override
-	public void activate() {
-		
-		
+	public void activate(Player p) {
+		talk();
 	}
 
 	@Override
-	public void activate(Player p) {
-		// TODO Auto-generated method stub
+	public void talk() {
+		this.dialogStage = 0;
+		this.currentSentence = this.sentences[this.dialogStage];
+		this.isTalking = true;
 		
 	}
+	@Override
+	public void nextSentence(){
+		if(this.dialogStage<this.sentences.length-1){
+			this.dialogStage++;
+			this.currentSentence = this.sentences[this.dialogStage];	
+		}else this.isTalking = false;
+	}
+	@Override
+	public boolean isTalking() {
+		return isTalking;
+	}
+	@Override
+	public String getCurrentSentence() {
+		return currentSentence;
+	}
+
+	
 
 }

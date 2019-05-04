@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -15,14 +16,18 @@ import javax.swing.JPanel;
 
 import Controller.Mouse;
 import Model.Camera;
+import Model.Dialog;
+import Model.Draggable;
+import Model.DraggableObserver;
 import Model.Entrance;
 import Model.GameObject;
 import Model.Level;
+import Model.NPC;
 import Model.Player;
 import Model.Sprite;
 
 
-public class Screen extends JPanel{
+public class Screen extends JPanel implements DraggableObserver {
 	private Mouse mouseController = null;
 	private Level level;
 	public static int BLOC_SIZE = 40;
@@ -30,6 +35,11 @@ public class Screen extends JPanel{
 	public final int MAP_SIZE = 25;
     private Window window;
     private HUD hud;
+    private DialogBox db;
+    private InventoryBox ibox;
+    private boolean inventoryOpen = false;
+    private int X,Y;
+    private InventoryItem draggedItem = null;
 
 	private JButton button; 
 	
@@ -46,18 +56,46 @@ public class Screen extends JPanel{
 				int x = e.getX()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosX());
 				int y = e.getY()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosY());
 				mouseController.mapEvent(x, y);
+				mouseController.inventory(x, y);
+				if (draggedItem != null){
+				//mouseController.placeObject(draggedItem.getObject());
+					
+					draggedItem = null;
+				}
 			}
 			@Override
 			public void mouseClicked(MouseEvent arg0) {}
 			@Override
-			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent e) {
+				
+			}
 			@Override
 			public void mouseExited(MouseEvent arg0) {}
 			@Override
-			public void mouseReleased(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent e) {
+				
+			}
 		});
+        this.addMouseMotionListener(new MouseMotionListener() {
 
+			@Override
+			public void mouseDragged(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				//draggedObject.setPosX(e.getX()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosX()))
+				//draggedObject.setPosY(e.getY()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosY()))
+			}
+
+			
+        });
+        
     	hud = new HUD(this, window);
+    	db = new DialogBox();
+    	ibox = new InventoryBox();
         /*
         button = new JButton("Test");
         //button.setForeground(Color.DARK_GRAY);
@@ -69,6 +107,8 @@ public class Screen extends JPanel{
         this.add(button, BorderLayout.NORTH);
         */
         //window.setVisible(true);
+    	this.add(db, BorderLayout.SOUTH);
+    	this.add(ibox, BorderLayout.EAST);
        
 	}
 	
@@ -76,6 +116,7 @@ public class Screen extends JPanel{
 	public void paintComponent(Graphics g){
 		
 		super.paintComponent(g);
+		Dialog talkingObj = null;
 		double viewPosX = Camera.getViewPosX();
     	double viewPosY = Camera.getViewPosY();
     	for(int i = -20; i<45; i++){
@@ -91,10 +132,22 @@ public class Screen extends JPanel{
             double x = object.getPosX()-viewPosX;
             double y = object.getPosY()-viewPosY;
             object.render(x, y, g, BLOC_SIZE);
+            if(object instanceof Dialog){
+            	if(((Dialog)object).isTalking()){
+            		talkingObj = (Dialog)object;
+            	}
+            }
+            if(draggedItem != null) {
+            	draggedItem.getObject().render(draggedItem.getObject().getPosX() - viewPosX, draggedItem.getObject().getPosY() - viewPosY, g, BLOC_SIZE);
+            }
             
     	}
-    	this.requestFocusInWindow();
-    	//button.repaint();
+    	//ibox.render(inventoryOpen);
+    	db.render(talkingObj);
+    	if(db.hasFocus()){
+    		db.requestFocusInWindow();
+    	}else this.requestFocusInWindow();
+    	
 		this.hud.render(g);
 		
 	}
@@ -128,5 +181,28 @@ public class Screen extends JPanel{
 	@Override
 	public int getHeight(){
 		return window.getHeight();
+	}
+	public int getX(MouseEvent e) {
+		return e.getX()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosX());
+	}
+	public int getY(MouseEvent e) {
+		return e.getY()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosY());
+	}
+	public void setDraggedObject(InventoryItem ii) {
+		draggedItem = ii;
+	}
+	public void showInventory() {
+		ibox.switchVisibility();
+	}
+
+	public void setPlayer(Player p) {
+		ibox.setPlayer(p, this);
+		
+	}
+
+	@Override
+	public void setDraggedItem(Draggable d) {
+		this.draggedItem = draggedItem;
+		
 	}
 }

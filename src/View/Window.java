@@ -58,6 +58,7 @@ public class Window extends JFrame {
 	
 	public void setPlayer(Player p) {
 		HUD.setPlayer(p);
+		this.screen.setPlayer(p);
 	}
 	public void setNPC(NPC npc) {
 		HUD.setNPC(npc);
@@ -95,5 +96,7 @@ public class Window extends JFrame {
 	public void zoomCamera(int zoom){
 		this.screen.zoom(zoom);
 	}
-	
+	public void showInventory() {
+		this.screen.showInventory();
+	}
 }

@@ -1,5 +1,6 @@
 package Model;
 
+import View.InventoryBox;
 import View.Window;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -81,45 +82,49 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     }
     
     public void sendPlayerToObject(String s) {
-    	boolean moved = false;
+    	CopyOnWriteArrayList<GameObject> copy = new CopyOnWriteArrayList<GameObject>();
+    	copy.addAll(objects);
     	switch (s) {
 		case "Bed" : 
-			for(GameObject object : objects) {
-				if (object instanceof Bed && !moved){
+			for(GameObject object : copy) {
+				if (object instanceof Bed){
 					this.sendPlayer(object.getPosX(), object.getPosY()-1);
-					moved = true;
 					((Bed) object).activate(active_player);
+					break;
 				}
 			}; break;
 			
 		case "Fridge" : 
-			for(GameObject object : objects) {
-				if (object instanceof Fridge && !moved){
+			for(GameObject object : copy) {
+				if (object instanceof Fridge){
 					this.sendPlayer(object.getPosX(), object.getPosY()-1);
-					moved = true;
 					((Fridge) object).activate(active_player);
+					break;
 			}
 		}; break;
 		case "Toilet" : 
-			for(GameObject object : objects) {
-				if (object instanceof Toilet && !moved){
+			for(GameObject object : copy) {
+				if (object instanceof Toilet){
 					this.sendPlayer(object.getPosX(), object.getPosY()-1);
-					moved = true;
 					((Toilet) object).activate(active_player);
+					break;
 				}
 			}; break;
 		case "Shower" : 
 			for(GameObject object : objects) {
-				if (object instanceof Shower && !moved){
+				if (object instanceof Shower){
 					this.sendPlayer(object.getPosX(), object.getPosY()-1);
-					moved = true;
-					((Shower) object).activate(active_player);
+					((Shower) object).activate(active_player); break;
 				}
 			}; break;
 		}
     } 
     
-        
+    public void inventory(int x, int y) {
+    	if (x == active_player.getPosX() && y == active_player.getPosY()) {
+    		window.showInventory();
+    	}
+    }
     
     public void moveCamera(int x, int y){
     	Camera.move(x, y);
@@ -248,6 +253,9 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 		}
 		
 		
+	}
+	public void placeObject(GameObject o) {
+		currentLevel.addObject(o);
 	}
 
 }

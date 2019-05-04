@@ -3,11 +3,12 @@ package Model;
 import java.awt.Graphics;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import View.Animation;
 import View.Screen;
 
-public class Player extends Entity implements Animation, Serializable {
+public class Player extends Entity implements Animation, Serializable{
 
     /**
 	 * 
@@ -17,7 +18,11 @@ public class Player extends Entity implements Animation, Serializable {
 	private int hunger = 100;
 	private int bladder = 100;
 	private int hygiene = 100;
-    private transient Thread animation;
+	private Couch c;
+	private ArrayList<GameObject> inventory = new ArrayList<GameObject>();
+    
+
+	private transient Thread animation;
     
 
     public Player(int x, int y, int maxBomb) {
@@ -33,7 +38,10 @@ public class Player extends Entity implements Animation, Serializable {
 
    // //////////////////////////////////////////////////////////////////////////////////////
 
-   
+    public ArrayList<GameObject> getInventory() {
+    	inventory.add(c);
+		return inventory;
+	}
 
     
     public double getHygiene() {
@@ -98,7 +106,8 @@ public class Player extends Entity implements Animation, Serializable {
 
 
 	public void tire(Game g) {
-		if (energy > 20)
+
+		if (energy > 10)
 			energy -= 0.1;
 		else {
 			g.sendPlayerToObject("Bed");
@@ -128,6 +137,10 @@ public class Player extends Entity implements Animation, Serializable {
 			g.sendPlayerToObject("Shower");
 		}
 	}
+	
+	
+	
+	
 	@Override
 	public void run() {
 		//System.out.println("Player animated");

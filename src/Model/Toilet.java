@@ -39,10 +39,6 @@ public class Toilet extends BlockUnbreakable implements Deletable, Activable {
 		return this.posY;
 	}
 
-	@Override
-	public void activate() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

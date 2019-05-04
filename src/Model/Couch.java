@@ -6,5 +6,5 @@ public class Couch extends BlockUnbreakable{
 		super(X, Y, 2, 1);
 		sprite = Sprite.couch;
 	}
-
+	
 }

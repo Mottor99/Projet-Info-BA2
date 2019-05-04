@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 
 public class Sprite {
 	private BufferedImage img = null;
@@ -37,6 +38,11 @@ public class Sprite {
 	
 	public BufferedImage getImage() {
 		return this.img;
+	}
+
+	public String getPath() {
+		// TODO Auto-generated method stub
+		return this.path;
 	}
 	
 }

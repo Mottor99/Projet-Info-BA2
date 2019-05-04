@@ -37,6 +37,7 @@ public abstract class Level{
 				case 'B' : objects.add(new Bed(x, y)); break;
 				case 'T' : objects.add(new Table(x, y)); break;
 				case 'P' : objects.add(new Toilet(x, y)); break;
+				case 'S' : objects.add(new Shower(x,y)); break;
 				case 'F' : objects.add(new Fridge(x, y)); break;
 				case 'E' : 
 					Entrance home_entrance = new Entrance(x, y, "home"); 
@@ -69,6 +70,7 @@ public abstract class Level{
 	public void addObject(GameObject object) {
 		objects.add(object);
 	}
+	
 	public void render(Graphics g){
 		
 	}

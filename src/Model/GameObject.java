@@ -2,6 +2,8 @@ package Model;
 
 import java.awt.Graphics;
 
+import javax.swing.Icon;
+
 public abstract class GameObject implements Comparable<GameObject>{
     protected int posX;
     protected int posY;
@@ -35,12 +37,18 @@ public abstract class GameObject implements Comparable<GameObject>{
 	public int getPosX() {
         return this.posX;
     }
-
-    public int getPosY() {
+	
+    public void setPosX(int posX) {
+		this.posX = posX;
+	}
+	
+	public int getPosY() {
         return this.posY;
     }
 
-
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
     public boolean isAtPosition(int x, int y) {
         return (this.posX <= x && x <= (this.posX + width - 1)) && (this.posY <= y && y <= (this.posY + height - 1));
     }
@@ -56,4 +64,12 @@ public abstract class GameObject implements Comparable<GameObject>{
     }
 
     public abstract boolean isObstacle();
+	//public String getSprite() {
+		//return this.sprite;
+	//}
+	public Sprite getSprite() {
+		
+		return this.sprite;
+	}
+	
 }

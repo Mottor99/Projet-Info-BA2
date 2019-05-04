@@ -1,5 +1,6 @@
 package Model;
 
+import View.InventoryBox;
 import View.Window;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -109,10 +110,21 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 					break;
 				}
 			}; break;
+		case "Shower" : 
+			for(GameObject object : objects) {
+				if (object instanceof Shower){
+					this.sendPlayer(object.getPosX(), object.getPosY()-1);
+					((Shower) object).activate(active_player); break;
+				}
+			}; break;
 		}
     } 
     
-        
+    public void inventory(int x, int y) {
+    	if (x == active_player.getPosX() && y == active_player.getPosY()) {
+    		window.showInventory();
+    	}
+    }
     
     public void moveCamera(int x, int y){
     	Camera.move(x, y);
@@ -142,6 +154,9 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     }
     public void growBladder() {
     	active_player.growBladder(this);
+    }
+    public void growHygiene() {
+    	active_player.growHygiene(this);
     }
     public void action() {
         Activable aimedObject = null;
@@ -238,6 +253,9 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 		}
 		
 		
+	}
+	public void placeObject(GameObject o) {
+		currentLevel.addObject(o);
 	}
 
 }

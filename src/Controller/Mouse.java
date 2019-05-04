@@ -14,4 +14,14 @@ public class Mouse {
 			game.sendPlayer(x, y);
 		}
 	}
+	public void inventory(int x, int y) {
+		synchronized(game) {
+			game.inventory(x, y);
+		}
+	}
+
+	/*public void placeObject(GameObject o) {
+		game.placeObject(GameObject o);
+		
+	}*/
 }

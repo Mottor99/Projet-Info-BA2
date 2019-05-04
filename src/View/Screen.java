@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -16,6 +17,8 @@ import javax.swing.JPanel;
 import Controller.Mouse;
 import Model.Camera;
 import Model.Dialog;
+import Model.Draggable;
+import Model.DraggableObserver;
 import Model.Entrance;
 import Model.GameObject;
 import Model.Level;
@@ -25,7 +28,7 @@ import Model.Player;
 import Model.Sprite;
 
 
-public class Screen extends JPanel{
+public class Screen extends JPanel implements DraggableObserver {
 	private Mouse mouseController = null;
 	public static int BLOC_SIZE = 40;
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
@@ -33,8 +36,14 @@ public class Screen extends JPanel{
     private Window window;
     private HUD hud;
     private DialogBox db;
+
     private MenuPanel menu;
     private JPanel bottom = new JPanel(new BorderLayout());
+
+    private InventoryBox ibox;
+    private boolean inventoryOpen = false;
+    private int X,Y;
+    private InventoryItem draggedItem = null;
 
 	
 	public Screen(Window window, BorderLayout bl){
@@ -50,20 +59,48 @@ public class Screen extends JPanel{
 				int x = e.getX()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosX());
 				int y = e.getY()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosY());
 				mouseController.mapEvent(x, y);
+				mouseController.inventory(x, y);
+				if (draggedItem != null){
+				//mouseController.placeObject(draggedItem.getObject());
+					
+					draggedItem = null;
+				}
 			}
 			@Override
 			public void mouseClicked(MouseEvent arg0) {}
 			@Override
-			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent e) {
+				
+			}
 			@Override
 			public void mouseExited(MouseEvent arg0) {}
 			@Override
-			public void mouseReleased(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent e) {
+				
+			}
 		});
+        this.addMouseMotionListener(new MouseMotionListener() {
 
+			@Override
+			public void mouseDragged(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				//draggedObject.setPosX(e.getX()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosX()))
+				//draggedObject.setPosY(e.getY()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosY()))
+			}
+
+			
+        });
+        
     	hud = new HUD(this, window);
     	db = new DialogBox();
     	menu = new MenuPanel();
+
+    	ibox = new InventoryBox();
         /*
         button = new JButton("Test");
         //button.setForeground(Color.DARK_GRAY);
@@ -75,10 +112,12 @@ public class Screen extends JPanel{
         this.add(button, BorderLayout.NORTH);
         */
         //window.setVisible(true);
+
     	bottom.add(db, BorderLayout.LINE_START);
     	bottom.add(menu, BorderLayout.LINE_END);
     	bottom.setBackground(new Color(0, 0, 0 ,0));
     	this.add(bottom, BorderLayout.SOUTH);
+    	this.add(ibox, BorderLayout.EAST);
        
 	}
 	
@@ -114,6 +153,13 @@ public class Screen extends JPanel{
             	}
             }
     	} 
+
+        if(draggedItem != null) {
+        	draggedItem.getObject().render(draggedItem.getObject().getPosX() - viewPosX, draggedItem.getObject().getPosY() - viewPosY, g, BLOC_SIZE);
+        }
+            
+    	
+    	//ibox.render(inventoryOpen);
     	db.render(talkingObj);
     	menu.render(menuObj);
     	if(menu.hasFocus()){
@@ -158,8 +204,28 @@ public class Screen extends JPanel{
 	public int getHeight(){
 		return window.getHeight();
 	}
-	
-	
-	
-	
+
+	public int getX(MouseEvent e) {
+		return e.getX()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosX());
+	}
+	public int getY(MouseEvent e) {
+		return e.getY()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosY());
+	}
+	public void setDraggedObject(InventoryItem ii) {
+		draggedItem = ii;
+	}
+	public void showInventory() {
+		ibox.switchVisibility();
+	}
+
+	public void setPlayer(Player p) {
+		ibox.setPlayer(p, this);
+		
+	}
+
+	@Override
+	public void setDraggedItem(Draggable d) {
+		this.draggedItem = (InventoryItem) d;
+		
+	}
 }

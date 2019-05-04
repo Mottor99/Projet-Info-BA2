@@ -3,11 +3,12 @@ package Model;
 import java.awt.Graphics;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import View.Animation;
 import View.Screen;
 
-public class Player extends Entity implements Animation, Serializable {
+public class Player extends Entity implements Animation, Serializable{
 
     /**
 	 * 
@@ -16,7 +17,12 @@ public class Player extends Entity implements Animation, Serializable {
 	private int energy = 100;
 	private int hunger = 100;
 	private int bladder = 100;
-    private transient Thread animation;
+	private int hygiene = 100;
+	private Couch c;
+	private ArrayList<GameObject> inventory = new ArrayList<GameObject>();
+    
+
+	private transient Thread animation;
     
 
     public Player(int x, int y, int maxBomb) {
@@ -32,10 +38,29 @@ public class Player extends Entity implements Animation, Serializable {
 
    // //////////////////////////////////////////////////////////////////////////////////////
 
-   
+    public ArrayList<GameObject> getInventory() {
+    	inventory.add(c);
+		return inventory;
+	}
 
     
-    public double getBladder() {
+    public double getHygiene() {
+		return hygiene/100.0;
+	}
+
+
+
+
+
+	public void setHygiene(int hygiene) {
+		this.hygiene = hygiene;
+	}
+
+
+
+
+
+	public double getBladder() {
 		return bladder/100.0;
 	}
 
@@ -81,6 +106,7 @@ public class Player extends Entity implements Animation, Serializable {
 
 
 	public void tire(Game g) {
+
 		if (energy > 10)
 			energy -= 0.1;
 		else {
@@ -103,6 +129,18 @@ public class Player extends Entity implements Animation, Serializable {
 			g.sendPlayerToObject("Toilet");
 		}
 	}
+	public void growHygiene(Game g) {
+		if (hygiene > 20) {
+			hygiene -= 0.1;
+		}
+		else {
+			g.sendPlayerToObject("Shower");
+		}
+	}
+	
+	
+	
+	
 	@Override
 	public void run() {
 		//System.out.println("Player animated");

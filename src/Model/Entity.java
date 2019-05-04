@@ -24,7 +24,7 @@ public abstract class Entity extends GameObject implements Directable, Movement{
 	public void move(int X, int Y, ArrayList<GameObject> objects) {
 	    	this.objects = objects;
 	    	if(X!= 0 || Y != 0){
-	    		
+
 		    	state=MOVING;
 	    		movX = X;
 	    		movY = Y;

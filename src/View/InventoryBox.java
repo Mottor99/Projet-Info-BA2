@@ -40,7 +40,7 @@ public class InventoryBox extends JPanel implements DeletableObserver{
 	public InventoryBox(){
 		//int colonnes = 2;
 		//int lignes = 10;
-		this.setLayout(new BorderLayout());
+		this.setLayout(new GridLayout());
 		this.setPreferredSize(new Dimension(200, 100));
 		this.setVisible(false);
 		this.setFocusable(true);
@@ -195,7 +195,9 @@ public class InventoryBox extends JPanel implements DeletableObserver{
 
 	@Override
 	public void delete(Deletable d, CopyOnWriteArrayList<GameObject> loot) {
-		inventory.remove(d);
+		items.remove(d);
+		this.remove((InventoryItem)d); 
+		this.repaint();
 		
 	}
 }

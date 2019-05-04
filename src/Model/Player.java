@@ -18,7 +18,6 @@ public class Player extends Entity implements Animation, Serializable{
 	private int hunger = 100;
 	private int bladder = 100;
 	private int hygiene = 100;
-	private Couch c;
 	private ArrayList<GameObject> inventory = new ArrayList<GameObject>();
     
 
@@ -30,6 +29,8 @@ public class Player extends Entity implements Animation, Serializable{
         sprite = Sprite.player;
         animation = new Thread(this);
         animation.start();
+        inventory.add(new Couch(1, 1));
+        inventory.add(new Couch(5,5));
     }
 
    
@@ -39,7 +40,7 @@ public class Player extends Entity implements Animation, Serializable{
    // //////////////////////////////////////////////////////////////////////////////////////
 
     public ArrayList<GameObject> getInventory() {
-    	inventory.add(c);
+    	
 		return inventory;
 	}
 

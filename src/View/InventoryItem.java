@@ -18,12 +18,13 @@ public class InventoryItem extends JButton implements Deletable, Draggable {
 	DraggableObserver draO;
 	DeletableObserver delO;
 	public InventoryItem(GameObject o) {
+		this.selectedObject = o;
 		this.setIcon(new ImageIcon(o.getSprite().getPath()));
 		this.addActionListener(new ActionListener(){
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				selectedObject = o;
+			
 				//screen.setDraggedObject(selectedObject);
 				notifyDraggableObserver();
 				

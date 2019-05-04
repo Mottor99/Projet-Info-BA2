@@ -58,11 +58,11 @@ public class Screen extends JPanel implements DraggableObserver {
 			public void mousePressed(MouseEvent e) {
 				int x = e.getX()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosX());
 				int y = e.getY()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosY());
-				mouseController.mapEvent(x, y);
+				//mouseController.mapEvent(x, y);
 				mouseController.inventory(x, y);
 				if (draggedItem != null){
-				//mouseController.placeObject(draggedItem.getObject());
-					
+				mouseController.placeObject(draggedItem.getObject());
+					draggedItem.notifyDeletableObserver();
 					draggedItem = null;
 				}
 			}
@@ -89,8 +89,10 @@ public class Screen extends JPanel implements DraggableObserver {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				//draggedObject.setPosX(e.getX()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosX()))
-				//draggedObject.setPosY(e.getY()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosY()))
+				if(draggedItem!=null){
+					draggedItem.getObject().setPosX(e.getX()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosX()));
+					draggedItem.getObject().setPosY(e.getY()/getBLOC_SIZE() + (int)Math.round(Camera.getViewPosY()));
+				}
 			}
 
 			

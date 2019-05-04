@@ -32,7 +32,7 @@ public class Time {
 				//game.growBladder();
 			}
 			if (min%10==0) {
-				game.growHygiene();
+				//game.growHygiene();
 			}
 			counter = 0;
 			

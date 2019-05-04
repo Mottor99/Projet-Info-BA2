@@ -46,17 +46,12 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         players.add(p);
         
 
-        window.setPlayer(p);
         window.setNPC(w);
 
         active_player = p;
         Camera.center(active_player, window.getWidth(), window.getHeight());
         
 
-        // Map building
-
-        //this.drawMap();
-        
         window.setPlayer(p);
         window.setGameObjects(this.getGameObjects());  //draws GameObjects
 
@@ -121,7 +116,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     } 
     
     public void inventory(int x, int y) {
-    	if (x == active_player.getPosX() && y == active_player.getPosY()) {
+    	if (active_player.isAtPosition(x, y)) {
     		window.showInventory();
     	}
     }

@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Game;
+import Model.GameObject;
 
 public class Mouse {
     private Game game;
@@ -20,8 +21,8 @@ public class Mouse {
 		}
 	}
 
-	/*public void placeObject(GameObject o) {
-		game.placeObject(GameObject o);
+	public void placeObject(GameObject o) {
+		game.placeObject(o);
 		
-	}*/
+	}
 }

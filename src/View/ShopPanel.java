@@ -6,17 +6,20 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-
+import Model.Dialog;
+import Model.GameObject;
+import Model.Sellable;
 import Model.Shop;
+import Model.ShopCounter;
 
 public class ShopPanel extends JPanel{
-	boolean isOpen = false;
+	boolean hasFocus = false;
 	private Shop shop;
 	
 	public ShopPanel(){
 		
-		this.setLayout(new GridLayout());
-		this.setPreferredSize(new Dimension(200, 100));
+		this.setLayout(new GridLayout(10, 2));
+		this.setPreferredSize(new Dimension(300, 100));
 		this.setVisible(false);
 		this.setFocusable(true);
 		this.setOpaque(true);
@@ -24,13 +27,32 @@ public class ShopPanel extends JPanel{
 		
 	}
 	
-	
+	public void buy(GameObject item){
+		this.shop.buyItem(item);
+	}
 	public void setShop(Shop shop){
 		this.shop = shop;
+		for(GameObject item : this.shop.getItems()){
+			this.add(new ShopItem(item, this));
+		}
 	}
-	public void switchVisibility() {
-		this.isOpen = !this.isOpen;
-		this.setVisible(isOpen);
+	public void render(ShopCounter object){
+		if(object!=null){
+			
+			this.setShop(object.getShop());
+			this.setVisible(true);
+			this.hasFocus = true;
+			this.repaint();
+		}
+		else{
+			this.setVisible(false);
+			this.hasFocus = false;
+		}
+		
+		
+	}
+	public boolean hasFocus(){
+		return this.hasFocus;
 	}
 
 

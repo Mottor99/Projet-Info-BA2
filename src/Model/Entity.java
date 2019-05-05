@@ -135,16 +135,16 @@ class EntityMovement implements Runnable{
 				if(!obstacle){
 					aX = nextX;
 					aY = nextY;
-					for(int i = 0; i<100; i++){
-						dX += 0.01*x;
-						dY += 0.01*y;
-						if(isFocused)Camera.move(0.01*x, 0.01*y);
+					for(int i = 0; i<50; i++){
+						dX += 0.02*x;
+						dY += 0.02*y;
+						if(isFocused)Camera.move(0.02*x, 0.02*y);
 						
 						
 						//System.out.println("MOVING, "+stage);
 						try {
 							
-							Thread.sleep(1);
+							Thread.sleep(3);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

@@ -4,7 +4,7 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable {
 
 	public Bed(int x, int y) {
 		super(x, y, 2, 2);
-		sprite = Sprite.couch;
+		sprite = Sprite.bed;
 		
 	}
 

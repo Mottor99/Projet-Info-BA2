@@ -51,7 +51,7 @@ public class Computer extends BlockUnbreakable implements Activable, Deletable, 
 	}
 	
 	public void work() {
-		player.isWorking();
+		player.startWorking();
 		
 	}
 	public void stopWorking() {

@@ -1,13 +1,9 @@
 package Model;
 
-import java.awt.Graphics;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import Model.Entity.EntityMovement;
 import View.Animation;
-import View.Screen;
 
 public class Player extends Entity implements Animation, Serializable{
 
@@ -19,7 +15,7 @@ public class Player extends Entity implements Animation, Serializable{
 	private int hunger = 100;
 	private int bladder = 100;
 	private int hygiene = 100;
-	private int money = 0;
+	private int money = 500;
 	private ArrayList<GameObject> inventory = new ArrayList<GameObject>();
     
 
@@ -45,22 +41,21 @@ public class Player extends Entity implements Animation, Serializable{
     public int getMoney() {
 		return money;
 	}
-
-
-
-
-
-	public void setMoney(int money) {
+    public void setMoney(int money) {
 		this.money = money;
 	}
-
-
-
-
+    public void pay(int amount) throws RuntimeException{
+    	if(this.getMoney()>= amount){
+    		this.money -= amount;
+    	}else throw new RuntimeException("You don't have enough money !");
+    }
 
 	public ArrayList<GameObject> getInventory() {
     	
 		return inventory;
+	}
+	public void addToInventory(GameObject item){
+		this.inventory.add(item);
 	}
 
     
@@ -68,25 +63,14 @@ public class Player extends Entity implements Animation, Serializable{
 		return hygiene/100.0;
 	}
 
-
-
-
-
 	public void setHygiene(int hygiene) {
 		this.hygiene = hygiene;
 	}
 
 
-
-
-
 	public double getBladder() {
 		return bladder/100.0;
 	}
-
-
-
-
 
 	public void setBladder(int bladder) {
 		this.bladder = bladder;
@@ -231,7 +215,7 @@ public class Player extends Entity implements Animation, Serializable{
 	}
 
 
-	public void isWorking() {
+	public void startWorking() {
 		isWorking = true;
 	}
 	public void stopWorking() {
@@ -240,10 +224,16 @@ public class Player extends Entity implements Animation, Serializable{
 	
 	public void moreMoney(Game game) {
 		if (this.isWorking) {
-			setMoney(getMoney() + 1);
+			this.money += 1;
 		}
 	}
+
+
+
+
+
 	
-	}
+	
+}
 	
 

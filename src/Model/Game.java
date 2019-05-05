@@ -27,6 +27,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     private int size;
     private Time time;
 
+
     public Game(Window window){
 
     	
@@ -113,7 +114,15 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 				}
 			}; break;
 		}
-    } 
+    }
+    /*public void sendPlayerToObject(Class o) {
+    	CopyOnWriteArrayList<GameObject> copy = new CopyOnWriteArrayList<GameObject>();
+    	copy.addAll(objects);
+    	for(GameObject object : copy) {
+    		this.sendPlayer(object.getPosX(), object.getPosY());
+    		(Class object).activate(active_player);
+    	}
+    }*/
     
     public void inventory(int x, int y) {
     	if (active_player.isAtPosition(x, y)) {
@@ -222,6 +231,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 	
 	public void updateTime() {
 		time.update();
+		
 	}
 
 
@@ -251,6 +261,11 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 	}
 	public void placeObject(GameObject o) {
 		currentLevel.addObject(o);
+	}
+
+	
+	public void moreMoney() {
+		active_player.moreMoney(this);		
 	}
 
 }

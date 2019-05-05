@@ -100,6 +100,7 @@ public class HUD {
         g.drawString("Bladder", 30, 175);
         g.drawString("Hygiene", 30, 250);
         g.drawString("Day : " + Time.getDay() + " " + Time.getHour() + ":" + Time.getMin(), 300, 25);
+        g.drawString("Money : " + p.getMoney() + " $ilex", 500, 25);
         
         //this.button.repaint();
         //this.shopPanel.repaint();

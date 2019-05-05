@@ -41,7 +41,7 @@ public class InventoryBox extends JPanel implements DeletableObserver{
 		//int colonnes = 2;
 		//int lignes = 10;
 		this.setLayout(new GridLayout());
-		this.setPreferredSize(new Dimension(200, 100));
+		this.setPreferredSize(new Dimension(300, 100));
 		this.setVisible(false);
 		this.setFocusable(true);
 		this.setOpaque(true);
@@ -164,9 +164,9 @@ public class InventoryBox extends JPanel implements DeletableObserver{
 			
 		});*/
 		
-		panel.setForeground(Color.LIGHT_GRAY);
+		//panel.setForeground(Color.LIGHT_GRAY);
 		
-		this.add(panel, BorderLayout.LINE_START);
+		//this.add(panel, BorderLayout.LINE_START);
 	}
 	
 	

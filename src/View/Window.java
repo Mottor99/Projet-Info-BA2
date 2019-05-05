@@ -64,7 +64,7 @@ public class Window extends JFrame {
 		HUD.setNPC(npc);
 	}
 	
-	@Override
+	
 	public int getHeight() {
 		return height;
 	}
@@ -77,6 +77,7 @@ public class Window extends JFrame {
 	public int getWidth() {
 		return width;
 	}
+	
 
 	public void setWidth(int width) {
 		this.width = width;

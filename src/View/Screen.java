@@ -13,6 +13,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import Controller.Mouse;
 import Model.Camera;
@@ -41,8 +42,6 @@ public class Screen extends JPanel implements DraggableObserver {
     private JPanel bottom = new JPanel(new BorderLayout());
 
     private InventoryBox ibox;
-    private boolean inventoryOpen = false;
-    private int X,Y;
     private InventoryItem draggedItem = null;
 
 	
@@ -97,27 +96,15 @@ public class Screen extends JPanel implements DraggableObserver {
 
 			
         });
-        
     	hud = new HUD(this, window);
     	db = new DialogBox();
     	menu = new MenuPanel();
 
     	ibox = new InventoryBox();
-        /*
-        button = new JButton("Test");
-        //button.setForeground(Color.DARK_GRAY);
-        button.setFocusable(false);
-        button.setOpaque(true);
-        button.setBackground(Color.GRAY);
-        button.setVisible(true);
-        button.setPreferredSize(new Dimension(200,200));
-        this.add(button, BorderLayout.NORTH);
-        */
-        //window.setVisible(true);
 
     	bottom.add(db, BorderLayout.LINE_START);
     	bottom.add(menu, BorderLayout.LINE_END);
-    	bottom.setBackground(new Color(0, 0, 0 ,0));
+    	bottom.setOpaque(false);
     	this.add(bottom, BorderLayout.SOUTH);
     	this.add(ibox, BorderLayout.EAST);
        

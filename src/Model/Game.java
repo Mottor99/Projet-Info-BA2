@@ -67,13 +67,9 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 
 
     synchronized public void movePlayer(int x, int y)  {
-    	//System.out.println(objects.size());
-    	
-	        
+    	    
         active_player.rotate(x, y);
         active_player.move(x, y, objects);
-         
-    	
     }
     
     public void sendPlayerToObject(String s) {

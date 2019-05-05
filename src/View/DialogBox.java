@@ -3,6 +3,7 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -58,10 +59,12 @@ public class DialogBox extends JPanel{
 	}
 	public void render(Dialog object){
 		if(object!=null){
+			
 			this.object = object;
 			this.label.setText(object.getCurrentSentence());
 			this.setVisible(true);
 			this.hasFocus = true;
+			this.repaint();
 		}
 		else{
 			this.setVisible(false);
@@ -69,6 +72,9 @@ public class DialogBox extends JPanel{
 		}
 		
 		
+	}
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
 	}
 	
 	public boolean hasFocus(){

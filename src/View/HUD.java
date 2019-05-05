@@ -99,7 +99,7 @@ public class HUD {
         g.drawString("Hunger", 30, 100);
         g.drawString("Bladder", 30, 175);
         g.drawString("Hygiene", 30, 250);
-        g.drawString("Day : " + Time.getDay() + " " + Time.getHour() + ":" + Time.getMin(), 300, 25);
+        g.drawString("Day " + Time.getDay() + " - " + Time.getHour() + ":" + Time.getMin(), 300, 25);
         
         //this.button.repaint();
         //this.shopPanel.repaint();

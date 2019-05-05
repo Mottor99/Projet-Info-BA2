@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.JPanel;
@@ -26,6 +28,7 @@ public class InventoryBox extends JPanel implements DeletableObserver{
 		layout.setVgap(5);
 		this.setBorder(new EmptyBorder(5, 5 , 5, 5));
 		this.setLayout(layout);
+
 		this.setPreferredSize(new Dimension(300, 100));
 		this.setVisible(false);
 		this.setFocusable(true);

@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import Model.Entity.EntityMovement;
 import View.Animation;
 import View.Screen;
 
@@ -18,10 +19,12 @@ public class Player extends Entity implements Animation, Serializable{
 	private int hunger = 100;
 	private int bladder = 100;
 	private int hygiene = 100;
+	private int money = 0;
 	private ArrayList<GameObject> inventory = new ArrayList<GameObject>();
     
 
-	private transient Thread animation;
+	private Thread animation;
+	public boolean isWorking;
     
 
     public Player(int x, int y, int maxBomb) {
@@ -39,7 +42,23 @@ public class Player extends Entity implements Animation, Serializable{
 
    // //////////////////////////////////////////////////////////////////////////////////////
 
-    public ArrayList<GameObject> getInventory() {
+    public int getMoney() {
+		return money;
+	}
+
+
+
+
+
+	public void setMoney(int money) {
+		this.money = money;
+	}
+
+
+
+
+
+	public ArrayList<GameObject> getInventory() {
     	
 		return inventory;
 	}
@@ -112,6 +131,7 @@ public class Player extends Entity implements Animation, Serializable{
 			energy -= 0.1;
 		else {
 			g.sendPlayerToObject("Bed");
+			//g.sendPlayerToObject(Bed.class);
 		}
 	}
 	public void growHunger(Game g) {
@@ -120,6 +140,7 @@ public class Player extends Entity implements Animation, Serializable{
 		}
 		else {
 			g.sendPlayerToObject("Fridge");
+			//g.sendPlayerToObject(Fridge.class);
 		}
 	}
 	public void growBladder(Game g) {
@@ -128,6 +149,7 @@ public class Player extends Entity implements Animation, Serializable{
 		}
 		else {
 			g.sendPlayerToObject("Toilet");
+			//g.sendPlayerToObject(Toilet.class);
 		}
 	}
 	public void growHygiene(Game g) {
@@ -136,11 +158,33 @@ public class Player extends Entity implements Animation, Serializable{
 		}
 		else {
 			g.sendPlayerToObject("Shower");
+			//g.sendPlayerToObject(Shower.class);
 		}
 	}
 	
 	
+	public void move(int X, int Y, ArrayList<GameObject> objects) {
+		//if (this.isWorking){
+			//isWorking = false;
+		//}
+		this.objects = objects;
+    	if((X!= 0 || Y != 0) && !this.isWorking){
+
+	    	state=MOVING;
+    		movX = X;
+    		movY = Y;
+    		if(!movement.isAlive()){
+    			movement = new Thread(new EntityMovement());
+    			movement.start();
+    		}
+    	}
+    	else state = IDLE;
+		
+    		
+    	
 	
+	
+}
 	
 	@Override
 	public void run() {
@@ -184,6 +228,20 @@ public class Player extends Entity implements Animation, Serializable{
 		
 		
 		
+	}
+
+
+	public void isWorking() {
+		isWorking = true;
+	}
+	public void stopWorking() {
+		isWorking = false;
+	}
+	
+	public void moreMoney(Game game) {
+		if (this.isWorking) {
+			setMoney(getMoney() + 1);
+		}
 	}
 	
 	}

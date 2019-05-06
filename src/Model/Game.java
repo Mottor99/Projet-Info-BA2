@@ -119,7 +119,10 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     		(Class object).activate(active_player);
     	}
     }*/
-    
+    public void openShop(Shop shop) {
+    	this.window.openShop(shop);
+    	
+    }
     public void inventory(int x, int y) {
     	if (active_player.isAtPosition(x, y)) {
     		window.showInventory();

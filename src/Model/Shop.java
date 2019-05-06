@@ -4,21 +4,24 @@ import java.util.ArrayList;
 
 public class Shop {
 	private Player player;
+	private Game game;
 	private boolean isOpen = false;
 	private ArrayList<GameObject> items = new ArrayList<GameObject>();
-	public Shop(){
-		
+	public Shop(Game game){
+		this.game = game;
 	}
 	public void open(Player p){
 		this.player = p;
 		this.isOpen = true;
+		this.game.openShop(this);
 	}
 	public void buyItem(GameObject item){
 		
 		try{
 			player.pay(((Sellable)item).getPrice()); //throws exception if not enough money
 			player.addToInventory(item);
-			items.remove(item);
+			game.getWindow().setPlayer(game.getActivePlayer());
+			//items.remove(item);
 		}catch(RuntimeException e){
 			e.printStackTrace();
 		}

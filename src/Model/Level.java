@@ -39,7 +39,7 @@ public abstract class Level{
 				case 'P' : objects.add(new Toilet(x, y)); break;
 				case 'S' : objects.add(new Shower(x,y)); break;
 				case 'F' : objects.add(new Fridge(x, y)); break;
-				case '$' : objects.add(new ShopCounter(x, y)); break;
+				case '$' : objects.add(new ShopCounter(x, y, this.game)); break;
 				case 'O' : objects.add(new Computer(x, y)); break;
 				case 'E' : 
 					Entrance home_entrance = new Entrance(x, y, "home"); 

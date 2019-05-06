@@ -44,6 +44,7 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 
 	@Override
 	public void activate(Player p) {
+		this.rotate(this.posX-p.getPosX(), this.posY-p.getPosY());
 		openMenu();
 	}
 

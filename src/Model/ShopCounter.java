@@ -5,12 +5,12 @@ public class ShopCounter extends BlockUnbreakable implements Activable, MenuActi
 	private boolean isInMenu = false;
 	private Shop shop;
 	private Player player;
-	public ShopCounter(int X, int Y) {
+	public ShopCounter(int X, int Y, Game game) {
 		super(X, Y, 1, 1);
 		this.sprite = Sprite.shop_counter;
 		this.menu.addItem(new MenuItem("buy"));
 		this.menu.addItem(new MenuItem("cancel"));
-		this.shop = new Shop();
+		this.shop = new Shop(game);
 		shop.addItem(new Bed(0, 0));
 		shop.addItem(new Couch(0, 0));
 	}

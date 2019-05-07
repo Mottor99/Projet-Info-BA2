@@ -22,9 +22,9 @@ public class InventoryBox extends JPanel implements DeletableObserver{
 	private int lignes = 10;
 	private GridLayout layout = new GridLayout(lignes, colonnes);
 	public InventoryBox(){
-		layout.setHgap(5);
-		layout.setVgap(5);
-		this.setBorder(new EmptyBorder(5, 5 , 5, 5));
+		layout.setHgap(20);
+		layout.setVgap(20);
+		this.setBorder(new EmptyBorder(20, 20 , 20, 20));
 		this.setLayout(layout);
 
 		this.setPreferredSize(new Dimension(300, 100));

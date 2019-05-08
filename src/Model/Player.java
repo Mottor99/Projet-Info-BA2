@@ -28,8 +28,8 @@ public class Player extends Entity implements Animation, Tire, Hunger, Hygiene, 
         sprite = Sprite.player;
         animation = new Thread(this);
         animation.start();
-        inventory.add(new Couch(1, 1));
-        inventory.add(new Couch(5,5));
+        //inventory.add(new Couch(1, 1));
+        //inventory.add(new Couch(5,5));
     }
 
    

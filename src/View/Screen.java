@@ -26,6 +26,7 @@ import Model.Level;
 import Model.MenuActivable;
 import Model.NPC;
 import Model.Player;
+import Model.Shop;
 import Model.ShopCounter;
 import Model.Sprite;
 
@@ -119,7 +120,6 @@ public class Screen extends JPanel implements DraggableObserver {
 		super.paintComponent(g);
 		Dialog talkingObj = null;
 		MenuActivable menuObj = null;
-		ShopCounter c = null;
 		double viewPosX = Camera.getViewPosX();
     	double viewPosY = Camera.getViewPosY();
     	for(int i = -20; i<45; i++){
@@ -145,18 +145,12 @@ public class Screen extends JPanel implements DraggableObserver {
             		menuObj = (MenuActivable)object;
             	}
             }
-            if (object instanceof ShopCounter){
-            	if(((ShopCounter)object).getShop().isOpen()){
-            		c = (ShopCounter) object;
-            	}
-            }
     	} 
 
         if(draggedItem != null) {
         	draggedItem.getObject().render(draggedItem.getObject().getPosX() - viewPosX, draggedItem.getObject().getPosY() - viewPosY, g, BLOC_SIZE);
         }
             
-    	shop.render(c);
     	//ibox.render(inventoryOpen);
     	db.render(talkingObj);
     	menu.render(menuObj);
@@ -181,6 +175,9 @@ public class Screen extends JPanel implements DraggableObserver {
     }
 	public void addMouse(Mouse m) {
 		this.mouseController = m;
+	}
+	public void openShop(Shop shop) {
+		this.shop.switchVisibility(shop);
 	}
 
 	public int getBLOC_SIZE() {

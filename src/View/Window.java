@@ -4,6 +4,7 @@ import Model.Camera;
 import Model.GameObject;
 import Model.NPC;
 import Model.Player;
+import Model.Shop;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -32,12 +33,16 @@ public class Window extends JFrame {
         //groupPanel.add(status, BorderLayout.LINE_END);
         this.getContentPane().add(this.groupPanel);
         this.setVisible(true);
+       
         
     }
 
     public void setGameObjects(ArrayList<GameObject> arrayList) {
         this.screen.setGameObjects(arrayList);
         //this.screen.redraw();
+    }
+    public void openShop(Shop shop) {
+    	this.screen.openShop(shop);
     }
     
     public void update() {

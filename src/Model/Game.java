@@ -5,6 +5,7 @@ import View.Window;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -35,6 +36,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         size = window.getMapSize();
         // Creating one Player at position (1,1)
         Player p = new Player(6, 3, 3);
+        load();
         //File fichier =  new File("src/sauvegarde.ser") ;
         //ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(fichier)) ;
         //Player p = (Player)ois.readObject() ;
@@ -67,7 +69,9 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     }
 
 
-    synchronized public void movePlayer(int x, int y)  {
+
+
+	synchronized public void movePlayer(int x, int y)  {
     	    
         active_player.rotate(x, y);
         active_player.move(x, y, objects);
@@ -119,7 +123,10 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     		(Class object).activate(active_player);
     	}
     }*/
-    
+    public void openShop(Shop shop) {
+    	this.window.openShop(shop);
+    	
+    }
     public void inventory(int x, int y) {
     	if (active_player.isAtPosition(x, y)) {
     		window.showInventory();

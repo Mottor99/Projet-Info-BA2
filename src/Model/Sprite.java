@@ -22,12 +22,16 @@ public class Sprite {
 	public static Sprite woman = new Sprite("src/femme.png");
 	public static Sprite shop_counter = new Sprite("src/shop_counter.png");
 	public static Sprite toilet = new Sprite("src/toilettes.png");
+	
 	public static Sprite bed = new Sprite("src/bed.png");
 	public static Sprite fridge = new Sprite("src/fridge.png");
+
 	public static Sprite baby = new Sprite("src/bebe.png");
 	public static Sprite boy = new Sprite("src/garcon.png");
 	public static Sprite girl = new Sprite("src/fille.png");
-	public static Sprite computer = new Sprite("src/table.png");
+
+	public static Sprite computer = new Sprite("src/computer.png");
+
 	public static Sprite[] walking = {new Sprite("src/walking_1.png"), new Sprite("src/walking_2.png"),new Sprite("src/walking_3.png"),new Sprite("src/walking_4.png")};
 	
 	

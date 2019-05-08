@@ -1,8 +1,9 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Menu {
+public class Menu implements Serializable {
 	private ArrayList<MenuItem> items = new ArrayList<MenuItem>();
 	private MenuItem selectedItem;
 	private int selection = 0;

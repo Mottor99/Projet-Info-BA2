@@ -5,10 +5,13 @@ import Model.GameObject;
 import Model.NPC;
 import Model.Player;
 import Model.Shop;
+import Model.Time;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -16,8 +19,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Controller.Mouse;
+import Main.Main;
 
-public class Window extends JFrame {
+public class Window extends JFrame{
 	private JPanel groupPanel = new JPanel(new BorderLayout());
 	private int height = 720;
 	private int width = 1280;
@@ -26,6 +30,51 @@ public class Window extends JFrame {
     public Window(String title) {
     	super(title);
         // JFrame window = new JFrame("Game");
+    	this.addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Main.save();
+				
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+    		
+    	});
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(0, 0, width, height);
         this.getContentPane().setBackground(Color.gray);
@@ -62,7 +111,6 @@ public class Window extends JFrame {
 	}
 	
 	public void setPlayer(Player p) {
-		HUD.setPlayer(p);
 		this.screen.setPlayer(p);
 	}
 	public void setNPC(NPC npc) {
@@ -104,5 +152,8 @@ public class Window extends JFrame {
 	}
 	public void showInventory() {
 		this.screen.showInventory();
+	}
+	public void setTime(Time time) {
+		screen.setTime(time);
 	}
 }

@@ -29,6 +29,7 @@ import Model.Player;
 import Model.Shop;
 import Model.ShopCounter;
 import Model.Sprite;
+import Model.Time;
 
 
 public class Screen extends JPanel implements DraggableObserver {
@@ -160,8 +161,8 @@ public class Screen extends JPanel implements DraggableObserver {
     	else if(db.hasFocus()){
     		db.requestFocusInWindow();
     	}else this.requestFocusInWindow();
-    	
-		this.hud.render(g);
+    	hud.render(g);
+		
 		
 		
 	}
@@ -215,6 +216,7 @@ public class Screen extends JPanel implements DraggableObserver {
 
 	public void setPlayer(Player p) {
 		ibox.setPlayer(p, this);
+		hud.setPlayer(p);
 		
 	}
 
@@ -222,5 +224,8 @@ public class Screen extends JPanel implements DraggableObserver {
 	public void setDraggedItem(Draggable d) {
 		this.draggedItem = (InventoryItem) d;
 		
+	}
+	public void setTime(Time time) {
+		hud.setTime(time);
 	}
 }

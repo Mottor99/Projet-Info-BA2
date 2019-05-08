@@ -6,7 +6,7 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	protected double hunger;
 	protected double mood;
 	
-	protected Thread animation;
+	protected transient Thread animation;
 	
 	protected int width; 
 	protected int height;

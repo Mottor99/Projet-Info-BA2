@@ -1,15 +1,19 @@
 package Model;
 
 import java.awt.Graphics;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import javax.swing.Icon;
 
-public abstract class GameObject implements Comparable<GameObject>{
+public abstract class GameObject implements Comparable<GameObject>, Serializable{
     protected int posX;
     protected int posY;
     protected int width = 1;
     protected int height = 1;
-    protected Sprite sprite = Sprite.brick;
+    protected transient Sprite sprite = Sprite.brick;
 
     public GameObject(int X, int Y, int width, int height) {
         this.posX = X;
@@ -17,6 +21,16 @@ public abstract class GameObject implements Comparable<GameObject>{
         this.width = width;
         this.height = height;
         
+    }
+    private void writeObject(ObjectOutputStream out) throws IOException {
+    	      out.defaultWriteObject();
+    	      out.writeObject(sprite);
+    }
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    	      in.defaultReadObject();
+    	      
+    	      this.sprite = (Sprite) in.readObject();
+    	      this.sprite.load();
     }
     public void render(double x, double y, Graphics g, int BLOC_SIZE){
     	g.drawImage(sprite.getImage(), (int)(x*BLOC_SIZE),(int)(y*BLOC_SIZE), BLOC_SIZE*width, BLOC_SIZE*height, null);

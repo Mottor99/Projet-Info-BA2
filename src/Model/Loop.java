@@ -1,5 +1,7 @@
 package Model;
 
+import java.io.Serializable;
+
 public class Loop implements Runnable{
 	private Thread t;
 	private boolean running = false;

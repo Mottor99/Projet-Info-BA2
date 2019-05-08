@@ -19,7 +19,7 @@ public class Player extends Entity implements Animation, Tire, Hunger, Hygiene, 
 	private ArrayList<GameObject> inventory = new ArrayList<GameObject>();
     
 
-	private Thread animation;
+	private transient Thread animation;
 	public boolean isWorking;
     
 
@@ -32,7 +32,10 @@ public class Player extends Entity implements Animation, Tire, Hunger, Hygiene, 
         //inventory.add(new Couch(5,5));
     }
 
-   
+   public void start() {
+	   animation = new Thread(this);
+       animation.start();
+   }
 
     
 
@@ -147,7 +150,7 @@ public class Player extends Entity implements Animation, Tire, Hunger, Hygiene, 
 		}
 	}
 	
-	
+	/*
 	public void move(int X, int Y, ArrayList<GameObject> objects) {
 		//if (this.isWorking){
 			//isWorking = false;
@@ -169,7 +172,7 @@ public class Player extends Entity implements Animation, Tire, Hunger, Hygiene, 
     	
 	
 	
-}
+}*/
 	
 	@Override
 	public void run() {

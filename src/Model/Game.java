@@ -18,13 +18,17 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class Game implements DeletableObserver, LevelSwitchObserver, Serializable {
-    private ArrayList<GameObject> objects = new ArrayList<GameObject>();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
     private ArrayList<Player> players = new ArrayList<Player>();
     public Player active_player = null;
-    private AStarThread t = null;
-    private Loop gameLoop;
+    private transient AStarThread t = null;
+    private transient Loop gameLoop;
     private Level currentLevel;
-    private Window window;
+    private transient Window window;
     private int size;
     private Time time;
 
@@ -32,11 +36,9 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     public Game(Window window){
 
     	
-        this.window = window;
-        size = window.getMapSize();
+        
         // Creating one Player at position (1,1)
         Player p = new Player(6, 3, 3);
-        load();
         //File fichier =  new File("src/sauvegarde.ser") ;
         //ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(fichier)) ;
         //Player p = (Player)ois.readObject() ;
@@ -49,25 +51,31 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         players.add(p);
         
 
-        window.setNPC(w);
+        
 
         active_player = p;
-        Camera.center(active_player, window.getWidth(), window.getHeight());
         
-
-        window.setPlayer(p);
-        window.setGameObjects(this.getGameObjects());  //draws GameObjects
-
         time = new Time(this, 1, 0, 7, 100);
 
-        gameLoop = new Loop(this);
-        
+        start(window);
+        //window.setNPC(w);
         
        
         
        
     }
-
+    
+    public void start(Window window) {
+    	active_player.start();
+    	System.out.println(this.objects.size());
+    	this.window = window;
+        size = window.getMapSize();
+    	Camera.center(active_player, window.getWidth(), window.getHeight());
+    	window.setPlayer(this.getActivePlayer());
+        window.setGameObjects(this.getGameObjects());  //draws GameObjects
+        window.setTime(this.time);
+    	gameLoop = new Loop(this);
+    }
 
 
 

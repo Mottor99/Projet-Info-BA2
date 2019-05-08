@@ -1,8 +1,9 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Shop {
+public class Shop implements Serializable{
 	private Player player;
 	private Game game;
 	private boolean isOpen = false;

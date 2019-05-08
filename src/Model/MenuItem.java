@@ -1,6 +1,8 @@
 package Model;
 
-public class MenuItem {
+import java.io.Serializable;
+
+public class MenuItem implements Serializable{
 	private String label;
 	public MenuItem(String label){
 		this.label = label;

@@ -1,6 +1,9 @@
 package Model;
 
 import java.awt.Graphics;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -9,7 +12,7 @@ public abstract class Entity extends GameObject implements Directable, Movement{
 
     int direction = EAST;  
     protected boolean isFocused = true;
-	protected Thread movement = new Thread(new EntityMovement());
+	protected transient Thread movement = new Thread(); 
     protected int movX, movY;
     protected double dX, dY = 0.0;
     protected int state = IDLE;
@@ -20,6 +23,12 @@ public abstract class Entity extends GameObject implements Directable, Movement{
 	public Entity(int X, int Y, int width, int height) {
 		super(X, Y, 1, 1);
 	}
+	
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+	      in.defaultReadObject();
+	      
+	      this.movement = new Thread();
+	}
 
 	public void move(int X, int Y, ArrayList<GameObject> objects) {
 	    	this.objects = objects;
@@ -28,6 +37,7 @@ public abstract class Entity extends GameObject implements Directable, Movement{
 		    	state=MOVING;
 	    		movX = X;
 	    		movY = Y;
+	    		System.out.println(posX + " "+ posY);
 	    		if(!movement.isAlive()){
 	    			movement = new Thread(new EntityMovement());
 	    			movement.start();

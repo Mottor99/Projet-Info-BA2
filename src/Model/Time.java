@@ -1,21 +1,26 @@
 package Model;
 
-public class Time {
-	private static int day;
-	private static int min;
-	private static int hour;
-	private static int speed;
-	private static int counter = 0;
+import java.io.Serializable;
+
+public class Time implements Serializable{
+	private int day;
+	private int min;
+	private int hour;
+	private int speed;
+	private int counter = 0;
 	private Game game;
 
 
 
 	public Time(Game game, int day, int min, int hour, int speed) {
-		Time.day = day;
-		Time.min = min;
-		Time.hour = hour;
-		Time.speed = speed;
+		this.day = day;
+		this.min = min;
+		this.hour = hour;
+		this.speed = speed;
 		this.game = game;
+		
+	}
+	public Time() {
 		
 	}
 	
@@ -24,17 +29,17 @@ public class Time {
 		if (counter > 1000) {
 			min ++;
 			if (min%10==0) {
-				game.tirePlayer();
+				//game.tirePlayer();
 			}
 			if (min%4==0) {
-				game.growHunger();
+				//game.growHunger();
 			}
 			if (min%3==0) {
-				game.growBladder();
-				game.moreMoney();
+				//game.growBladder();
+				//game.moreMoney();
 			}
 			if (min%10==0) {
-				game.growHygiene();
+				//game.growHygiene();
 				
 			}
 			
@@ -56,11 +61,11 @@ public class Time {
 		
 	}
 
-	public static String getDay() {
+	public String getDay() {
 		return String.valueOf(day);
 	}
 
-	public static String getMin() {
+	public String getMin() {
 		String res = "";
 		if (min<10) {
 			res+="0";
@@ -69,7 +74,7 @@ public class Time {
 		return res;
 	}
 
-	public static String getHour() {
+	public String getHour() {
 		String res = "";
 		if (hour<10) {
 			res+="0";

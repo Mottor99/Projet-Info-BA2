@@ -24,12 +24,14 @@ public class HUD {
 	private Window window;
 	private JPanel shopPanel = new JPanel();
 	private boolean buttonPressed = false;
-
+	private Time time = new Time();
     private JButton button; 
 
     public HUD(Screen m, Window w){
     	screen = m;
     	window = w;
+    	this.time = time;
+    	
     	
         /*
         shopPanel.setFocusable(false);;
@@ -99,7 +101,7 @@ public class HUD {
         g.drawString("Hunger", 30, 100);
         g.drawString("Bladder", 30, 175);
         g.drawString("Hygiene", 30, 250);
-        g.drawString("Day " + Time.getDay() + " - " + Time.getHour() + ":" + Time.getMin(), 300, 25);
+        g.drawString("Day " + time.getDay() + " - " + time.getHour() + ":" + time.getMin(), 300, 25);
         g.drawString("Money : " + p.getMoney() + " $ilex", 500, 25);
         
         //this.button.repaint();
@@ -107,13 +109,16 @@ public class HUD {
         //shopPanel.repaint();
         //window.setVisible(true);
     }
-
-
-	public static void setPlayer(Player p2) {
+	
+	public void setPlayer(Player p2) {
 		p = p2;
 	}
 	public static void setNPC(NPC npc2) {
 		npc = npc2;
 	}
+	public void setTime(Time time) {
+		this.time = time;
+	}
+	
 	
 }

@@ -40,7 +40,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         //Player p = (Player)ois.readObject() ;
         //ois.close();
         
-        Woman w = new Woman(2, 2);
+        Adult w = new Adult(2, 2, "female");
         currentLevel = new Map(this);
         objects.add(p);
         objects.add(w);
@@ -262,6 +262,18 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 	
 	public void moreMoney() {
 		active_player.moreMoney(this);		
+	}
+
+
+	public void timeAccelerates() {
+		time.accelerate();
+		
+	}
+
+
+	public void timeDecelerates() {
+		time.decelerates();
+		
 	}
 
 }

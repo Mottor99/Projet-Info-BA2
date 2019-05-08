@@ -11,7 +11,7 @@ public class ShopCounter extends BlockUnbreakable implements Activable, MenuActi
 		this.menu.addItem(new MenuItem("buy"));
 		this.menu.addItem(new MenuItem("cancel"));
 		this.shop = new Shop();
-		shop.addItem(new Bed(0, 0));
+		//shop.addItem(new Bed(0, 0));
 		shop.addItem(new Couch(0, 0));
 	}
 

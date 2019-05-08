@@ -1,18 +1,22 @@
 package Model;
 
-public class Baby extends NPC implements Tire, Hunger, Hygiene, Bladder{
+public class Adult extends NPC implements Tire, Hunger, Hygiene, Bladder{
 	
 	private int energy = 100;
 	private int hunger = 100;
 	private int bladder = 100;
 	private int hygiene = 100;
 
-	public Baby(int x, int y, String s) {
+
+	public Adult(int x, int y, String s) {
 		super (x, y, 1, 1);
-		sprite = Sprite.baby;
+		switch (s) {
+		case "male" : sprite = Sprite.man; break;
+		case "female" : sprite = Sprite.woman; break;
+		}
 		
 		
-	}
+	} 
 	public void tire(Game g) {
 
 		if (energy > 10)
@@ -97,3 +101,6 @@ public class Baby extends NPC implements Tire, Hunger, Hygiene, Bladder{
 		this.energy = energy;
 	}
 }
+	
+	
+

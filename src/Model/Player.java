@@ -5,12 +5,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import View.Animation;
 
-public class Player extends Entity implements Animation, Serializable{
+public class Player extends Entity implements Animation, Tire, Hunger, Hygiene, Bladder {
 
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
 	private int energy = 100;
 	private int hunger = 100;
 	private int bladder = 100;
@@ -103,6 +103,7 @@ public class Player extends Entity implements Animation, Serializable{
 
 	public void setEnergy(int energy) {
 		this.energy = energy;
+		
 	}
 
 

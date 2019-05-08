@@ -100,6 +100,9 @@ public class Keyboard implements KeyListener, Runnable {
         case KeyEvent.VK_A:
              game.tirePlayer();
              break;
+        case KeyEvent.VK_T:
+             game.timeAccelerates();
+             break;     
         case KeyEvent.VK_P:
              game.playerPos();
              break;
@@ -173,6 +176,8 @@ public class Keyboard implements KeyListener, Runnable {
         	game.movePlayer(xa, ya);
             
              break;
+        case KeyEvent.VK_T:
+        	game.timeDecelerates();
         }
         //System.out.println(pressed[0] + " " + pressed[1]+ " " + pressed[2]+ " " + pressed[3]);
     }

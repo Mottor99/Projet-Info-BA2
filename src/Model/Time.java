@@ -24,17 +24,17 @@ public class Time {
 		if (counter > 1000) {
 			min ++;
 			if (min%10==0) {
-				//game.tirePlayer();
+				game.tirePlayer();
 			}
 			if (min%4==0) {
-				//game.growHunger();
+				game.growHunger();
 			}
 			if (min%3==0) {
-				//game.growBladder();
+				game.growBladder();
 				game.moreMoney();
 			}
 			if (min%10==0) {
-				//game.growHygiene();
+				game.growHygiene();
 				
 			}
 			
@@ -76,6 +76,15 @@ public class Time {
 		}
 		res+=String.valueOf(hour);
 		return res;
+	}
+	
+	public void accelerate() {
+		speed = 1000;
+		
+	}
+
+	public void decelerates() {
+		speed = 100;
 	}
 	
 	

@@ -36,13 +36,8 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         size = window.getMapSize();
         // Creating one Player at position (1,1)
         Player p = new Player(6, 3, 3);
-        load();
-        //File fichier =  new File("src/sauvegarde.ser") ;
-        //ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(fichier)) ;
-        //Player p = (Player)ois.readObject() ;
-        //ois.close();
-        
         Adult w = new Adult(2, 2, "female");
+        
         currentLevel = new Map(this);
         objects.add(p);
         objects.add(w);
@@ -52,6 +47,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         window.setNPC(w);
 
         active_player = p;
+        
         Camera.center(active_player, window.getWidth(), window.getHeight());
         
 
@@ -142,10 +138,6 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     }
     public void zoomCamera(int zoom) throws IOException{
     	window.zoomCamera(zoom);
-    	//File fichier =  new File("src/sauvegarde.ser") ;
-        //ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(fichier));
-        //oos.writeObject(active_player) ;
-        //oos.close();
     }
     public void lockCamera(){
     	active_player.setFocused(!active_player.isFocused());

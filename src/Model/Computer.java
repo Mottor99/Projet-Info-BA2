@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 public class Computer extends BlockUnbreakable implements Activable, Deletable, MenuActivable {
 
-	Player player;
+	private Player player;
 	
 	protected Menu startWorkingMenu;
 	protected Menu stopWorkingMenu;

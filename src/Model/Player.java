@@ -5,22 +5,25 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import View.Animation;
 
-public class Player extends Entity implements Animation, Tire, Hunger, Hygiene, Bladder, GUIModifier {
+
+public class Player extends Entity implements Animation, GUIModifier{
 
     /**
 	 * 
 	 */
 	
-	private int energy = 100;
-	private int hunger = 100;
-	private int bladder = 100;
-	private int hygiene = 100;
+	private double energy = 100.0;
+	private double hunger = 100.0;
+	private double bladder = 100.0;
+	private double hygiene = 100.0;
 	private int money = 500;
+	private int needState = NOTHING;
 	private ArrayList<GameObject> inventory = new ArrayList<GameObject>();
-    
+    private Action currentAction = null;
 
 	private transient Thread animation;
-	public boolean isWorking;
+
+	private boolean isWorking = false;
     
 
     public Player(int x, int y, int maxBomb) {
@@ -59,97 +62,68 @@ public class Player extends Entity implements Animation, Tire, Hunger, Hygiene, 
 	}
 	public void addToInventory(GameObject item){
 		this.inventory.add(item);
+	}   
+
+	public void tic(Game g) {
+		this.growBladder(g);
+		this.growDirt(g);
+		this.growHunger(g);
+		this.growTire(g);
+		this.moreMoney(g);
 	}
 
-    
-    public double getHygiene() {
-		return hygiene/100.0;
-	}
+	/*public void growTire(Game g) {
 
-	public void setHygiene(int hygiene) {
-		this.hygiene = hygiene;
-	}
-
-
-	public double getBladder() {
-		return bladder/100.0;
-	}
-
-	public void setBladder(int bladder) {
-		this.bladder = bladder;
-	}
-
-
-
-
-
-	public double getHunger() {
-		return hunger/100.0;
-	}
-
-
-
-
-
-	public void setHunger(int hunger) {
-		this.hunger = hunger;
-	}
-
-
-
-
-
-	public double getEnergy() {
-    	return energy/100.0;
-    }
-    
-
-	public void setEnergy(int energy) {
-		this.energy = energy;
-		
-	}
-
-
-
-
-
-	public void tire(Game g) {
-
-		if (energy > 10)
-			energy -= 0.1;
+		if (needState == SLEEPING && energy < 100) {
+			energy += 0.1;
+		}
+		else if (energy > 10) {
+			energy -= 0.1; 
+		}	
 		else {
-			g.sendPlayerToObject("Bed");
-			//g.sendPlayerToObject(Bed.class);
+			energy -= 0.1;
+			if (currentAction == null){ 
+				currentAction = new SleepAction(this, g);
+			}
 		}
 	}
 	public void growHunger(Game g) {
 		if (hunger > 20) {
-			hunger -= 0.1;
+			hunger -= 0.05;
 		}
 		else {
-			g.sendPlayerToObject("Fridge");
-			//g.sendPlayerToObject(Fridge.class);
+			hunger -= 0.05;
+			if (currentAction == null && needState == NOTHING){ 
+				currentAction = new EatAction(this, g);
+			}
 		}
 	}
 	public void growBladder(Game g) {
-		if (bladder > 20) {
+		if (bladder > 90) {
 			bladder -= 0.1;
 		}
 		else {
-			g.sendPlayerToObject("Toilet");
-			//g.sendPlayerToObject(Toilet.class);
-		}
+			bladder -= 0.1;
+			if (currentAction == null && needState == NOTHING){ 	
+				currentAction = new PeeAction(this, g);
+			
+			}}
 	}
-	public void growHygiene(Game g) {
+	public void growDirt(Game g) {
 		if (hygiene > 20) {
-			hygiene -= 0.1;
+			hygiene -= 0.03;
 		}
 		else {
-			g.sendPlayerToObject("Shower");
+			hygiene -= 0.03;
+			if (currentAction == null && needState == NOTHING){ 
+				currentAction = new WashAction(this, g);
+			}
+			//g.sendPlayerToObject("Shower");
 			//g.sendPlayerToObject(Shower.class);
 		}
 	}
-	
+	 
+	*/
 	/*
 	public void move(int X, int Y, ArrayList<GameObject> objects) {
 		//if (this.isWorking){
@@ -252,8 +226,13 @@ public class Player extends Entity implements Animation, Tire, Hunger, Hygiene, 
 
 
 
+	
+	public boolean isWorking() {
 
+		return isWorking;
+	}
 
+	
 	
 	
 }

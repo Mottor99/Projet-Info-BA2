@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 public class Computer extends BlockUnbreakable implements Activable, Deletable, MenuActivable {
 
-	Player player;
+	private Player p;
 	
 	protected Menu startWorkingMenu;
 	protected Menu stopWorkingMenu;
@@ -43,10 +43,10 @@ public class Computer extends BlockUnbreakable implements Activable, Deletable, 
 	}
 
 	@Override
-	public void activate(Player p) {
+	public void activate(Entity p) {
 		
-		this.player = p;
-		if (p.isWorking) {
+		this.p = (Player) p;
+		if (this.p.isWorking()) {
 			this.currentMenu = stopWorkingMenu;
 		}
 		else {
@@ -57,11 +57,11 @@ public class Computer extends BlockUnbreakable implements Activable, Deletable, 
 	}
 	
 	public void work() {
-		player.startWorking();
+		this.p.startWorking();
 		
 	}
 	public void stopWorking() {
-		player.stopWorking();
+		this.p.stopWorking();
 		
 	}
 	@Override

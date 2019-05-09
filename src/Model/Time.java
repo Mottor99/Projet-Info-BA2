@@ -28,7 +28,8 @@ public class Time implements Serializable{
 		counter += speed;
 		if (counter > 1000) {
 			min ++;
-			if (min%10==0) {
+			game.tic();
+			/*if (min%10==0) {
 				//game.tirePlayer();
 			}
 			if (min%4==0) {
@@ -42,7 +43,7 @@ public class Time implements Serializable{
 				//game.growHygiene();
 				
 			}
-			
+			*/
 			counter = 0;
 			
 		}

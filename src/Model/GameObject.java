@@ -36,7 +36,7 @@ public abstract class GameObject implements Comparable<GameObject>, Serializable
     	g.drawImage(sprite.getImage(), (int)(x*BLOC_SIZE),(int)(y*BLOC_SIZE), BLOC_SIZE*width, BLOC_SIZE*height, null);
     }
 
-    public int getWidth() {
+    public int getWidth() { 
 		return width;
 	}
 	public void setWidth(int width) {

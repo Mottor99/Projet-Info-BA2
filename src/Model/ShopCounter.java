@@ -54,8 +54,8 @@ public class ShopCounter extends BlockUnbreakable implements Activable, MenuActi
 	}
 
 	@Override
-	public void activate(Player p) {
-		this.player = p;
+	public void activate(Entity p) {
+		this.player = (Player) p;
 		openMenu();
 		
 	}

@@ -49,11 +49,13 @@ public class BlockBreakable extends Block implements Deletable, Activable {
         return true;
     }
 
+
 	@Override
-	public void activate(Player p) {
+	public void activate(Entity p) {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 	
 

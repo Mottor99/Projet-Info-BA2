@@ -21,8 +21,8 @@ public class Toilet extends BlockUnbreakable implements Deletable, Activable {
 	}
 
 	@Override
-	public void activate(Player active_player) {
-		active_player.setBladder(100);
+	public void activate(Entity p) {
+		p.pee();
 
 	}
 

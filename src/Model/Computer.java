@@ -2,19 +2,22 @@ package Model;
 
 import java.awt.Graphics;
 
-public class Computer extends BlockUnbreakable implements Activable, Deletable, MenuActivable {
+public class Computer extends BlockUnbreakable implements Activable, Deletable, MenuActivable, GUIModifier {
 
 	private Player p;
-	
+	private GUIObserver go;
 	protected Menu startWorkingMenu;
 	protected Menu stopWorkingMenu;
 	protected Menu currentMenu;
 	protected boolean isInMenu = false;
 
 
-	public Computer(int x, int y) {
+	public Computer(int x, int y, Game g) {
 		super(x, y, 1, 1);
 		sprite = Sprite.computer;
+
+		attachGUIObserver(g.getWindow());
+		System.out.println(go);
 		this.currentMenu = new Menu(this);
 		this.startWorkingMenu = new Menu(this);
 		this.stopWorkingMenu = new Menu(this);
@@ -51,6 +54,7 @@ public class Computer extends BlockUnbreakable implements Activable, Deletable, 
 		}
 		else {
 			this.currentMenu = startWorkingMenu;
+			System.out.println("Menu OPened");
 		}
 		openMenu();
 		
@@ -67,12 +71,14 @@ public class Computer extends BlockUnbreakable implements Activable, Deletable, 
 	@Override
 	public void openMenu() {
 		this.isInMenu = true;
+		this.notifyGUIObserver();
 		
 	}
 
 	@Override
 	public void closeMenu() {
 		this.isInMenu = false;
+		this.notifyGUIObserver();
 		
 		
 	}
@@ -109,6 +115,20 @@ public class Computer extends BlockUnbreakable implements Activable, Deletable, 
 	public boolean isInMenu() {
 		
 		return this.isInMenu;
+	}
+	@Override
+	public void attachGUIObserver(GUIObserver go){
+		this.go = go;
+	}
+	@Override
+	public void notifyGUIObserver(){
+		go.notifyGUI(this);
+	}
+
+	@Override
+	public boolean isOpen() {
+		// TODO Auto-generated method stub
+		return isInMenu;
 	}
 
 }

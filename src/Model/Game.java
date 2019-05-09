@@ -35,7 +35,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 
     public Game(Window window){
 
-    	
+    	this.window = window;
         Player p = new Player(6, 3, 3);
 
         Adult w = new Adult(2, 2, "female");
@@ -62,9 +62,10 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     }
     
     public void start(Window window) {
+    	this.window = window;
     	active_player.start();
     	System.out.println(this.objects.size());
-    	this.window = window;
+    	
         size = window.getMapSize();
     	Camera.center(active_player, window.getWidth(), window.getHeight());
     	window.setPlayer(this.getActivePlayer());

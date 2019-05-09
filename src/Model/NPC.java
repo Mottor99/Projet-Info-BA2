@@ -2,7 +2,11 @@ package Model;
 
 import View.Animation;
 
-public abstract class NPC extends Entity implements Activable, Animation, Dialog, MenuActivable {
+public abstract class NPC extends Entity implements Activable, Animation, Dialog, MenuActivable, GUIModifier {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected double hunger;
 	protected double mood;
 	
@@ -18,6 +22,7 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	
 	protected Menu menu;
 	protected boolean isInMenu = false;
+	protected GUIObserver go;
 	
 
 	public NPC(int x, int y, int width, int height) {
@@ -29,17 +34,17 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 		this.menu.addItem(new MenuItem("cancel"));
 		
 	}
-
 	@Override
-	public void run() {
-		
-		
+	public void attachGUIObserver(GUIObserver go){
+		this.go = go;
 	}
-
 	@Override
-	public void animate() {
-		
-		
+	public void notifyGUIObserver(){
+		go.notifyGUI(this);
+	}
+	@Override
+	public boolean isOpen(){
+		return isInMenu||isTalking;
 	}
 
 	@Override
@@ -50,9 +55,11 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 
 	@Override
 	public void talk() {
+		
 		this.dialogStage = 0;
 		this.currentSentence = this.sentences[this.dialogStage];
 		this.isTalking = true;
+		notifyGUIObserver();
 		
 	}
 	@Override
@@ -60,7 +67,10 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 		if(this.dialogStage<this.sentences.length-1){
 			this.dialogStage++;
 			this.currentSentence = this.sentences[this.dialogStage];	
-		}else this.isTalking = false;
+		}else{
+			this.isTalking = false;
+			notifyGUIObserver();
+		}
 	}
 	@Override
 	public boolean isTalking() {
@@ -72,9 +82,12 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	}
 	public void openMenu(){
 		this.isInMenu = true;
+		this.notifyGUIObserver();
 	}
 	public void closeMenu(){
 		this.isInMenu = false;
+
+		this.notifyGUIObserver();
 	}
 	
 	@Override 

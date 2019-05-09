@@ -37,6 +37,7 @@ public class Main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    	game = null;
     	if(game==null) {
     		game = new Game(window);
     	}else game.start(window);

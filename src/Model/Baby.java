@@ -96,4 +96,14 @@ public class Baby extends NPC implements Tire, Hunger, Hygiene, Bladder{
 	public void setEnergy(int energy) {
 		this.energy = energy;
 	}
+	@Override
+	public void animate() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 }

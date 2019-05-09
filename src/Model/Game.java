@@ -36,23 +36,16 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     public Game(Window window){
 
     	
-        
-        // Creating one Player at position (1,1)
         Player p = new Player(6, 3, 3);
-        //File fichier =  new File("src/sauvegarde.ser") ;
-        //ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(fichier)) ;
-        //Player p = (Player)ois.readObject() ;
-        //ois.close();
+        
         
         Adult w = new Adult(2, 2, "female");
+        w.attachGUIObserver(window);
         currentLevel = new Map(this);
         objects.add(p);
         objects.add(w);
         players.add(p);
         
-
-        
-
         active_player = p;
         
         time = new Time(this, 1, 0, 7, 100);

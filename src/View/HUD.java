@@ -30,7 +30,6 @@ public class HUD {
     public HUD(Screen m, Window w){
     	screen = m;
     	window = w;
-    	this.time = time;
     	
     	
         /*

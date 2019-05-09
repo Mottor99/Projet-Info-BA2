@@ -37,7 +37,6 @@ public abstract class Entity extends GameObject implements Directable, Movement{
 		    	state=MOVING;
 	    		movX = X;
 	    		movY = Y;
-	    		System.out.println(posX + " "+ posY);
 	    		if(!movement.isAlive()){
 	    			movement = new Thread(new EntityMovement());
 	    			movement.start();

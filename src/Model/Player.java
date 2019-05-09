@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import View.Animation;
 
-public class Player extends Entity implements Animation, Tire, Hunger, Hygiene, Bladder {
+public class Player extends Entity implements Animation, Tire, Hunger, Hygiene, Bladder, GUIModifier {
 
     /**
 	 * 
@@ -230,6 +230,24 @@ public class Player extends Entity implements Animation, Tire, Hunger, Hygiene, 
 		if (this.isWorking) {
 			this.money += 1;
 		}
+	}
+
+	@Override
+	public void attachGUIObserver(GUIObserver go) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyGUIObserver() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isOpen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 

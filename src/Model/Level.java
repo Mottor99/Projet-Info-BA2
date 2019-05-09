@@ -3,15 +3,16 @@ package Model;
 import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import View.Screen;
 
-public abstract class Level{
+public abstract class Level implements Serializable{
 	protected Screen screen;
 	public final int MAP_SIZE = 25;
-    public static int BLOC_SIZE = 40;
+    public transient static int BLOC_SIZE = 40;
     protected ArrayList<GameObject> objects = new ArrayList<GameObject>();
     protected int spawnX, spawnY;
     protected String fileName = "src/file.txt";

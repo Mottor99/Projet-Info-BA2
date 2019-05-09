@@ -98,7 +98,7 @@ public class Keyboard implements KeyListener, Runnable {
              game.stop();
              break;
         case KeyEvent.VK_A:
-             game.tirePlayer();
+             //game.tirePlayer();
              break;
         case KeyEvent.VK_T:
              game.timeAccelerates();

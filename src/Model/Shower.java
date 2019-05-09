@@ -22,8 +22,8 @@ public class Shower extends BlockUnbreakable implements Activable, Deletable {
 	}
 
 	@Override
-	public void activate(Player active_player) {
-		active_player.setHygiene(100);
+	public void activate(Entity p) {
+		p.wash();
 
 	}
 

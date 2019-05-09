@@ -7,6 +7,7 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 	protected Menu Menu;
 	protected boolean isInMenu = false;
 	private Game g;
+	private Entity p;
 
 	public Bed(int x, int y, Game g) {
 		super(x, y, 2, 2);
@@ -31,10 +32,12 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 	}
 
 	@Override
-	public void activate(Player active_player) {
-		active_player.setEnergy(100);
-		active_player.setPosX(this.getPosX());
-		active_player.setPosY(this.getPosY()+1);
+	public void activate(Entity p) {
+		this.p = p;
+		//active_player.setEnergy(100);
+		p.setPosX(this.getPosX());
+		p.setPosY(this.getPosY()+1);
+		p.sleep();
 		g.timeAccelerates();
 		openMenu();
 
@@ -82,7 +85,10 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 	}
 
 	private void stopSleeping() {
+		p.setPosX(this.getPosX());
+		p.setPosY(this.getPosY()-1);
 		g.timeDecelerates();
+		p.stopSleeping();
 		
 	}
 
@@ -97,5 +103,6 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 	}
 
 	
+
 
 }

@@ -18,13 +18,17 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class Game implements DeletableObserver, LevelSwitchObserver, Serializable {
-    private ArrayList<GameObject> objects = new ArrayList<GameObject>();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
     private ArrayList<Player> players = new ArrayList<Player>();
     public Player active_player = null;
-    private AStarThread t = null;
-    private Loop gameLoop;
+    private transient AStarThread t = null;
+    private transient Loop gameLoop;
     private Level currentLevel;
-    private Window window;
+    private transient Window window;
     private int size;
     private Time time;
 
@@ -32,10 +36,10 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     public Game(Window window){
 
     	
-        this.window = window;
-        size = window.getMapSize();
+        
         // Creating one Player at position (1,1)
         Player p = new Player(6, 3, 3);
+
         Adult w = new Adult(2, 2, "female");
         
         currentLevel = new Map(this);
@@ -44,31 +48,39 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         players.add(p);
         
 
-        window.setNPC(w);
+        
 
         active_player = p;
+
         
         Camera.center(active_player, window.getWidth(), window.getHeight());
+
         
-
-        window.setPlayer(p);
-        window.setGameObjects(this.getGameObjects());  //draws GameObjects
-
         time = new Time(this, 1, 0, 7, 100);
 
-        gameLoop = new Loop(this);
-        
+        start(window);
+        //window.setNPC(w);
         
        
         
        
     }
-
+    
+    public void start(Window window) {
+    	active_player.start();
+    	System.out.println(this.objects.size());
+    	this.window = window;
+        size = window.getMapSize();
+    	Camera.center(active_player, window.getWidth(), window.getHeight());
+    	window.setPlayer(this.getActivePlayer());
+        window.setGameObjects(this.getGameObjects());  //draws GameObjects
+        window.setTime(this.time);
+    	gameLoop = new Loop(this);
+    }
 
 
 
 	synchronized public void movePlayer(int x, int y)  {
-    	    
         active_player.rotate(x, y);
         active_player.move(x, y, objects);
     }
@@ -143,8 +155,8 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     	active_player.setFocused(!active_player.isFocused());
     }
 
-    public void tirePlayer() {
-    	active_player.tire(this);
+    /*public void tirePlayer() {
+    	active_player.growTire(this);
     	
     }
     
@@ -155,8 +167,8 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     	active_player.growBladder(this);
     }
     public void growHygiene() {
-    	active_player.growHygiene(this);
-    }
+    	active_player.growDirt(this);
+    }*/
     public void action() {
         Activable aimedObject = null;
 		for(GameObject object : objects){
@@ -273,6 +285,12 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 	public void timeDecelerates() {
 		time.decelerates();
 		
+	}
+
+	public void tic() {
+		for (Entity p : players) {
+		p.tic(this);
+		}
 	}
 
 }

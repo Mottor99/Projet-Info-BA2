@@ -7,7 +7,7 @@ public class Child extends NPC implements Tire, Hunger, Hygiene, Bladder{
 	private int bladder = 100;
 	private int hygiene = 100;
 	
-
+	private int needState;
 
 	public Child(int x, int y, String s) {
 		super (x, y, 1, 1);
@@ -19,7 +19,7 @@ public class Child extends NPC implements Tire, Hunger, Hygiene, Bladder{
 		
 		
 	}
-	public void tire(Game g) {
+	public void growTire(Game g) {
 
 		if (energy > 10)
 			energy -= 0.2;
@@ -46,7 +46,7 @@ public class Child extends NPC implements Tire, Hunger, Hygiene, Bladder{
 			//g.sendPlayerToObject(Toilet.class);
 		}
 	}
-	public void growHygiene(Game g) {
+	public void growDirt(Game g) {
 		if (hygiene > 20) {
 			hygiene -= 0.2;
 		}
@@ -101,6 +101,11 @@ public class Child extends NPC implements Tire, Hunger, Hygiene, Bladder{
 
 	public void setEnergy(int energy) {
 		this.energy = energy;
+	}
+	@Override
+	public int getNeedState() {
+		// TODO Auto-generated method stub
+		return needState;
 	}
 
 }

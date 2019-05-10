@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -71,7 +72,13 @@ public abstract class Entity extends GameObject implements Directable, Movement,
 	@Override
 	public void render(double x, double y, Graphics g, int BLOC_SIZE){
     	g.drawImage(this.sprite.getImage(), (int)((x+dX)*BLOC_SIZE),(int)((y-1+dY)*BLOC_SIZE), BLOC_SIZE*width, BLOC_SIZE*2, null);
-    	//System.out.println("Sprite" + posX);
+    	System.out.println(bladder);
+    	if(bladder<90) {
+    		g.setColor(Color.white);
+    		g.fillRect((int)((x+dX)*BLOC_SIZE), (int)((y+dY-2.5)*BLOC_SIZE), BLOC_SIZE, BLOC_SIZE);
+    		g.setColor(Color.RED);
+    		g.drawString("!", (int)((x+0.5)*BLOC_SIZE), (int)((y-1.5)*BLOC_SIZE));
+    	}
     	
     }
 	

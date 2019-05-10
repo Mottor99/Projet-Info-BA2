@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
-public abstract class Entity extends GameObject implements Directable, Movement{
+public abstract class Entity extends GameObject implements Directable, Movement, Need {
 
     int direction = EAST;  
     protected boolean isFocused = true;
@@ -19,6 +19,12 @@ public abstract class Entity extends GameObject implements Directable, Movement{
     protected int aX = posX;
     protected int aY = posY;
     protected ArrayList<GameObject> objects;
+    
+    private int needState = NOTHING;
+    private double energy = 100.0;
+	private double hunger = 100.0;
+	private double bladder = 100.0;
+	private double hygiene = 100.0;
 
 	public Entity(int X, int Y, int width, int height) {
 		super(X, Y, 1, 1);
@@ -37,7 +43,7 @@ public abstract class Entity extends GameObject implements Directable, Movement{
 		    	state=MOVING;
 	    		movX = X;
 	    		movY = Y;
-	    		System.out.println(posX + " "+ posY);
+
 	    		if(!movement.isAlive()){
 	    			movement = new Thread(new EntityMovement());
 	    			movement.start();
@@ -111,11 +117,138 @@ public abstract class Entity extends GameObject implements Directable, Movement{
         }
         return this.posY + delta;
     }
-    
+    public void setPosX(int posX) {
+		this.posX = posX;
+		this.aX = posX;
+	}
+	
+	public void setPosY(int posY) {
+		this.posY = posY;
+		this.aY = posY;
+	}
     public int getState(){
     	return this.state;
     }
     
+    public void tic(Game game) {
+    	this.growBladder(game);
+		this.growDirt(game);
+		this.growHunger(game);
+		this.growTire(game);
+    }
+    public void sleep() {
+		needState = SLEEPING;
+	}
+	public void pee() {
+		needState = PEEING;
+	}
+	public void wash() {
+		needState = WASHING;
+	}
+	public void eat() {
+		needState = EATING;
+	}
+
+	
+    public double getHygiene() {
+		return hygiene/100;
+	}
+
+	public void setHygiene(double hygiene) {
+		this.hygiene = hygiene;
+	}
+	
+	public double getBladder() {
+		return bladder/100;
+	}
+	
+	public void setBladder(double bladder) {
+		this.bladder = bladder;
+	}
+
+	public double getHunger() {
+		return hunger/100;
+	}
+
+	public void setHunger(double hunger) {
+		this.hunger = hunger;
+	}
+
+	public double getEnergy() {
+    	return energy/100;
+    }
+    
+	public void setEnergy(double energy) {
+		this.energy = energy;
+	}
+	
+    public void growTire(Game g) {
+    	if (needState == SLEEPING && energy < 100) {
+			energy += 0.1;
+		}
+		else{
+			energy -= 0.1; 
+		}
+    }
+    public void growHunger(Game g) {
+    	if (needState == EATING && hunger < 100) {
+			hunger += 1;
+			if (hunger >= 100) {
+				stopEating();
+			}
+		}
+		else{
+			hunger -= 0.04; 
+		}
+    }
+    public void growBladder(Game g) {
+    	if (needState == PEEING && bladder <= 100) {
+			bladder += 2;
+			if (bladder >= 100) {
+				stopPeeing();
+			}
+		}
+		else{
+			bladder -= 0.02; 
+		}
+    }
+    public void growDirt(Game g) {
+    	if (needState == WASHING && hygiene < 100) {
+			hygiene += 1;
+			if (hygiene >= 100) {
+				stopWashing();
+			}
+		}
+		else{
+			hygiene -= 0.1; 
+		}
+    }
+    
+    public void stopSleeping() {
+		needState = NOTHING;
+	}
+    
+    public void stopEating() {
+		needState = NOTHING;
+	}
+    
+    public void stopPeeing() {
+		needState = NOTHING;
+	}
+    
+    public void stopWashing() {
+		needState = NOTHING;
+	}
+    
+    public int getNeedState() {
+		return needState;
+	}
+
+
+
+
+
+
 class EntityMovement implements Runnable{
 		
 		@Override
@@ -174,4 +307,15 @@ class EntityMovement implements Runnable{
 		}
 		
 	}
+
+
+
+
+
+
+
+
+
+
+
 }

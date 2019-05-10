@@ -1,40 +1,35 @@
 package Model;
 
-public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuActivable {
+public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuActivable, GUIModifier {
 	
 	
 
-	protected Menu Menu;
-	protected boolean isInMenu = false;
+	private Menu Menu;
+	private boolean isInMenu = false;
 	private Game g;
+	private Entity p;
+	private GUIObserver go;
 
 	public Bed(int x, int y, Game g) {
 		super(x, y, 2, 2);
 		sprite = Sprite.bed;
 		this.g = g;
+		attachGUIObserver(g.getWindow());
 		this.Menu = new Menu(this);
 		this.Menu.addItem(new MenuItem("continue sleeping"));
 		this.Menu.addItem(new MenuItem("stop sleeping"));
 		
 	}
 
-	@Override
-	public void attachDeletable(DeletableObserver po) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	@Override
-	public void notifyDeletableObserver() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void activate(Player active_player) {
-		active_player.setEnergy(100);
-		active_player.setPosX(this.getPosX());
-		active_player.setPosY(this.getPosY()+1);
+	public void activate(Entity p) {
+		this.p = p;
+		//active_player.setEnergy(100);
+		p.setPosX(this.getPosX());
+		p.setPosY(this.getPosY()+1);
+		p.sleep();
 		g.timeAccelerates();
 		openMenu();
 
@@ -56,12 +51,14 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 	@Override
 	public void openMenu() {
 		this.isInMenu = true;
+		this.notifyGUIObserver();
 		
 	}
 
 	@Override
 	public void closeMenu() {
 		this.isInMenu = false;
+		this.notifyGUIObserver();
 		
 	}
 
@@ -82,7 +79,10 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 	}
 
 	private void stopSleeping() {
+		p.setPosX(this.getPosX());
+		p.setPosY(this.getPosY()-1);
 		g.timeDecelerates();
+		p.stopSleeping();
 		
 	}
 
@@ -96,6 +96,38 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 		return this.isInMenu;
 	}
 
+	@Override
+	public void attachGUIObserver(GUIObserver go){
+		this.go = go;
+	}
+	@Override
+	public void notifyGUIObserver(){
+		go.notifyGUI(this);
+	}
+
+	@Override
+	public boolean isOpen() {
+		// TODO Auto-generated method stub
+		return isInMenu;
+	}
+
+
+
+	@Override
+	public void attachDeletable(DeletableObserver po) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void notifyDeletableObserver() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
+
 
 }

@@ -35,25 +35,21 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 
     public Game(Window window){
 
-    	
-        
-        // Creating one Player at position (1,1)
+    	this.window = window;
         Player p = new Player(6, 3, 3);
-        //File fichier =  new File("src/sauvegarde.ser") ;
-        //ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(fichier)) ;
-        //Player p = (Player)ois.readObject() ;
-        //ois.close();
-        
+
         Adult w = new Adult(2, 2, "female");
+        w.attachGUIObserver(window);
         currentLevel = new Map(this);
         objects.add(p);
         objects.add(w);
         players.add(p);
         
+        active_player = p;
 
         
+        Camera.center(active_player, window.getWidth(), window.getHeight());
 
-        active_player = p;
         
         time = new Time(this, 1, 0, 7, 100);
 
@@ -66,9 +62,10 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     }
     
     public void start(Window window) {
+    	this.window = window;
     	active_player.start();
     	System.out.println(this.objects.size());
-    	this.window = window;
+    	
         size = window.getMapSize();
     	Camera.center(active_player, window.getWidth(), window.getHeight());
     	window.setPlayer(this.getActivePlayer());
@@ -80,7 +77,6 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 
 
 	synchronized public void movePlayer(int x, int y)  {
-    	    
         active_player.rotate(x, y);
         active_player.move(x, y, objects);
     }
@@ -150,17 +146,13 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     }
     public void zoomCamera(int zoom) throws IOException{
     	window.zoomCamera(zoom);
-    	//File fichier =  new File("src/sauvegarde.ser") ;
-        //ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(fichier));
-        //oos.writeObject(active_player) ;
-        //oos.close();
     }
     public void lockCamera(){
     	active_player.setFocused(!active_player.isFocused());
     }
 
-    public void tirePlayer() {
-    	active_player.tire(this);
+    /*public void tirePlayer() {
+    	active_player.growTire(this);
     	
     }
     
@@ -171,8 +163,8 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     	active_player.growBladder(this);
     }
     public void growHygiene() {
-    	active_player.growHygiene(this);
-    }
+    	active_player.growDirt(this);
+    }*/
     public void action() {
         Activable aimedObject = null;
 		for(GameObject object : objects){
@@ -289,6 +281,12 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 	public void timeDecelerates() {
 		time.decelerates();
 		
+	}
+
+	public void tic() {
+		for (Entity p : players) {
+		p.tic(this);
+		}
 	}
 
 }

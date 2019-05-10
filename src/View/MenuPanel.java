@@ -107,9 +107,9 @@ public class MenuPanel extends JPanel{
 		
 		this.add(label, BorderLayout.LINE_START);
 	}
-	public void render(MenuActivable object){
-		if(object!= null){
-			this.menu = object.getMenu();
+	public void render(){
+		if(menu!= null){
+			
 			String text = "<HTML>";
 			
 			for(String item : menu.getItemsByLabel()){
@@ -118,16 +118,16 @@ public class MenuPanel extends JPanel{
 			
 			text += "</HTML>";
 			label.setText(text);
-			this.setVisible(true);
-			this.hasFocus = true;
-		}else{
-			this.setVisible(false);
-			this.hasFocus = false;
 		}
 	}
 	
 	public boolean hasFocus(){
 		return this.hasFocus;
+	}
+	public void open(MenuActivable object) {
+		this.menu = object.getMenu();
+		this.setVisible(true);
+		
 	}
 
 }

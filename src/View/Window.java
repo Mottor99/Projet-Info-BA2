@@ -1,6 +1,8 @@
 package View;
 
 import Model.Camera;
+import Model.GUIModifier;
+import Model.GUIObserver;
 import Model.GameObject;
 import Model.NPC;
 import Model.Player;
@@ -21,7 +23,7 @@ import javax.swing.JPanel;
 import Controller.Mouse;
 import Main.Main;
 
-public class Window extends JFrame{
+public class Window extends JFrame implements GUIObserver{
 	private JPanel groupPanel = new JPanel(new BorderLayout());
 	private int height = 720;
 	private int width = 1280;
@@ -156,4 +158,14 @@ public class Window extends JFrame{
 	public void setTime(Time time) {
 		screen.setTime(time);
 	}
+
+	@Override
+	public void notifyGUI(GUIModifier gm) {
+		
+		screen.notifyGUI(gm);
+		
+		
+	}
+
+	
 }

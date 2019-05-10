@@ -13,7 +13,7 @@ public class Baby extends NPC implements Tire, Hunger, Hygiene, Bladder{
 		
 		
 	}
-	public void tire(Game g) {
+	public void growTire(Game g) {
 
 		if (energy > 10)
 			energy -= 0.4;
@@ -40,7 +40,7 @@ public class Baby extends NPC implements Tire, Hunger, Hygiene, Bladder{
 			//g.sendPlayerToObject(Toilet.class);
 		}
 	}
-	public void growHygiene(Game g) {
+	public void growDirt(Game g) {
 		if (hygiene > 20) {
 			hygiene -= 0.1;
 		}
@@ -95,5 +95,10 @@ public class Baby extends NPC implements Tire, Hunger, Hygiene, Bladder{
 
 	public void setEnergy(int energy) {
 		this.energy = energy;
+	}
+
+	public int getNeedState() {
+		// TODO Auto-generated method stub
+		return -1;
 	}
 }

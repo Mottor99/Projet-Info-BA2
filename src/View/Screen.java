@@ -21,6 +21,7 @@ import Model.Dialog;
 import Model.Draggable;
 import Model.DraggableObserver;
 import Model.Entrance;
+import Model.GUIModifier;
 import Model.GameObject;
 import Model.Level;
 import Model.MenuActivable;
@@ -43,6 +44,8 @@ public class Screen extends JPanel implements DraggableObserver {
 
     private MenuPanel menu;
     private JPanel bottom = new JPanel(new BorderLayout());
+    
+    private JPanel right = new JPanel(new BorderLayout());
 
     private InventoryBox ibox;
     private InventoryItem draggedItem = null;
@@ -107,12 +110,11 @@ public class Screen extends JPanel implements DraggableObserver {
     	shop = new ShopPanel();
     	ibox = new InventoryBox();
 
-    	bottom.add(db, BorderLayout.LINE_START);
-    	bottom.add(menu, BorderLayout.LINE_END);
+    	right.setOpaque(false);
     	bottom.setOpaque(false);
     	this.add(bottom, BorderLayout.SOUTH);
-    	this.add(ibox, BorderLayout.EAST);
-        this.add(shop, BorderLayout.WEST);
+    	//this.add(ibox, BorderLayout.EAST);
+        //this.add(shop, BorderLayout.WEST);
 	}
 	
 	@Override
@@ -136,6 +138,7 @@ public class Screen extends JPanel implements DraggableObserver {
             double x = object.getPosX()-viewPosX;
             double y = object.getPosY()-viewPosY;
             object.render(x, y, g, BLOC_SIZE);
+            /*
             if(object instanceof Dialog){
             	if(((Dialog)object).isTalking()){
             		talkingObj = (Dialog)object;
@@ -146,6 +149,7 @@ public class Screen extends JPanel implements DraggableObserver {
             		menuObj = (MenuActivable)object;
             	}
             }
+            */
     	} 
 
         if(draggedItem != null) {
@@ -153,14 +157,10 @@ public class Screen extends JPanel implements DraggableObserver {
         }
             
     	//ibox.render(inventoryOpen);
-    	db.render(talkingObj);
-    	menu.render(menuObj);
-    	if(menu.hasFocus()){
-    		menu.requestFocusInWindow();
-    	}
-    	else if(db.hasFocus()){
-    		db.requestFocusInWindow();
-    	}else this.requestFocusInWindow();
+    	//db.render(talkingObj);
+    	//menu.render(menuObj);
+        menu.render();
+    	db.render();
     	hud.render(g);
 		
 		
@@ -219,6 +219,7 @@ public class Screen extends JPanel implements DraggableObserver {
 		hud.setPlayer(p);
 		
 	}
+	
 
 	@Override
 	public void setDraggedItem(Draggable d) {
@@ -227,5 +228,26 @@ public class Screen extends JPanel implements DraggableObserver {
 	}
 	public void setTime(Time time) {
 		hud.setTime(time);
+	}
+
+	public void notifyGUI(GUIModifier gm) {
+
+		bottom.removeAll();
+		right.removeAll();
+		if(gm.isOpen()){
+			if(gm instanceof Dialog && ((Dialog) gm).isTalking()){
+				bottom.add(db);
+				db.open((Dialog) gm);
+				db.requestFocusInWindow();
+			}
+			else if(gm instanceof MenuActivable && ((MenuActivable)gm).isInMenu()){
+				bottom.add(menu);
+				menu.open((MenuActivable)gm);
+				menu.requestFocusInWindow();
+				System.out.println("Menu Opened");
+			}
+			
+		}
+		
 	}
 }

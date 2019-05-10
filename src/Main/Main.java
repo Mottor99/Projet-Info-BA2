@@ -15,7 +15,7 @@ public class Main {
     private static Game game;
 	public static void main(String[] args) throws Exception {
         Window window = new Window("Game");
-
+        Game game;
         game = load(window);
         Keyboard keyboard = new Keyboard(game);
         Mouse mouse = new Mouse(game);
@@ -25,6 +25,7 @@ public class Main {
     }
     public static Game load(Window window){
     	Game game = null;
+    	
     	
     	try {
     		ObjectInputStream ois = new ObjectInputStream(new FileInputStream("game.ser"));
@@ -37,6 +38,7 @@ public class Main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    	game = null;
     	if(game==null) {
     		game = new Game(window);
     	}else game.start(window);

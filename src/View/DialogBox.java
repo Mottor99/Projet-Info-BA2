@@ -57,19 +57,14 @@ public class DialogBox extends JPanel{
 		label.setText("Test");
 		this.add(label, BorderLayout.LINE_START);
 	}
-	public void render(Dialog object){
+	public void render(){
 		if(object!=null){
-			
-			this.object = object;
+
 			this.label.setText(object.getCurrentSentence());
-			this.setVisible(true);
-			this.hasFocus = true;
 			this.repaint();
 		}
-		else{
-			this.setVisible(false);
-			this.hasFocus = false;
-		}
+		
+		
 		
 		
 	}
@@ -79,6 +74,11 @@ public class DialogBox extends JPanel{
 	
 	public boolean hasFocus(){
 		return this.hasFocus;
+	}
+	public void open(Dialog gm) {
+		this.object = gm;
+		this.setVisible(true);
+		
 	}
 
 }

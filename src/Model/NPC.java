@@ -2,8 +2,12 @@ package Model;
 
 import View.Animation;
 
-public abstract class NPC extends Entity implements Activable, Animation, Dialog, MenuActivable {
-	protected double hunger;
+public abstract class NPC extends Entity implements Activable, Animation, Dialog, MenuActivable, GUIModifier {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected double mood;
 	
 	protected transient Thread animation;
@@ -18,6 +22,14 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	
 	protected Menu menu;
 	protected boolean isInMenu = false;
+	protected GUIObserver go;
+	
+    private Action currentAction = null;
+    private int needState = NOTHING;
+    private double energy = 100.0;
+	private double hunger = 100.0;
+	private double bladder = 100.0;
+	private double hygiene = 100.0;
 	
 
 	public NPC(int x, int y, int width, int height) {
@@ -29,30 +41,32 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 		this.menu.addItem(new MenuItem("cancel"));
 		
 	}
-
 	@Override
-	public void run() {
-		
-		
+	public void attachGUIObserver(GUIObserver go){
+		this.go = go;
+	}
+	@Override
+	public void notifyGUIObserver(){
+		go.notifyGUI(this);
+	}
+	@Override
+	public boolean isOpen(){
+		return isInMenu||isTalking;
 	}
 
 	@Override
-	public void animate() {
-		
-		
-	}
-
-	@Override
-	public void activate(Player p) {
+	public void activate(Entity p) {
 		this.rotate(this.posX-p.getPosX(), this.posY-p.getPosY());
 		openMenu();
 	}
 
 	@Override
 	public void talk() {
+		
 		this.dialogStage = 0;
 		this.currentSentence = this.sentences[this.dialogStage];
 		this.isTalking = true;
+		notifyGUIObserver();
 		
 	}
 	@Override
@@ -60,7 +74,10 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 		if(this.dialogStage<this.sentences.length-1){
 			this.dialogStage++;
 			this.currentSentence = this.sentences[this.dialogStage];	
-		}else this.isTalking = false;
+		}else{
+			this.isTalking = false;
+			notifyGUIObserver();
+		}
 	}
 	@Override
 	public boolean isTalking() {
@@ -72,9 +89,12 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	}
 	public void openMenu(){
 		this.isInMenu = true;
+		this.notifyGUIObserver();
 	}
 	public void closeMenu(){
 		this.isInMenu = false;
+
+		this.notifyGUIObserver();
 	}
 	
 	@Override 
@@ -96,7 +116,98 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	public Menu getMenu(){
 		return this.menu;
 	}
+	public void setCurrentAction(Action action) {
+		this.currentAction = null;
+			
+	}
 
-	
+	public void growTire(Game g) {
+    	if (needState == SLEEPING && energy < 100) {
+			energy += 0.1;
+		}
+		else if (energy > 20){
+			energy -= 0.1; 
+		}
+		else {
+			energy -= 0.1;
+			if (currentAction == null){ 
+				currentAction = new SleepAction(this, g);
+			}
+		}	
+    }
+    public void growHunger(Game g) {
+    	if (needState == EATING && hunger < 100) {
+			hunger += 1;
+		}
+		else if (hunger > 20){
+			hunger -= 0.04; 
+		}
+		else {
+			energy -= 0.04;
+			if (currentAction == null){ 
+				currentAction = new EatAction(this, g);
+			}	
+		}
+    }
+    public void growBladder(Game g) {
+    	if (needState == PEEING && bladder < 100) {
+			bladder += 2;
+		}
+		else if (bladder > 10){
+			bladder -= 0.02; 
+		}
+		else {
+			bladder -= 0.02;
+			if (currentAction == null){ 
+				currentAction = new PeeAction(this, g);
+			}	
+		}
+    }
+    public void growDirt(Game g) {
+    	if (needState == WASHING && hygiene < 100) {
+			hygiene += 1;
+		}
+		else if (hygiene > 10){
+			hygiene -= 0.1; 
+		}
+		else {
+			hygiene -= 0.1;
+			if (currentAction == null){ 
+				currentAction = new WashAction(this, g);
+			}	
+		}
+    }
+    public void stopSleeping() {
+		if (currentAction instanceof SleepAction) {
+		((SleepAction) currentAction).stop();
+		}
+		needState = NOTHING;
+	}
+    public void stopEating() {
+		if (currentAction instanceof EatAction) {
+		((EatAction) currentAction).stop();
+		}
+		needState = NOTHING;
+	}
+    public void stopPeeing() {
+		if (currentAction instanceof PeeAction) {
+		((PeeAction) currentAction).stop();
+		}
+		needState = NOTHING;
+	}
+    public void stopWashing() {
+		if (currentAction instanceof WashAction) {
+		((WashAction) currentAction).stop();
+		}
+		needState = NOTHING;
+	}
+    @Override
+    public void run(){
+    	
+    }
+    @Override 
+    public void animate(){
+    	
+    }
 
 }

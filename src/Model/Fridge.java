@@ -16,8 +16,8 @@ public class Fridge extends BlockUnbreakable implements Activable{
     }
 
 	@Override
-	public void activate(Player active_player) {
-		active_player.setHunger(100);
+	public void activate(Entity p) {
+		p.eat();
 
 	}
 

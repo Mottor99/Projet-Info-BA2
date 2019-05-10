@@ -22,6 +22,12 @@ public abstract class GameObject implements Comparable<GameObject>, Serializable
         this.height = height;
         
     }
+    public double clamp(double x, double dx, double max, double min) {
+    	x+= dx;
+    	if(x>max)x = max;
+    	if(x<min)x = min;
+    	return x;
+    }
     private void writeObject(ObjectOutputStream out) throws IOException {
     	      out.defaultWriteObject();
     	      out.writeObject(sprite);

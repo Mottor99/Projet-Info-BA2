@@ -244,7 +244,6 @@ public class Screen extends JPanel implements DraggableObserver {
 				bottom.add(menu);
 				menu.open((MenuActivable)gm);
 				menu.requestFocusInWindow();
-				System.out.println("Menu Opened");
 			}
 			
 		}

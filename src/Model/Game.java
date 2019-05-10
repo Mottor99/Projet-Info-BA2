@@ -17,13 +17,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 
 
-public class Game implements DeletableObserver, LevelSwitchObserver, Serializable {
+public class Game implements DeletableObserver, LevelSwitchObserver, Serializable, GUIObserver {
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
-    private ArrayList<Player> players = new ArrayList<Player>();
+    private ArrayList<Entity> entities = new ArrayList<Entity>();
     public Player active_player = null;
     private transient AStarThread t = null;
     private transient Loop gameLoop;
@@ -37,14 +37,14 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 
     	this.window = window;
         Player p = new Player(6, 3, 3);
-
+        p.attachGUIObserver(this);
         Adult w = new Adult(2, 2, "female");
-        w.attachGUIObserver(window);
+        w.attachGUIObserver(this);
         currentLevel = new Map(this);
         objects.add(p);
         objects.add(w);
-        players.add(p);
-        
+        entities.add(p);
+        entities.add(w);
         active_player = p;
 
         
@@ -80,6 +80,10 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         active_player.rotate(x, y);
         active_player.move(x, y, objects);
     }
+	synchronized public void moveEntity(int x, int y, Entity e) {
+		e.rotate(x, y);
+		e.move(x,y, objects);
+	}
     
     public void sendPlayerToObject(String s) {
     	CopyOnWriteArrayList<GameObject> copy = new CopyOnWriteArrayList<GameObject>();
@@ -284,9 +288,17 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 	}
 
 	public void tic() {
-		for (Entity p : players) {
-			p.tic(this);
+
+		for (Entity entity : entities) {
+			entity.tic(this);
 		}
+		
+	}
+
+	@Override
+	public void notifyGUI(GUIModifier gm) {
+		window.notifyGUI(gm);
+		
 	}
 
 }

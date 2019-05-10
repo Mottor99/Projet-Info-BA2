@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -8,10 +9,10 @@ import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
-public abstract class Entity extends GameObject implements Directable, Movement, Need {
+public abstract class Entity extends GameObject implements Directable, Movement, Hunger, Hygiene, Bladder, Tire {
 
     int direction = EAST;  
-    protected boolean isFocused = true;
+    protected boolean isFocused = false;
 	protected transient Thread movement = new Thread(); 
     protected int movX, movY;
     protected double dX, dY = 0.0;
@@ -20,11 +21,11 @@ public abstract class Entity extends GameObject implements Directable, Movement,
     protected int aY = posY;
     protected ArrayList<GameObject> objects;
     
-    private int needState = NOTHING;
-    private double energy = 100.0;
-	private double hunger = 100.0;
-	private double bladder = 100.0;
-	private double hygiene = 100.0;
+    protected int needState = NOTHING;
+    protected double energy = 100.0;
+	protected double hunger = 100.0;
+	protected double bladder = 100.0;
+	protected double hygiene = 100.0;
 
 	public Entity(int X, int Y, int width, int height) {
 		super(X, Y, 1, 1);
@@ -71,7 +72,7 @@ public abstract class Entity extends GameObject implements Directable, Movement,
 	@Override
 	public void render(double x, double y, Graphics g, int BLOC_SIZE){
     	g.drawImage(this.sprite.getImage(), (int)((x+dX)*BLOC_SIZE),(int)((y-1+dY)*BLOC_SIZE), BLOC_SIZE*width, BLOC_SIZE*2, null);
-    	//System.out.println("Sprite" + posX);
+    	
     	
     }
 	
@@ -281,7 +282,7 @@ class EntityMovement implements Runnable{
 					for(int i = 0; i<50; i++){
 						dX += 0.02*x;
 						dY += 0.02*y;
-						if(isFocused)Camera.move(0.02*x, 0.02*y);
+						if(isFocused())Camera.move(0.02*x, 0.02*y);
 						
 						
 						//System.out.println("MOVING, "+stage);

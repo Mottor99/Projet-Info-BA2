@@ -16,14 +16,13 @@ public class Computer extends BlockUnbreakable implements Activable, Deletable, 
 		super(x, y, 1, 1);
 		sprite = Sprite.computer;
 
-		attachGUIObserver(g.getWindow());
+		attachGUIObserver(g);
 		System.out.println(go);
 		this.currentMenu = new Menu(this);
 		this.startWorkingMenu = new Menu(this);
 		this.stopWorkingMenu = new Menu(this);
 		this.startWorkingMenu.addItem(new MenuItem("work"));
 		this.startWorkingMenu.addItem(new MenuItem("cancel"));
-		this.stopWorkingMenu.addItem(new MenuItem("continue working"));
 		this.stopWorkingMenu.addItem(new MenuItem("stop working"));
 		
 		
@@ -49,13 +48,7 @@ public class Computer extends BlockUnbreakable implements Activable, Deletable, 
 	public void activate(Entity p) {
 		
 		this.p = (Player) p;
-		if (this.p.isWorking()) {
-			this.currentMenu = stopWorkingMenu;
-		}
-		else {
-			this.currentMenu = startWorkingMenu;
-			System.out.println("Menu OPened");
-		}
+		currentMenu = startWorkingMenu;
 		openMenu();
 		
 	}
@@ -87,7 +80,8 @@ public class Computer extends BlockUnbreakable implements Activable, Deletable, 
 	public void menuAction(String action) {
 		switch(action){
 		case "work": 
-			closeMenu();
+			currentMenu = stopWorkingMenu;
+			notifyGUIObserver();
 			work();
 			break;
 		
@@ -97,10 +91,10 @@ public class Computer extends BlockUnbreakable implements Activable, Deletable, 
 		case "stop working":
 			closeMenu();
 			stopWorking();
+			
+		}
 		
-		case "continue working":
-			closeMenu();
-		}	
+			
 			
 		
 	}

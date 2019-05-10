@@ -3,18 +3,13 @@ package Model;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class PeeAction extends Action implements Runnable{
-	private Game g;
-	private NPC p;
+	
 	private Toilet target;
-	private volatile boolean running = false;
-	private Thread t;
+	
 
 	public PeeAction(NPC p, Game g) {
-		this.p = p;
-		this.g = g;
-		running = true;
-		this.t = new Thread(this);
-		this.t.start();
+		super(p, g);
+		
 	}
 
 	@Override
@@ -33,10 +28,10 @@ public class PeeAction extends Action implements Runnable{
 			direction = (new AStar(p.getAX(), p.getAY(), target.getPosX(), target.getPosY()-1, copy)).getNextStep();
 				
 			switch (direction) {
-					case 0 : g.movePlayer(1,0); break;
-					case 1 : g.movePlayer(0,-1); break;
-					case 2 : g.movePlayer(-1,0); break;
-					case 3 : g.movePlayer(0,1); break;
+					case 0 : g.moveEntity(1,0, p); break;
+					case 1 : g.moveEntity(0,-1, p); break;
+					case 2 : g.moveEntity(-1,0, p); break;
+					case 3 : g.moveEntity(0,1, p); break;
 				}
 			try {
 					Thread.sleep(5);
@@ -46,9 +41,10 @@ public class PeeAction extends Action implements Runnable{
 			}
 		}
 
-		g.movePlayer(0, 0);
-		target.activate(p);
-		stop();
+		g.moveEntity(0, 0, p);
+		if(p.getPosX()==target.getPosX()&&p.getPosY()==target.getPosY()-1) {
+			p.pee();
+		}else stop();
 		
 	}
 	public void stop(){

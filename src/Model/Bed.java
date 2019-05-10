@@ -7,7 +7,7 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 	private Menu Menu;
 	private boolean isInMenu = false;
 	private Game g;
-	private Entity p;
+	private Entity e;
 	private GUIObserver go;
 
 	public Bed(int x, int y, Game g) {
@@ -16,7 +16,6 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 		this.g = g;
 		attachGUIObserver(g.getWindow());
 		this.Menu = new Menu(this);
-		this.Menu.addItem(new MenuItem("continue sleeping"));
 		this.Menu.addItem(new MenuItem("stop sleeping"));
 		
 	}
@@ -24,29 +23,24 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 	
 
 	@Override
-	public void activate(Entity p) {
-		this.p = p;
-		//active_player.setEnergy(100);
-		p.setPosX(this.getPosX());
-		p.setPosY(this.getPosY()+1);
-		p.sleep();
-		g.timeAccelerates();
-		openMenu();
+	public void activate(Entity e) {
+		if(e instanceof Player) {
+			this.e = e;
+			//active_player.setEnergy(100);
+			e.setPosX(this.getPosX());
+			e.setPosY(this.getPosY()+1);
+			e.sleep(); 
+			g.timeAccelerates();
+			openMenu();
+		}else if (e instanceof NPC){
+			e.setPosX(this.getPosX()+1);
+			e.setPosY(this.getPosY()+1);
+			e.sleep(); 
+		}
 
 	}
 
-	@Override
-	public boolean isObstacle() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-	public int getPosX() {
-		return this.posX;
-	}
 	
-	public int getPosY() {
-		return this.posY;
-	}
 
 	@Override
 	public void openMenu() {
@@ -65,9 +59,7 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 	@Override
 	public void menuAction(String action) {
 		switch(action){
-		case "continue sleeping": 
-			closeMenu();
-			break;
+		
 		
 		case "stop sleeping":
 			closeMenu();
@@ -79,10 +71,10 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 	}
 
 	private void stopSleeping() {
-		p.setPosX(this.getPosX());
-		p.setPosY(this.getPosY()-1);
+		e.setPosX(this.getPosX());
+		e.setPosY(this.getPosY()-1);
 		g.timeDecelerates();
-		p.stopSleeping();
+		e.stopSleeping();
 		
 	}
 

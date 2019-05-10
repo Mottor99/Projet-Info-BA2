@@ -12,14 +12,8 @@ public class Player extends Entity implements Animation, GUIModifier{
 	 * 
 	 */
 	
-	private double energy = 100.0;
-	private double hunger = 100.0;
-	private double bladder = 100.0;
-	private double hygiene = 100.0;
 	private int money = 500;
-	private int needState = NOTHING;
 	private ArrayList<GameObject> inventory = new ArrayList<GameObject>();
-    private Action currentAction = null;
 
 	private transient Thread animation;
 
@@ -28,6 +22,7 @@ public class Player extends Entity implements Animation, GUIModifier{
 
     public Player(int x, int y, int maxBomb) {
         super(x, y, 1, 1);
+        setFocused(true);
         sprite = Sprite.player;
         animation = new Thread(this);
         animation.start();
@@ -72,81 +67,6 @@ public class Player extends Entity implements Animation, GUIModifier{
 		this.moreMoney(g);
 	}
 
-	/*public void growTire(Game g) {
-
-		if (needState == SLEEPING && energy < 100) {
-			energy += 0.1;
-		}
-		else if (energy > 10) {
-			energy -= 0.1; 
-		}	
-		else {
-			energy -= 0.1;
-			if (currentAction == null){ 
-				currentAction = new SleepAction(this, g);
-			}
-		}
-	}
-	public void growHunger(Game g) {
-		if (hunger > 20) {
-			hunger -= 0.05;
-		}
-		else {
-			hunger -= 0.05;
-			if (currentAction == null && needState == NOTHING){ 
-				currentAction = new EatAction(this, g);
-			}
-		}
-	}
-	public void growBladder(Game g) {
-		if (bladder > 90) {
-			bladder -= 0.1;
-		}
-		else {
-			bladder -= 0.1;
-			if (currentAction == null && needState == NOTHING){ 	
-				currentAction = new PeeAction(this, g);
-			
-			}}
-	}
-	public void growDirt(Game g) {
-		if (hygiene > 20) {
-			hygiene -= 0.03;
-		}
-		else {
-			hygiene -= 0.03;
-			if (currentAction == null && needState == NOTHING){ 
-				currentAction = new WashAction(this, g);
-			}
-			//g.sendPlayerToObject("Shower");
-			//g.sendPlayerToObject(Shower.class);
-		}
-	}
-	 
-	*/
-	/*
-	public void move(int X, int Y, ArrayList<GameObject> objects) {
-		//if (this.isWorking){
-			//isWorking = false;
-		//}
-		this.objects = objects;
-    	if((X!= 0 || Y != 0) && !this.isWorking){
-
-	    	state=MOVING;
-    		movX = X;
-    		movY = Y;
-    		if(!movement.isAlive()){
-    			movement = new Thread(new EntityMovement());
-    			movement.start();
-    		}
-    	}
-    	else state = IDLE;
-		
-    		
-    	
-	
-	
-}*/
 	
 	@Override
 	public void run() {
@@ -230,6 +150,30 @@ public class Player extends Entity implements Animation, GUIModifier{
 	public boolean isWorking() {
 
 		return isWorking;
+	}
+
+	@Override
+	public void setHunger(int hunger) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setHygiene(int hygiene) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setBladder(int bladder) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setEnergy(int energy) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

@@ -285,7 +285,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 
 	public void tic() {
 		for (Entity p : players) {
-		p.tic(this);
+			p.tic(this);
 		}
 	}
 

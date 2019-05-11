@@ -182,7 +182,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         
     }
 
-    public void render() {
+    public synchronized void render() {
         window.update();
     }
 
@@ -251,6 +251,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 		objects.remove(active_player);
 		entities.remove(active_player);
 		currentLevel.save(objects, entities);
+		
 		switch(destination){
 		case "map" : currentLevel = new Map(this); break;
 		case "home" : currentLevel = new Home(this); break;

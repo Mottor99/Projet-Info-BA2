@@ -45,11 +45,11 @@ public abstract class Level implements Serializable{
 			fileCharged = true;
 			System.out.println("loaded from serial");
 		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
+			System.out.println("Class not found !");;
 		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
+			System.out.println("File not found !");;
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("IOException !!!");;
 		}
 		if (!fileCharged) {
 	    	FileReader file = new FileReader(this.fileName + ".txt");

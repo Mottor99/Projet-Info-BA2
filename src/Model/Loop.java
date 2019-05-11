@@ -13,8 +13,19 @@ public class Loop implements Runnable{
 		running = true;
 		t.start();
 		
+		
 	}
-	
+	public void pause(){
+		try {
+			t.wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void resume(){
+		t.notify();
+	}
 	
 	@Override
 	public void run() {
@@ -38,7 +49,7 @@ public class Loop implements Runnable{
 			
 			if(System.currentTimeMillis() - timer > 1000){ 
 				timer+=1000;
-				System.out.println(updates+" ups, "+ frames+" fps");
+				//System.out.println(updates+" ups, "+ frames+" fps");
 				frames = 0;
 				updates = 0;
 				

@@ -36,40 +36,6 @@ public class HUD implements Serializable {
     	screen = m;
     	window = w;
     	
-    	
-        /*
-        shopPanel.setFocusable(false);;
-		shopPanel.setOpaque(true);
-		shopPanel.setVisible(false);
-		shopPanel.setBackground(new Color(255, 0 , 0, 170));
-		shopPanel.setPreferredSize(new Dimension(window.getWidth()/5,window.getHeight()));
-		
-        //button.setForeground(Color.DARK_GRAY);
-		button = new JButton("Shop");
-        button.setFocusable(false);
-        
-        button.setBackground(Color.GRAY);
-        button.setVisible(true);
-        button.setOpaque(true);
-        button.setPreferredSize(new Dimension(200,200));
-        button.addActionListener(new ActionListener() {
-
-        	
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				shopPanel.setVisible(!buttonPressed);
-				
-				buttonPressed = !buttonPressed;
-				System.out.println("Test");
-			}
-        	
-        });
-        
-        //screen.add(button, BorderLayout.NORTH);
-        //System.out.println("Button added");
-        //screen.add(shopPanel, BorderLayout.EAST);
-        //window.setVisible(true);
-        */
     }
     
     
@@ -78,7 +44,7 @@ public class HUD implements Serializable {
 		
 		// bars 
         // Energy 
-		
+		if(p!=null){
 		g.setColor(Color.RED);
         g.fillRect(30, 30, BAR_LENGTH, BAR_WIDTH);
         g.fillRect(30, 105, BAR_LENGTH, BAR_WIDTH);
@@ -107,7 +73,7 @@ public class HUD implements Serializable {
         g.drawString("Hygiene", 30, 250);
         g.drawString("Day " + time.getDay() + " - " + time.getHour() + ":" + time.getMin(), 300, 25);
         g.drawString("Money : " + p.getMoney() + " $ilex", 500, 25);
-        
+		}
         //this.button.repaint();
         //this.shopPanel.repaint();
         //shopPanel.repaint();

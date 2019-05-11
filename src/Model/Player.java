@@ -11,6 +11,10 @@ public class Player extends Entity implements Animation, GUIModifier{
     /**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 	
 	private int money = 500;
 	private ArrayList<GameObject> inventory = new ArrayList<GameObject>();

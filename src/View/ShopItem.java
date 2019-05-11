@@ -9,6 +9,10 @@ import javax.swing.JButton;
 import Model.GameObject;
 
 public class ShopItem extends JButton{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private GameObject item;
 	public ShopItem(GameObject o, ShopPanel s) {
 		this.item = o;

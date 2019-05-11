@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -15,7 +16,11 @@ import Model.NPC;
 import Model.Player;
 import Model.Time;
 
-public class HUD {
+public class HUD implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static Player p;
 	private static NPC npc;
 	private static int BAR_LENGTH = 120;

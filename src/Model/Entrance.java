@@ -3,6 +3,10 @@ package Model;
 import java.util.ArrayList;
 
 public class Entrance extends Block implements LevelSwitch {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<LevelSwitchObserver> observers = new ArrayList<LevelSwitchObserver>();
 	private String destination;
 	public Entrance(int x, int y, String destination) {

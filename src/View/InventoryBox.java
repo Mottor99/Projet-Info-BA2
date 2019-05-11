@@ -16,6 +16,10 @@ import Model.GameObject;
 import Model.Player;
 
 public class InventoryBox extends JPanel implements DeletableObserver{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	boolean isOpen = false;
 	private ArrayList<InventoryItem>items = new ArrayList<InventoryItem>();
 	private int colonnes = 2;

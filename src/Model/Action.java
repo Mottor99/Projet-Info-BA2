@@ -1,12 +1,19 @@
 package Model;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public abstract class Action implements Runnable{
+public abstract class Action implements Runnable, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Game g;
 	protected NPC p;
-	protected volatile boolean running = false;
-	protected Thread t;
+	protected transient volatile boolean running = false;
+	protected transient Thread t;
 
 	public Action(NPC p, Game g) {
 		this.p = p;
@@ -16,11 +23,19 @@ public abstract class Action implements Runnable{
 		this.t.start();
 	}
 
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+	      in.defaultReadObject();
+	      running = true;
+	      this.t = new Thread(this);
+	      this.t.start();
+
+	}
 	
 	public void stop(){
 		running = false;
 		p.setCurrentAction(null);
 	}
+	
 	public boolean isRunning(){
 		return running;
 	}

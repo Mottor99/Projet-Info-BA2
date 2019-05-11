@@ -9,7 +9,11 @@ import java.io.Serializable;
 import javax.swing.Icon;
 
 public abstract class GameObject implements Comparable<GameObject>, Serializable{
-    protected int posX;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected int posX;
     protected int posY;
     protected int width = 1;
     protected int height = 1;
@@ -34,7 +38,6 @@ public abstract class GameObject implements Comparable<GameObject>, Serializable
     }
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
     	      in.defaultReadObject();
-    	      
     	      this.sprite = (Sprite) in.readObject();
     	      this.sprite.load();
     }

@@ -14,6 +14,10 @@ import Model.DraggableObserver;
 import Model.GameObject;
 
 public class InventoryItem extends JButton implements Deletable, Draggable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	GameObject selectedObject;
 	DraggableObserver draO;
 	DeletableObserver delO;

@@ -4,6 +4,10 @@ import java.awt.Graphics;
 
 public class Wall extends BlockUnbreakable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public Wall(int X, int Y) {
 		super(X, Y, 1, 1);
 		sprite = Sprite.wall_cobblestone;

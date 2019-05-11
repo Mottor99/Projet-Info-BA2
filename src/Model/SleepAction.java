@@ -4,6 +4,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SleepAction extends Action implements Runnable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Bed target;
 	
 	public SleepAction(NPC p, Game g) {

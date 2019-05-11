@@ -1,12 +1,11 @@
 package Model;
 
 public class Adult extends NPC {
-	
-	private int energy = 100;
-	private int hunger = 100;
-	private int bladder = 100;
-	private int hygiene = 100;
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public Adult(int x, int y, String s) {
 		super (x, y, 1, 1);

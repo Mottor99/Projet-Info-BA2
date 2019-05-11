@@ -4,6 +4,10 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 	
 	
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Menu Menu;
 	private boolean isInMenu = false;
 	private Game g;
@@ -14,7 +18,7 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 		super(x, y, 2, 2);
 		sprite = Sprite.bed;
 		this.g = g;
-		attachGUIObserver(g.getWindow());
+		attachGUIObserver(g);
 		this.Menu = new Menu(this);
 		this.Menu.addItem(new MenuItem("stop sleeping"));
 		

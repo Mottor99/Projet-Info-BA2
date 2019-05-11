@@ -1,6 +1,10 @@
 package Model;
 
 public class ShopCounter extends BlockUnbreakable implements Activable, MenuActivable, GUIModifier{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Menu menu = new Menu(this);
 	private boolean isInMenu = false;
 	private Shop shop;
@@ -8,7 +12,7 @@ public class ShopCounter extends BlockUnbreakable implements Activable, MenuActi
 	private GUIObserver go;
 	public ShopCounter(int X, int Y, Game game) {
 		super(X, Y, 1, 1);
-		attachGUIObserver(game.getWindow());
+		attachGUIObserver(game);
 		this.sprite = Sprite.shop_counter;
 		this.menu.addItem(new MenuItem("buy"));
 		this.menu.addItem(new MenuItem("cancel"));

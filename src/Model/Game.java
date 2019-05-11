@@ -17,7 +17,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 
 
-public class Game implements DeletableObserver, LevelSwitchObserver, Serializable {
+public class Game implements DeletableObserver, LevelSwitchObserver, Serializable, GUIObserver {
     /**
 	 * 
 	 */
@@ -39,7 +39,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         Player p = new Player(6, 3, 3);
 
         Adult w = new Adult(2, 2, "female");
-        w.attachGUIObserver(window);
+        w.attachGUIObserver(this);
         currentLevel = new Map(this);
         objects.add(p);
         objects.add(w);
@@ -82,7 +82,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     }
 	synchronized public void moveEntity(int x, int y, Entity e) {
 		e.rotate(x, y);
-		e.move(x,y, objects);
+		e.move(x, y, objects);
 	}
     
     public void sendPlayerToObject(String s) {
@@ -251,11 +251,15 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		objects.remove(active_player);
+		entities.remove(active_player);
+		currentLevel.save(objects, entities);
 		switch(destination){
 		case "map" : currentLevel = new Map(this); break;
 		case "home" : currentLevel = new Home(this); break;
 		}
 		objects.add(active_player);
+		entities.add(active_player);
 		window.setGameObjects(this.getGameObjects()); 
 		try {
 			Thread.sleep(200);
@@ -293,5 +297,12 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 		}
 		
 	}
+
+	@Override
+	public void notifyGUI(GUIModifier gm) {
+		window.notifyGUI(gm);
+		
+	}
+	
 
 }

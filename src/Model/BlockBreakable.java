@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 public class BlockBreakable extends Block implements Deletable, Activable {
 
-    private ArrayList<DeletableObserver> observers = new ArrayList<DeletableObserver>();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<DeletableObserver> observers = new ArrayList<DeletableObserver>();
     private int lifepoints = 0;
     public BlockBreakable(int X, int Y, int width, int height, int lifepoints) {
         super(X, Y, width, height);

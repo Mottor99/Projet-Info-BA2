@@ -18,6 +18,10 @@ import Model.Menu;
 import Model.MenuActivable;
 
 public class MenuPanel extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel label = new JLabel();
 	private boolean hasFocus = false;
 	private Menu menu;

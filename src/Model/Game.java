@@ -22,6 +22,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static Game instance = null;
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
     private ArrayList<Entity> entities = new ArrayList<Entity>();
     public Player active_player = null;
@@ -33,7 +34,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     private Time time;
 
 
-    public Game(Window window){
+    private Game(Window window){
 
     	this.window = window;
         Player p = new Player(6, 3, 3);
@@ -60,12 +61,16 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         
        
     }
+    public static Game getInstance(Window window){
+    	if (Game.instance == null) {
+    		Game.instance = new Game(window);
+    		}
+    		return Game.instance;
+    }
     
     public void start(Window window) {
     	this.window = window;
     	active_player.start();
-    	System.out.println(this.objects.size());
-    	
         size = window.getMapSize();
     	Camera.center(active_player, window.getWidth(), window.getHeight());
     	window.setPlayer(this.getActivePlayer());
@@ -85,52 +90,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 		e.move(x, y, objects);
 	}
     
-    public void sendPlayerToObject(String s) {
-    	CopyOnWriteArrayList<GameObject> copy = new CopyOnWriteArrayList<GameObject>();
-    	copy.addAll(objects);
-    	switch (s) {
-		case "Bed" : 
-			for(GameObject object : copy) {
-				if (object instanceof Bed){
-					this.sendPlayer(object.getPosX(), object.getPosY()-1);
-					((Bed) object).activate(active_player);
-					break;
-				}
-			}; break;
-			
-		case "Fridge" : 
-			for(GameObject object : copy) {
-				if (object instanceof Fridge){
-					this.sendPlayer(object.getPosX(), object.getPosY()-1);
-					((Fridge) object).activate(active_player);
-					break;
-			}
-		}; break;
-		case "Toilet" : 
-			for(GameObject object : copy) {
-				if (object instanceof Toilet){
-					this.sendPlayer(object.getPosX(), object.getPosY()-1);
-					((Toilet) object).activate(active_player);
-					break;
-				}
-			}; break;
-		case "Shower" : 
-			for(GameObject object : objects) {
-				if (object instanceof Shower){
-					this.sendPlayer(object.getPosX(), object.getPosY()-1);
-					((Shower) object).activate(active_player); break;
-				}
-			}; break;
-		}
-    }
-    /*public void sendPlayerToObject(Class o) {
-    	CopyOnWriteArrayList<GameObject> copy = new CopyOnWriteArrayList<GameObject>();
-    	copy.addAll(objects);
-    	for(GameObject object : copy) {
-    		this.sendPlayer(object.getPosX(), object.getPosY());
-    		(Class object).activate(active_player);
-    	}
-    }*/
+    
     
     public void inventory(int x, int y) {
     	if (active_player.isAtPosition(x, y)) {
@@ -152,20 +112,6 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     	active_player.setFocused(!active_player.isFocused());
     }
 
-    /*public void tirePlayer() {
-    	active_player.growTire(this);
-    	
-    }
-    
-    public void growHunger() {
-    	active_player.growHunger(this);
-    }
-    public void growBladder() {
-    	active_player.growBladder(this);
-    }
-    public void growHygiene() {
-    	active_player.growDirt(this);
-    }*/
     public void action() {
         Activable aimedObject = null;
 		for(GameObject object : objects){
@@ -229,6 +175,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 
 
 	public void setGameObjects(ArrayList<GameObject> objects) {
+		System.out.println("[Game] objects size : "+ objects.size());
 		this.objects = objects;
 		
 	}
@@ -300,6 +247,12 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 	@Override
 	public void notifyGUI(GUIModifier gm) {
 		window.notifyGUI(gm);
+		
+	}
+
+	public void setEntities(ArrayList<Entity> entities) {
+		System.out.println("[Game] entities size : " + entities.size());
+		this.entities = entities;
 		
 	}
 

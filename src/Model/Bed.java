@@ -10,21 +10,21 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 	private static final long serialVersionUID = 1L;
 	private Menu Menu;
 	private boolean isInMenu = false;
-	private Game g;
+	private transient Game g;
 	private Entity e;
-	private GUIObserver go;
+	private transient GUIObserver go;
 
-	public Bed(int x, int y, Game g) {
+	public Bed(int x, int y) {
 		super(x, y, 2, 2);
 		sprite = Sprite.bed;
-		this.g = g;
-		attachGUIObserver(g);
 		this.Menu = new Menu(this);
 		this.Menu.addItem(new MenuItem("stop sleeping"));
 		
 	}
 
-	
+	public void attachGame(Game game){
+		this.g = game;;
+	}
 
 	@Override
 	public void activate(Entity e) {
@@ -70,8 +70,6 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 			stopSleeping();
 			break;
 		}	
-			
-		
 	}
 
 	private void stopSleeping() {

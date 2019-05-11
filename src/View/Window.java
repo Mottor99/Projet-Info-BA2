@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -23,7 +24,7 @@ import javax.swing.JPanel;
 import Controller.Mouse;
 import Main.Main;
 
-public class Window extends JFrame {
+public class Window extends JFrame{
 	/**
 	 * 
 	 */

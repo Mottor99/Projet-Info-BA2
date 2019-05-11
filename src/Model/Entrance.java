@@ -7,7 +7,7 @@ public class Entrance extends Block implements LevelSwitch {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ArrayList<LevelSwitchObserver> observers = new ArrayList<LevelSwitchObserver>();
+	private transient ArrayList<LevelSwitchObserver> observers = new ArrayList<LevelSwitchObserver>();
 	private String destination;
 	public Entrance(int x, int y, String destination) {
 		super(x, y, 1, 1);
@@ -27,6 +27,9 @@ public class Entrance extends Block implements LevelSwitch {
     }
 	@Override
 	public void attachLevelSwitch(LevelSwitchObserver o) {
+		if(observers == null){
+			observers = new ArrayList<LevelSwitchObserver>();
+		}
 		observers.add(o);
 	}
 	@Override

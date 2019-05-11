@@ -43,7 +43,7 @@ public abstract class Level implements Serializable{
 			entities.addAll((CopyOnWriteArrayList<Entity>) ois.readObject());
 			ois.close();
 			fileCharged = true;
-			System.out.println("loaded from serial");
+			System.out.println("[Level]" +fileName + " loaded from serial");
 		} catch (ClassNotFoundException e1) {
 			System.out.println("Class not found !");;
 		} catch (FileNotFoundException e1) {
@@ -54,7 +54,7 @@ public abstract class Level implements Serializable{
 		if (!fileCharged) {
 	    	FileReader file = new FileReader(this.fileName + ".txt");
 	    	BufferedReader reader = new BufferedReader(file);
-	    	System.out.println("loaded from text");
+	    	System.out.println("[Level]" + fileName + " loaded from text");
 	    	String line = reader.readLine();
 	    	int x = 0;
 	    	int y = 0;
@@ -63,13 +63,13 @@ public abstract class Level implements Serializable{
 	    			switch (line.charAt(i)) {
 					case 'W' : objects.add(new Wall(x, y)); break;
 					case 'C' : objects.add(new Couch(x, y)); break;
-					case 'B' : objects.add(new Bed(x, y, game)); break;
+					case 'B' : objects.add(new Bed(x, y)); break;
 					case 'T' : objects.add(new Table(x, y)); break;
 					case 'P' : objects.add(new Toilet(x, y)); break;
 					case 'S' : objects.add(new Shower(x,y)); break;
 					case 'F' : objects.add(new Fridge(x, y)); break;
-					case '$' : objects.add(new ShopCounter(x, y, this.game)); break;
-					case 'O' : objects.add(new Computer(x, y, game)); break;
+					case '$' : objects.add(new ShopCounter(x, y)); break;
+					case 'O' : objects.add(new Computer(x, y)); break;
 					case 'E' : 
 						Entrance home_entrance = new Entrance(x, y, "home"); 
 						System.out.println("Entrance added to home");
@@ -96,8 +96,19 @@ public abstract class Level implements Serializable{
 	    	}
 	    	reader.close();
 		}	
-		System.out.println(objects.size());
+		for(GameObject o : objects){
+			if(o instanceof GUIModifier){
+				((GUIModifier) o).attachGUIObserver(game);
+			}
+			if(o instanceof LevelSwitch){
+				((LevelSwitch) o).attachLevelSwitch(game);
+			}
+			if(o instanceof Bed){
+				((Bed) o).attachGame(game);
+			}
+		}
 	    game.setGameObjects(objects);
+	    game.setEntities(entities);
 
 		
     }

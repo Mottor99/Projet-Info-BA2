@@ -9,14 +9,13 @@ public class ShopCounter extends BlockUnbreakable implements Activable, MenuActi
 	private boolean isInMenu = false;
 	private Shop shop;
 	private Player player;
-	private GUIObserver go;
-	public ShopCounter(int X, int Y, Game game) {
+	private transient GUIObserver go;
+	public ShopCounter(int X, int Y) {
 		super(X, Y, 1, 1);
-		attachGUIObserver(game);
 		this.sprite = Sprite.shop_counter;
 		this.menu.addItem(new MenuItem("buy"));
 		this.menu.addItem(new MenuItem("cancel"));
-		this.shop = new Shop(game);
+		this.shop = new Shop();
 		shop.addItem(new Table(0, 0));
 		shop.addItem(new Couch(0, 0));
 	}
@@ -36,6 +35,7 @@ public class ShopCounter extends BlockUnbreakable implements Activable, MenuActi
 
 	@Override
 	public void menuAction(String action) {
+		
 		switch(action){
 		case "buy":
 			closeMenu();
@@ -43,7 +43,7 @@ public class ShopCounter extends BlockUnbreakable implements Activable, MenuActi
 			this.shop.open(this.player);
 			System.out.println(shop.getItems());
 			this.notifyGUIObserver();
-			System.out.println("Screen notified");
+			System.out.println("[Shop counter] Screen notified");
 			break;
 		case "cancel":
 			closeMenu();
@@ -66,6 +66,9 @@ public class ShopCounter extends BlockUnbreakable implements Activable, MenuActi
 
 	@Override
 	public void activate(Entity p) {
+		if(shop!=null){
+			shop.close();
+		}
 		this.player = (Player) p;
 		openMenu();
 		

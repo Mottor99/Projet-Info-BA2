@@ -9,19 +9,17 @@ public class Computer extends BlockUnbreakable implements Activable, Deletable, 
 	 */
 	private static final long serialVersionUID = 1L;
 	private Player p;
-	private GUIObserver go;
+	private transient GUIObserver go;
 	protected Menu startWorkingMenu;
 	protected Menu stopWorkingMenu;
 	protected Menu currentMenu;
 	protected boolean isInMenu = false;
 
 
-	public Computer(int x, int y, Game g) {
+	public Computer(int x, int y) {
 		super(x, y, 1, 1);
 		sprite = Sprite.computer;
 
-		attachGUIObserver(g);
-		System.out.println(go);
 		this.currentMenu = new Menu(this);
 		this.startWorkingMenu = new Menu(this);
 		this.stopWorkingMenu = new Menu(this);
@@ -31,6 +29,7 @@ public class Computer extends BlockUnbreakable implements Activable, Deletable, 
 		
 		
 	}
+	
 	@Override
 	public void render(double x, double y, Graphics g, int BLOC_SIZE){
     	g.drawImage(sprite.getImage(), (int)Math.ceil(x*BLOC_SIZE),(int)Math.ceil((y-1)*BLOC_SIZE), BLOC_SIZE*width, BLOC_SIZE*2, null);

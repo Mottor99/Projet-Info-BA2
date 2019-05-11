@@ -32,7 +32,6 @@ public class Menu implements Serializable {
 	
 	private void selectItem(int index){
 		this.selectedItem = this.items.get(index);
-		System.out.println(selection);
 	}
 	
 	public void addItem(MenuItem item){

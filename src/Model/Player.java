@@ -3,7 +3,6 @@ package Model;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import View.Animation;
 
 
 public class Player extends Entity implements Animation, GUIModifier{

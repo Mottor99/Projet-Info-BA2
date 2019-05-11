@@ -232,7 +232,7 @@ public class Screen extends JPanel implements DraggableObserver {
 				ibox.open((Player)gm, this);
 				ibox.requestFocusInWindow();
 			}
-			if(gm instanceof ShopCounter && ((ShopCounter) gm).getShop().isOpen()){
+			else if(gm instanceof ShopCounter && ((ShopCounter) gm).getShop().isOpen()){
 				System.out.println("shop open");
 				right.add(shop);
 				right.setPreferredSize(new Dimension(window.getWidth()/3, window.getHeight()));

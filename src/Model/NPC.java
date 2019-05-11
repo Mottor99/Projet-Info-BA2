@@ -1,6 +1,7 @@
 package Model;
 
-import View.Animation;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public abstract class NPC extends Entity implements Activable, Animation, Dialog, MenuActivable, GUIModifier {
 	/**
@@ -22,7 +23,7 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	
 	protected Menu menu;
 	protected boolean isInMenu = false;
-	protected GUIObserver go;
+	protected transient GUIObserver go;
 	
     private Action currentAction = null;
 	
@@ -36,6 +37,7 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 		this.menu.addItem(new MenuItem("cancel"));
 		
 	}
+	
 	@Override
 	public void attachGUIObserver(GUIObserver go){
 		this.go = go;
@@ -123,7 +125,6 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	public void growTire(Game g) {
     	if (needState == SLEEPING) {
     		energy = clamp(energy, 1, 100, 0);
-    		System.out.println(energy);
     		if(energy>=100) {
     			stopSleeping();
     		}

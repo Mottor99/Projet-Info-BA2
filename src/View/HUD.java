@@ -25,16 +25,10 @@ public class HUD implements Serializable {
 	private static NPC npc;
 	private static int BAR_LENGTH = 120;
 	private static int BAR_WIDTH = 40;
-	private Screen screen;
-	private Window window;
-	private JPanel shopPanel = new JPanel();
-	private boolean buttonPressed = false;
 	private Time time = new Time();
-    private JButton button; 
 
     public HUD(Screen m, Window w){
-    	screen = m;
-    	window = w;
+    	
     	
     }
     
@@ -74,10 +68,6 @@ public class HUD implements Serializable {
         g.drawString("Day " + time.getDay() + " - " + time.getHour() + ":" + time.getMin(), 300, 25);
         g.drawString("Money : " + p.getMoney() + " $ilex", 500, 25);
 		}
-        //this.button.repaint();
-        //this.shopPanel.repaint();
-        //shopPanel.repaint();
-        //window.setVisible(true);
     }
 	
 	public void setPlayer(Player p2) {

@@ -40,7 +40,7 @@ public class Main {
 		}
     	game = null;
     	if(game==null) {
-    		game = new Game(window);
+    		game = Game.getInstance(window);
     	}else game.start(window);
 		
     	

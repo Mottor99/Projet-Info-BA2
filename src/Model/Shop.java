@@ -10,11 +10,12 @@ public class Shop implements Serializable{
 	private ArrayList<GameObject> items = new ArrayList<GameObject>();
 	public Shop(Game game){
 		this.game = game;
+		this.isOpen = false;
 	}
 	public void open(Player p){
 		this.player = p;
 		this.isOpen = true;
-		this.game.openShop(this);
+		System.out.println("Shop is open" + isOpen);
 	}
 	public void buyItem(GameObject item){
 		

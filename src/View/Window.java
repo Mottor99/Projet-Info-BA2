@@ -92,9 +92,7 @@ public class Window extends JFrame {
         this.screen.setGameObjects(arrayList);
         //this.screen.redraw();
     }
-    public void openShop(Shop shop) {
-    	this.screen.openShop(shop);
-    }
+    
     
     public void update() {
         this.screen.redraw();
@@ -152,9 +150,7 @@ public class Window extends JFrame {
 	public void zoomCamera(int zoom){
 		this.screen.zoom(zoom);
 	}
-	public void showInventory() {
-		this.screen.showInventory();
-	}
+	
 	public void setTime(Time time) {
 		screen.setTime(time);
 	}

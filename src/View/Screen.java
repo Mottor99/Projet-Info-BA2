@@ -113,6 +113,7 @@ public class Screen extends JPanel implements DraggableObserver {
     	right.setOpaque(false);
     	bottom.setOpaque(false);
     	this.add(bottom, BorderLayout.SOUTH);
+    	this.add(right, BorderLayout.EAST);
     	//this.add(ibox, BorderLayout.EAST);
         //this.add(shop, BorderLayout.WEST);
 	}
@@ -121,8 +122,6 @@ public class Screen extends JPanel implements DraggableObserver {
 	public void paintComponent(Graphics g){
 		
 		super.paintComponent(g);
-		Dialog talkingObj = null;
-		MenuActivable menuObj = null;
 		double viewPosX = Camera.getViewPosX();
     	double viewPosY = Camera.getViewPosY();
     	for(int i = -20; i<45; i++){
@@ -138,32 +137,17 @@ public class Screen extends JPanel implements DraggableObserver {
             double x = object.getPosX()-viewPosX;
             double y = object.getPosY()-viewPosY;
             object.render(x, y, g, BLOC_SIZE);
-            /*
-            if(object instanceof Dialog){
-            	if(((Dialog)object).isTalking()){
-            		talkingObj = (Dialog)object;
-            	}
-            }
-            if(object instanceof MenuActivable){
-            	if(((MenuActivable)object).isInMenu()){
-            		menuObj = (MenuActivable)object;
-            	}
-            }
-            */
+            
     	} 
 
         if(draggedItem != null) {
         	draggedItem.getObject().render(draggedItem.getObject().getPosX() - viewPosX, draggedItem.getObject().getPosY() - viewPosY, g, BLOC_SIZE);
         }
-            
-    	//ibox.render(inventoryOpen);
-    	//db.render(talkingObj);
-    	//menu.render(menuObj);
+        shop.repaint();
+    	ibox.render();
         menu.render();
     	db.render();
     	hud.render(g);
-		
-		
 		
 	}
 	
@@ -177,9 +161,7 @@ public class Screen extends JPanel implements DraggableObserver {
 	public void addMouse(Mouse m) {
 		this.mouseController = m;
 	}
-	public void openShop(Shop shop) {
-		this.shop.switchVisibility(shop);
-	}
+	
 
 	public int getBLOC_SIZE() {
 		return this.BLOC_SIZE;
@@ -210,12 +192,8 @@ public class Screen extends JPanel implements DraggableObserver {
 	public void setDraggedObject(InventoryItem ii) {
 		draggedItem = ii;
 	}
-	public void showInventory() {
-		ibox.switchVisibility();
-	}
 
 	public void setPlayer(Player p) {
-		ibox.setPlayer(p, this);
 		hud.setPlayer(p);
 		
 	}
@@ -244,7 +222,20 @@ public class Screen extends JPanel implements DraggableObserver {
 				bottom.add(menu);
 				menu.open((MenuActivable)gm);
 				menu.requestFocusInWindow();
+			}else if(gm instanceof Player && ((Player)gm).isInInventory()){
+				right.add(ibox);
+				right.setPreferredSize(new Dimension(window.getWidth()/3, window.getHeight()));
+				ibox.open((Player)gm, this);
+				ibox.requestFocusInWindow();
 			}
+			if(gm instanceof ShopCounter && ((ShopCounter) gm).getShop().isOpen()){
+				System.out.println("shop open");
+				right.add(shop);
+				right.setPreferredSize(new Dimension(window.getWidth()/3, window.getHeight()));
+				shop.open((ShopCounter)gm, this);
+				shop.requestFocusInWindow();
+			}
+			
 			
 		}
 		

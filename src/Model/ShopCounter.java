@@ -1,6 +1,10 @@
 package Model;
 
 public class ShopCounter extends BlockUnbreakable implements Activable, MenuActivable, GUIModifier{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Menu menu = new Menu(this);
 	private boolean isInMenu = false;
 	private Shop shop;
@@ -13,7 +17,7 @@ public class ShopCounter extends BlockUnbreakable implements Activable, MenuActi
 		this.menu.addItem(new MenuItem("buy"));
 		this.menu.addItem(new MenuItem("cancel"));
 		this.shop = new Shop(game);
-		shop.addItem(new Bed(0, 0, game));
+		shop.addItem(new Table(0, 0));
 		shop.addItem(new Couch(0, 0));
 	}
 
@@ -35,7 +39,11 @@ public class ShopCounter extends BlockUnbreakable implements Activable, MenuActi
 		switch(action){
 		case "buy":
 			closeMenu();
+			
 			this.shop.open(this.player);
+			System.out.println(shop.getItems());
+			this.notifyGUIObserver();
+			System.out.println("Screen notified");
 			break;
 		case "cancel":
 			closeMenu();
@@ -80,8 +88,11 @@ public class ShopCounter extends BlockUnbreakable implements Activable, MenuActi
 
 	@Override
 	public boolean isOpen() {
-		// TODO Auto-generated method stub
-		return isInMenu;
+		boolean open = false;
+		if(shop!=null){
+			open = shop.isOpen();
+		}
+		return isInMenu||open;
 	}
 
 }

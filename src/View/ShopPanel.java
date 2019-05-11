@@ -35,7 +35,7 @@ public class ShopPanel extends JPanel{
 	}
 	public void setShop(Shop shop){
 		this.shop = shop;
-		this.setInventory(shop.getItems());
+		this.setInventory(this.shop.getItems());
 	}
 	public void setInventory(ArrayList<GameObject> inventory) {
 		
@@ -59,11 +59,14 @@ public class ShopPanel extends JPanel{
 			this.add(pan);
 			i++;
 		}
+		validate();
 	}
-	public void switchVisibility(Shop shop) {
-		this.setShop(shop);
-		this.isOpen = !this.isOpen;
-		this.setVisible(isOpen);
+	
+
+	public void open(ShopCounter gm, Screen screen) {
+		this.setShop(gm.getShop());
+		this.setVisible(true);
+		
 	}
 		
 	

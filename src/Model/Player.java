@@ -14,9 +14,9 @@ public class Player extends Entity implements Animation, GUIModifier{
 	
 	private int money = 500;
 	private ArrayList<GameObject> inventory = new ArrayList<GameObject>();
-
+	private transient GUIObserver go;
 	private transient Thread animation;
-
+	private boolean isInInventory;
 	private boolean isWorking = false;
     
 
@@ -126,27 +126,6 @@ public class Player extends Entity implements Animation, GUIModifier{
 		}
 	}
 
-	@Override
-	public void attachGUIObserver(GUIObserver go) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyGUIObserver() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isOpen() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-
-	
 	public boolean isWorking() {
 
 		return isWorking;
@@ -175,7 +154,31 @@ public class Player extends Entity implements Animation, GUIModifier{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void attachGUIObserver(GUIObserver go){
+		this.go = go;
+	}
+	@Override
+	public void notifyGUIObserver(){
+		go.notifyGUI(this);
+	}
 
+	@Override
+	public boolean isOpen() {
+		// TODO Auto-generated method stub
+		return this.isInInventory;
+	}
+
+	public void inventoryEvent() {
+		this.isInInventory = !this.isInInventory;
+		notifyGUIObserver();
+		
+	}
+
+	public boolean isInInventory() {
+		// TODO Auto-generated method stub
+		return isInInventory;
+	}
 	
 	
 	

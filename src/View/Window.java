@@ -24,6 +24,10 @@ import Controller.Mouse;
 import Main.Main;
 
 public class Window extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel groupPanel = new JPanel(new BorderLayout());
 	private int height = 720;
 	private int width = 1280;
@@ -154,6 +158,7 @@ public class Window extends JFrame {
 	public void setTime(Time time) {
 		screen.setTime(time);
 	}
+
 
 	public void notifyGUI(GUIModifier gm) {
 		

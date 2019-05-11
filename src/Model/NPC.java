@@ -123,6 +123,7 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	public void growTire(Game g) {
     	if (needState == SLEEPING) {
     		energy = clamp(energy, 1, 100, 0);
+    		System.out.println(energy);
     		if(energy>=100) {
     			stopSleeping();
     		}

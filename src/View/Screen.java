@@ -34,7 +34,11 @@ import Model.Time;
 
 
 public class Screen extends JPanel implements DraggableObserver {
-	private Mouse mouseController = null;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private transient Mouse mouseController = null;
 	public static int BLOC_SIZE = 40;
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	public final int MAP_SIZE = 25;

@@ -14,6 +14,10 @@ import Model.Shop;
 import Model.ShopCounter;
 
 public class ShopPanel extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private boolean isOpen = false;
 	private Shop shop;
 	private ArrayList<ShopItem> items = new ArrayList<ShopItem>();

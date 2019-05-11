@@ -14,6 +14,10 @@ import Model.Dialog;
 import Model.NPC;
 
 public class DialogBox extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel label = new JLabel();
 	private Dialog object = null;
 	private boolean hasFocus = false;

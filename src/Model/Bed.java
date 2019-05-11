@@ -4,6 +4,10 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 	
 	
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Menu Menu;
 	private boolean isInMenu = false;
 	private Game g;

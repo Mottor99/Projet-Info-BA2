@@ -4,6 +4,11 @@ import java.awt.Graphics;
 
 public class Fridge extends BlockUnbreakable implements Activable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Fridge(int x, int y) {
 		super(x, y, 1, 1);
 		sprite = Sprite.fridge;

@@ -4,6 +4,10 @@ import java.awt.Graphics;
 
 public class Computer extends BlockUnbreakable implements Activable, Deletable, MenuActivable, GUIModifier {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Player p;
 	private GUIObserver go;
 	protected Menu startWorkingMenu;

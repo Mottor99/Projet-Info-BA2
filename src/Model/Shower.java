@@ -3,6 +3,11 @@ package Model;
 public class Shower extends BlockUnbreakable implements Activable, Deletable {
 	
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Shower(int x, int y) {
 		super(x, y, 1, 2);
 		sprite = Sprite.couch;

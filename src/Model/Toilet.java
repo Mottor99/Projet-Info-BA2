@@ -2,6 +2,11 @@ package Model;
 
 public class Toilet extends BlockUnbreakable implements Deletable, Activable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Toilet(int x, int y) {
 		super(x, y, 1, 1);
 		sprite = Sprite.toilet;

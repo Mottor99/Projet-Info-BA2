@@ -11,9 +11,14 @@ public class Map extends Level {
     
 
 
-    public Map(Game game){
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    	super(game, "src/map.txt");
+	public Map(Game game){
+
+    	super(game, "src/map");
 
     	try {
 			load();

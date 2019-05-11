@@ -1,6 +1,5 @@
 package Model;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,7 +10,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class Entity extends GameObject implements Directable, Movement, Hunger, Hygiene, Bladder, Tire {
 
-    int direction = EAST;  
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	int direction = EAST;  
     protected boolean isFocused = false;
 	protected transient Thread movement = new Thread(); 
     protected int movX, movY;
@@ -20,6 +23,7 @@ public abstract class Entity extends GameObject implements Directable, Movement,
     protected int aX = posX;
     protected int aY = posY;
     protected ArrayList<GameObject> objects;
+    
     
     protected int needState = NOTHING;
     protected double energy = 100.0;
@@ -72,7 +76,7 @@ public abstract class Entity extends GameObject implements Directable, Movement,
 	@Override
 	public void render(double x, double y, Graphics g, int BLOC_SIZE){
     	g.drawImage(this.sprite.getImage(), (int)((x+dX)*BLOC_SIZE),(int)((y-1+dY)*BLOC_SIZE), BLOC_SIZE*width, BLOC_SIZE*2, null);
-    	
+
     	
     }
 	
@@ -193,7 +197,7 @@ public abstract class Entity extends GameObject implements Directable, Movement,
     }
     public void growHunger(Game g) {
     	if (needState == EATING && hunger < 100) {
-			hunger += 1;
+			hunger = clamp(hunger, 1, 100, 0);
 			if (hunger >= 100) {
 				stopEating();
 			}
@@ -301,6 +305,7 @@ class EntityMovement implements Runnable{
 					if(isEntrance && entrance != null) {
 						state = IDLE;
 						entrance.notifyLevelSwitchObservers();
+						
 					}
 					
 				}else state = IDLE;

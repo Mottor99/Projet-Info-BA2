@@ -1,10 +1,17 @@
 package Controller;
 
+import java.io.Serializable;
+
 import Model.Game;
 import Model.GameObject;
 
-public class Mouse {
-    private Game game;
+public class Mouse implements Serializable{
+    
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private transient Game game;
 
     public Mouse(Game game) {
         this.game = game;

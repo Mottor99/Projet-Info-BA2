@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Menu implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<MenuItem> items = new ArrayList<MenuItem>();
 	private MenuItem selectedItem;
 	private int selection = 0;

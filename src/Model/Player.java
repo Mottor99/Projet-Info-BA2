@@ -3,7 +3,6 @@ package Model;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import View.Animation;
 
 
 public class Player extends Entity implements Animation, GUIModifier{
@@ -18,10 +17,10 @@ public class Player extends Entity implements Animation, GUIModifier{
 	
 	private int money = 500;
 	private ArrayList<GameObject> inventory = new ArrayList<GameObject>();
-
-	private transient Thread animation;
-
+	private transient GUIObserver go;
+	private boolean isInInventory;
 	private boolean isWorking = false;
+	protected transient Thread animation;
     
 
     public Player(int x, int y, int maxBomb) {
@@ -64,10 +63,10 @@ public class Player extends Entity implements Animation, GUIModifier{
 	}   
 
 	public void tic(Game g) {
-		this.growBladder(g);
-		this.growDirt(g);
-		this.growHunger(g);
-		this.growTire(g);
+		this.changeBladder(g);
+		this.changeHygiene(g);
+		this.changeHunger(g);
+		this.changeEnergy(g);
 		this.moreMoney(g);
 	}
 
@@ -130,56 +129,36 @@ public class Player extends Entity implements Animation, GUIModifier{
 		}
 	}
 
-	@Override
-	public void attachGUIObserver(GUIObserver go) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyGUIObserver() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isOpen() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-
-	
 	public boolean isWorking() {
 
 		return isWorking;
 	}
 
 	@Override
-	public void setHunger(int hunger) {
-		// TODO Auto-generated method stub
-		
+	public void attachGUIObserver(GUIObserver go){
+		this.go = go;
+	}
+	@Override
+	public void notifyGUIObserver(){
+		go.notifyGUI(this);
 	}
 
 	@Override
-	public void setHygiene(int hygiene) {
+	public boolean isOpen() {
 		// TODO Auto-generated method stub
+		return this.isInInventory;
+	}
+
+	public void inventoryEvent() {
+		this.isInInventory = !this.isInInventory;
+		notifyGUIObserver();
 		
 	}
 
-	@Override
-	public void setBladder(int bladder) {
+	public boolean isInInventory() {
 		// TODO Auto-generated method stub
-		
+		return isInInventory;
 	}
-
-	@Override
-	public void setEnergy(int energy) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
 	
 	

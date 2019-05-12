@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -46,7 +47,7 @@ public class Window extends JFrame{
 
 			@Override
 			public void windowClosing(WindowEvent e) {
-				Main.save();
+				
 				
 			}
 
@@ -96,9 +97,7 @@ public class Window extends JFrame{
         this.screen.setGameObjects(arrayList);
         //this.screen.redraw();
     }
-    public void openShop(Shop shop) {
-    	this.screen.openShop(shop);
-    }
+    
     
     public void update() {
         this.screen.redraw();
@@ -156,14 +155,12 @@ public class Window extends JFrame{
 	public void zoomCamera(int zoom){
 		this.screen.zoom(zoom);
 	}
-	public void showInventory() {
-		this.screen.showInventory();
-	}
+	
 	public void setTime(Time time) {
 		screen.setTime(time);
 	}
 
-	
+
 	public void notifyGUI(GUIModifier gm) {
 		
 		screen.notifyGUI(gm);

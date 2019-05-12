@@ -26,12 +26,7 @@ public abstract class GameObject implements Comparable<GameObject>, Serializable
         this.height = height;
         
     }
-    public double clamp(double x, double dx, double max, double min) {
-    	x+= dx;
-    	if(x>max)x = max;
-    	if(x<min)x = min;
-    	return x;
-    }
+   
     private void writeObject(ObjectOutputStream out) throws IOException {
     	      out.defaultWriteObject();
     	      out.writeObject(sprite);
@@ -40,6 +35,12 @@ public abstract class GameObject implements Comparable<GameObject>, Serializable
     	      in.defaultReadObject();
     	      this.sprite = (Sprite) in.readObject();
     	      this.sprite.load();
+    }
+    public double clamp(double x, double dx, double max, double min) {
+    	x+= dx;
+    	if(x>max)x = max;
+    	if(x<min)x = min;
+    	return x;
     }
     public void render(double x, double y, Graphics g, int BLOC_SIZE){
     	g.drawImage(sprite.getImage(), (int)(x*BLOC_SIZE),(int)(y*BLOC_SIZE), BLOC_SIZE*width, BLOC_SIZE*height, null);

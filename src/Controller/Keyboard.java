@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
+import Main.Main;
 import Model.Game;
 
 public class Keyboard implements KeyListener, Runnable {
@@ -130,7 +131,11 @@ public class Keyboard implements KeyListener, Runnable {
         	game.lockCamera();
         	game.centerCamera();
         	break;
+        case KeyEvent.VK_S:
+        	Main.save();
+        	break;
         }
+        
         //System.out.println(pressed[0] + " " + pressed[1]+ " " + pressed[2]+ " " + pressed[3]);
     }
 

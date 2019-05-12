@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
-public abstract class Entity extends GameObject implements Directable, Movement, Hunger, Hygiene, Bladder, Tire {
+public abstract class Entity extends GameObject implements Directable, Animation, Movement, Hunger, Hygiene, Bladder, Energy {
 
     /**
 	 * 
@@ -22,6 +22,7 @@ public abstract class Entity extends GameObject implements Directable, Movement,
     protected int state = IDLE;
     protected int aX = posX;
     protected int aY = posY;
+    
     protected ArrayList<GameObject> objects;
     
     
@@ -76,7 +77,7 @@ public abstract class Entity extends GameObject implements Directable, Movement,
 	@Override
 	public void render(double x, double y, Graphics g, int BLOC_SIZE){
     	g.drawImage(this.sprite.getImage(), (int)((x+dX)*BLOC_SIZE),(int)((y-1+dY)*BLOC_SIZE), BLOC_SIZE*width, BLOC_SIZE*2, null);
-    	//System.out.println("Sprite" + posX);
+
     	
     }
 	
@@ -136,10 +137,10 @@ public abstract class Entity extends GameObject implements Directable, Movement,
     }
     
     public void tic(Game game) {
-    	this.growBladder(game);
-		this.growDirt(game);
-		this.growHunger(game);
-		this.growTire(game);
+    	this.changeBladder(game);
+		this.changeHygiene(game);
+		this.changeHunger(game);
+		this.changeEnergy(game);
     }
     public void sleep() {
 		needState = SLEEPING;
@@ -187,7 +188,7 @@ public abstract class Entity extends GameObject implements Directable, Movement,
 		this.energy = energy;
 	}
 	
-    public void growTire(Game g) {
+    public void changeEnergy(Game g) {
     	if (needState == SLEEPING && energy < 100) {
 			energy += 0.1;
 		}
@@ -195,7 +196,7 @@ public abstract class Entity extends GameObject implements Directable, Movement,
 			energy -= 0.1; 
 		}
     }
-    public void growHunger(Game g) {
+    public void changeHunger(Game g) {
     	if (needState == EATING && hunger < 100) {
 			hunger = clamp(hunger, 1, 100, 0);
 			if (hunger >= 100) {
@@ -206,7 +207,7 @@ public abstract class Entity extends GameObject implements Directable, Movement,
 			hunger -= 0.04; 
 		}
     }
-    public void growBladder(Game g) {
+    public void changeBladder(Game g) {
     	if (needState == PEEING && bladder <= 100) {
 			bladder += 2;
 			if (bladder >= 100) {
@@ -217,7 +218,7 @@ public abstract class Entity extends GameObject implements Directable, Movement,
 			bladder -= 0.02; 
 		}
     }
-    public void growDirt(Game g) {
+    public void changeHygiene(Game g) {
     	if (needState == WASHING && hygiene < 100) {
 			hygiene += 1;
 			if (hygiene >= 100) {

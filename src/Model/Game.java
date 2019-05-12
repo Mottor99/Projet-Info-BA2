@@ -24,12 +24,11 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 	private static final long serialVersionUID = 1L;
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
     private ArrayList<Entity> entities = new ArrayList<Entity>();
-    public Player active_player = null;
+    private Player active_player = null;
     private transient AStarThread t = null;
     private transient Loop gameLoop;
     private Level currentLevel;
     private transient Window window;
-    private int size;
     private Time time;
 
 
@@ -37,14 +36,27 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 
     	this.window = window;
         Player p = new Player(6, 3, 3);
-
+        p.attachGUIObserver(this);
         Adult w = new Adult(2, 2, "female");
+        Baby b = new Baby(10, 10);
+        Child c = new Child(15, 14, "male");
         w.attachGUIObserver(this);
-        currentLevel = new Map(this);
+        
+        if(currentLevel == null){
+        	currentLevel = new Map(this);
+        }
+        currentLevel.load();
+        
+        
         objects.add(p);
         objects.add(w);
+        objects.add(b);
+        objects.add(c);
         entities.add(p);
         entities.add(w);
+        entities.add(b);
+        entities.add(c);
+        
         active_player = p;
 
         
@@ -62,16 +74,28 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     }
     
     public void start(Window window) {
+    	
     	this.window = window;
     	active_player.start();
-    	System.out.println(this.objects.size());
-    	
-        size = window.getMapSize();
+    	attachObservers();
     	Camera.center(active_player, window.getWidth(), window.getHeight());
     	window.setPlayer(this.getActivePlayer());
         window.setGameObjects(this.getGameObjects());  //draws GameObjects
         window.setTime(this.time);
     	gameLoop = new Loop(this);
+    }
+    public void attachObservers(){
+    	for(GameObject o : objects){
+			if(o instanceof GUIModifier){
+				((GUIModifier) o).attachGUIObserver(this);
+			}
+			if(o instanceof LevelSwitch){
+				((LevelSwitch) o).attachLevelSwitch(this);
+			}
+			if(o instanceof Bed){
+				((Bed) o).attachGame(this);
+			}
+		}
     }
 
 
@@ -85,59 +109,11 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 		e.move(x, y, objects);
 	}
     
-    public void sendPlayerToObject(String s) {
-    	CopyOnWriteArrayList<GameObject> copy = new CopyOnWriteArrayList<GameObject>();
-    	copy.addAll(objects);
-    	switch (s) {
-		case "Bed" : 
-			for(GameObject object : copy) {
-				if (object instanceof Bed){
-					this.sendPlayer(object.getPosX(), object.getPosY()-1);
-					((Bed) object).activate(active_player);
-					break;
-				}
-			}; break;
-			
-		case "Fridge" : 
-			for(GameObject object : copy) {
-				if (object instanceof Fridge){
-					this.sendPlayer(object.getPosX(), object.getPosY()-1);
-					((Fridge) object).activate(active_player);
-					break;
-			}
-		}; break;
-		case "Toilet" : 
-			for(GameObject object : copy) {
-				if (object instanceof Toilet){
-					this.sendPlayer(object.getPosX(), object.getPosY()-1);
-					((Toilet) object).activate(active_player);
-					break;
-				}
-			}; break;
-		case "Shower" : 
-			for(GameObject object : objects) {
-				if (object instanceof Shower){
-					this.sendPlayer(object.getPosX(), object.getPosY()-1);
-					((Shower) object).activate(active_player); break;
-				}
-			}; break;
-		}
-    }
-    /*public void sendPlayerToObject(Class o) {
-    	CopyOnWriteArrayList<GameObject> copy = new CopyOnWriteArrayList<GameObject>();
-    	copy.addAll(objects);
-    	for(GameObject object : copy) {
-    		this.sendPlayer(object.getPosX(), object.getPosY());
-    		(Class object).activate(active_player);
-    	}
-    }*/
-    public void openShop(Shop shop) {
-    	this.window.openShop(shop);
-    	
-    }
+    
+    
     public void inventory(int x, int y) {
     	if (active_player.isAtPosition(x, y)) {
-    		window.showInventory();
+    		active_player.inventoryEvent();
     	}
     }
     
@@ -155,20 +131,6 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     	active_player.setFocused(!active_player.isFocused());
     }
 
-    /*public void tirePlayer() {
-    	active_player.growTire(this);
-    	
-    }
-    
-    public void growHunger() {
-    	active_player.growHunger(this);
-    }
-    public void growBladder() {
-    	active_player.growBladder(this);
-    }
-    public void growHygiene() {
-    	active_player.growDirt(this);
-    }*/
     public void action() {
         Activable aimedObject = null;
 		for(GameObject object : objects){
@@ -185,7 +147,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         
     }
 
-    public void render() {
+    public synchronized void render() {
         window.update();
     }
 
@@ -232,11 +194,12 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 
 
 	public void setGameObjects(ArrayList<GameObject> objects) {
+		System.out.println("[Game] objects size : "+ objects.size());
 		this.objects = objects;
 		
 	}
 	
-	public void updateTime() {
+	public synchronized void updateTime() {
 		time.update();
 		
 	}
@@ -254,12 +217,16 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 		objects.remove(active_player);
 		entities.remove(active_player);
 		currentLevel.save(objects, entities);
+		
 		switch(destination){
-		case "map" : currentLevel = new Map(this); break;
-		case "home" : currentLevel = new Home(this); break;
+			case "map" : currentLevel = new Map(this); break;
+			case "home" : currentLevel = new Home(this); break;
+			case "store" : currentLevel = new Store(this); break;
 		}
+		currentLevel.load();
 		objects.add(active_player);
 		entities.add(active_player);
+		attachObservers();
 		window.setGameObjects(this.getGameObjects()); 
 		try {
 			Thread.sleep(200);
@@ -292,6 +259,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 	}
 
 	public void tic() {
+
 		for (Entity entity : entities) {
 			entity.tic(this);
 		}
@@ -303,6 +271,11 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 		window.notifyGUI(gm);
 		
 	}
-	
+
+	public void setEntities(ArrayList<Entity> entities) {
+		System.out.println("[Game] entities size : " + entities.size());
+		this.entities = entities;
+		
+	}
 
 }

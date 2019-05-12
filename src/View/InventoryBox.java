@@ -31,11 +31,10 @@ public class InventoryBox extends JPanel implements DeletableObserver{
 		this.setBorder(new EmptyBorder(20, 20 , 20, 20));
 		this.setLayout(layout);
 
-		this.setPreferredSize(new Dimension(300, 100));
 		this.setVisible(false);
 		this.setFocusable(true);
 		this.setOpaque(true);
-		this.setBackground(Color.DARK_GRAY);
+		this.setBackground(new Color(80,80,80,220));
 		
 	}
 	
@@ -64,17 +63,10 @@ public class InventoryBox extends JPanel implements DeletableObserver{
 			this.add(pan);
 			i++;
 		}
-	}
-	public void switchVisibility() {
-		this.isOpen = !this.isOpen;
-		this.setVisible(isOpen);
+		this.validate();
 	}
 
-
-	public void setPlayer(Player p, Screen screen) {
-		this.setInventory(p.getInventory(), screen);
-		
-	}
+	
 
 
 	@Override
@@ -89,5 +81,19 @@ public class InventoryBox extends JPanel implements DeletableObserver{
 	}
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+	}
+
+
+	public void render() {
+		this.repaint();
+		
+	}
+
+
+	public void open(Player p, Screen screen) {
+		this.setInventory(p.getInventory(), screen);
+		this.setVisible(true);
+			
+		
 	}
 }

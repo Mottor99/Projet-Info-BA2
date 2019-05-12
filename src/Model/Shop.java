@@ -9,23 +9,25 @@ public class Shop implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Player player;
-	private Game game;
 	private boolean isOpen = false;
 	private ArrayList<GameObject> items = new ArrayList<GameObject>();
-	public Shop(Game game){
-		this.game = game;
+	public Shop(){
+		this.isOpen = false;
 	}
 	public void open(Player p){
 		this.player = p;
 		this.isOpen = true;
-		this.game.openShop(this);
+		System.out.println("[Shop] Shop is open " + isOpen);
+	}
+	public void close(){
+		this.isOpen = false;
+		System.out.println("[Shop] Shop is closed " + isOpen);
 	}
 	public void buyItem(GameObject item){
 		
 		try{
 			player.pay(((Sellable)item).getPrice()); //throws exception if not enough money
 			player.addToInventory(item);
-			game.getWindow().setPlayer(game.getActivePlayer());
 			//items.remove(item);
 		}catch(RuntimeException e){
 			e.printStackTrace();

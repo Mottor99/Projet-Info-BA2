@@ -27,104 +27,138 @@ public abstract class Level implements Serializable{
     protected ArrayList<Entity> entities = new ArrayList<Entity>();
     protected int spawnX, spawnY;
     protected String fileName = "src/file";
-    protected Game game; 
-    private boolean fileCharged = false;
-	
+    protected Game game = null; 
+    //protected static transient boolean gameSaved = false;
+    //protected transient boolean fileSaved = false;
+	private transient static ArrayList<String> levelsSavedSinceNewGame = new ArrayList<String>();
 	
 	public Level(Game game, String fileName){
 		this.game = game;
 		this.fileName = fileName;
 	}
 	
-	public void load() throws Exception {
+	public void load(){
+		System.out.println("[Level] Number of levels saved : " + levelsSavedSinceNewGame.size());
 		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.fileName + ".ser"));
-			objects.addAll((CopyOnWriteArrayList<GameObject>) ois.readObject());
-			entities.addAll((CopyOnWriteArrayList<Entity>) ois.readObject());
-			ois.close();
-			fileCharged = true;
-			System.out.println("[Level]" +fileName + " loaded from serial");
+			if(levelsSavedSinceNewGame.contains(fileName)){
+				ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.fileName + ".ser"));
+				objects.addAll((CopyOnWriteArrayList<GameObject>) ois.readObject());
+				entities.addAll((CopyOnWriteArrayList<Entity>) ois.readObject());
+				ois.close();
+				System.out.println("[Level] " +fileName + " loaded from serial");
+			}else loadFromText();
 		} catch (ClassNotFoundException e1) {
 			System.out.println("Class not found !");;
+			loadFromText();
 		} catch (FileNotFoundException e1) {
 			System.out.println("File not found !");;
+			loadFromText();
 		} catch (IOException e) {
-			System.out.println("IOException !!!");;
+			System.out.println("IOException !!!");
+			loadFromText();
 		}
-		if (!fileCharged) {
-	    	FileReader file = new FileReader(this.fileName + ".txt");
-	    	BufferedReader reader = new BufferedReader(file);
-	    	System.out.println("[Level]" + fileName + " loaded from text");
-	    	String line = reader.readLine();
-	    	int x = 0;
-	    	int y = 0;
-	    	while (line != null) {
-	    		for (int i=0; i<line.length(); i++) {
-	    			switch (line.charAt(i)) {
-					case 'W' : objects.add(new Wall(x, y)); break;
-					case 'C' : objects.add(new Couch(x, y)); break;
-					case 'B' : objects.add(new Bed(x, y)); break;
-					case 'T' : objects.add(new Table(x, y)); break;
-					case 'P' : objects.add(new Toilet(x, y)); break;
-					case 'S' : objects.add(new Shower(x,y)); break;
-					case 'F' : objects.add(new Fridge(x, y)); break;
-					case '$' : objects.add(new ShopCounter(x, y)); break;
-					case 'O' : objects.add(new Computer(x, y)); break;
-					case 'E' : 
-						Entrance home_entrance = new Entrance(x, y, "home"); 
-						System.out.println("Entrance added to home");
-						home_entrance.attachLevelSwitch(game);
-						objects.add(home_entrance);
-						
-						break;
-					case 'M' : 
-						Entrance map_entrance = new Entrance(x, y, "map"); 
-						System.out.println("Entrance added to map");
-						map_entrance.attachLevelSwitch(game);
-						objects.add(map_entrance);
-						
-						break;
-					}
-	    			x++;
-	    		}
-	    		
-	    		line = reader.readLine();
-	    		 
-	        	x = 0;
-	        	y++;
-	    		
-	    	}
-	    	reader.close();
-		}	
-		for(GameObject o : objects){
-			if(o instanceof GUIModifier){
-				((GUIModifier) o).attachGUIObserver(game);
-			}
-			if(o instanceof LevelSwitch){
-				((LevelSwitch) o).attachLevelSwitch(game);
-			}
-			if(o instanceof Bed){
-				((Bed) o).attachGame(game);
-			}
-		}
+		
+			
+		
 	    game.setGameObjects(objects);
 	    game.setEntities(entities);
+	    
 
 		
     }
+	private void loadFromText(){
+		System.out.println("[Level] Loading from text file...");
+		objects.clear();
+		entities.clear();
+		FileReader file = null;
+		BufferedReader reader = null;
+		String line = "";
+		try{
+			file = new FileReader(this.fileName + ".txt");
+			reader = new BufferedReader(file);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		try {
+			line = reader.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    
+    	int x = 0;
+    	int y = 0;
+    	while (line != null) {
+    		for (int i=0; i<line.length(); i++) {
+    			switch (line.charAt(i)) {
+				case 'W' : objects.add(new Wall(x, y)); break;
+				case 'C' : objects.add(new Couch(x, y)); break;
+				case 'B' : objects.add(new Bed(x, y)); break;
+				case 'T' : objects.add(new Table(x, y)); break;
+				case 'P' : objects.add(new Toilet(x, y)); break;
+				case 'S' : objects.add(new Shower(x,y)); break;
+				case 'F' : objects.add(new Fridge(x, y)); break;
+				case '$' : objects.add(new ShopCounter(x, y)); break;
+				case 'O' : objects.add(new Computer(x, y)); break;
+				case 'E' : 
+					Entrance home_entrance = new Entrance(x, y, "home"); 
+					System.out.println("Entrance added to home");
+					home_entrance.attachLevelSwitch(game);
+					objects.add(home_entrance);
+					
+					break;
+				case 'M' : 
+					Entrance map_entrance = new Entrance(x, y, "map"); 
+					System.out.println("Entrance added to map");
+					map_entrance.attachLevelSwitch(game);
+					objects.add(map_entrance);
+					
+					break;
+				}
+    			x++;
+    		}
+    		
+    		try {
+				line = reader.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		 
+        	x = 0;
+        	y++;
+    	}
+    	
+    	try {
+			reader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	System.out.println("[Level]" + fileName + " loaded from text");
+		
+	}
 	
 	public void save(ArrayList<GameObject> objects, ArrayList<Entity> entities) {
 		try {
-
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(this.fileName + ".ser"));
 			CopyOnWriteArrayList<GameObject> copyObjects = new CopyOnWriteArrayList<GameObject>();
 		    CopyOnWriteArrayList<Entity> copyEntities = new CopyOnWriteArrayList<Entity>();
 		    copyObjects.addAll(objects);
 		    copyEntities.addAll(entities);
+		    //fileSaved = true;
+		    
+		    //oos.writeBoolean(fileSaved);
 			oos.writeObject(copyObjects);
 			oos.writeObject(copyEntities);
+			
 			oos.flush();
 			oos.close();
+			if(!levelsSavedSinceNewGame.contains(fileName)){
+		    	levelsSavedSinceNewGame.add(fileName);
+		    }
+			
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -134,13 +168,20 @@ public abstract class Level implements Serializable{
 			e.printStackTrace();
 		}
 		
+		
 	}
 	public void addObject(GameObject object) {
 		objects.add(object);
 	}
 	
-	public void render(Graphics g){
-		
+	private void writeObject(ObjectOutputStream out) throws IOException {
+		out.defaultWriteObject();
+		out.writeObject(levelsSavedSinceNewGame);
+	}
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		System.out.println("[Level] Object read (from save)" + this);
+		levelsSavedSinceNewGame = (ArrayList<String>) in.readObject();
 	}
 
 	public void setObjects(ArrayList<GameObject> objects) {

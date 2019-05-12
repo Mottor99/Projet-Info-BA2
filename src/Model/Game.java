@@ -22,7 +22,6 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static Game instance = null;
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
     private ArrayList<Entity> entities = new ArrayList<Entity>();
     public Player active_player = null;
@@ -30,18 +29,23 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     private transient Loop gameLoop;
     private Level currentLevel;
     private transient Window window;
-    private int size;
     private Time time;
 
 
-    private Game(Window window){
+    public Game(Window window){
 
     	this.window = window;
         Player p = new Player(6, 3, 3);
         p.attachGUIObserver(this);
         Adult w = new Adult(2, 2, "female");
         w.attachGUIObserver(this);
-        currentLevel = new Map(this);
+        
+        if(currentLevel == null){
+        	currentLevel = new Map(this);
+        }
+        currentLevel.load();
+        
+        
         objects.add(p);
         objects.add(w);
         entities.add(p);
@@ -61,22 +65,30 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         
        
     }
-    public static Game getInstance(Window window){
-    	if (Game.instance == null) {
-    		Game.instance = new Game(window);
-    		}
-    		return Game.instance;
-    }
     
     public void start(Window window) {
+    	
     	this.window = window;
     	active_player.start();
-        size = window.getMapSize();
+    	attachObservers();
     	Camera.center(active_player, window.getWidth(), window.getHeight());
     	window.setPlayer(this.getActivePlayer());
         window.setGameObjects(this.getGameObjects());  //draws GameObjects
         window.setTime(this.time);
     	gameLoop = new Loop(this);
+    }
+    public void attachObservers(){
+    	for(GameObject o : objects){
+			if(o instanceof GUIModifier){
+				((GUIModifier) o).attachGUIObserver(this);
+			}
+			if(o instanceof LevelSwitch){
+				((LevelSwitch) o).attachLevelSwitch(this);
+			}
+			if(o instanceof Bed){
+				((Bed) o).attachGame(this);
+			}
+		}
     }
 
 
@@ -180,7 +192,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 		
 	}
 	
-	public void updateTime() {
+	public synchronized void updateTime() {
 		time.update();
 		
 	}
@@ -200,11 +212,13 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 		currentLevel.save(objects, entities);
 		
 		switch(destination){
-		case "map" : currentLevel = new Map(this); break;
-		case "home" : currentLevel = new Home(this); break;
+			case "map" : currentLevel = new Map(this); break;
+			case "home" : currentLevel = new Home(this); break;
 		}
+		currentLevel.load();
 		objects.add(active_player);
 		entities.add(active_player);
+		attachObservers();
 		window.setGameObjects(this.getGameObjects()); 
 		try {
 			Thread.sleep(200);

@@ -2,7 +2,7 @@ package Model;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class SleepAction extends Action implements Runnable{
+public class SleepAction extends NPCAction implements Runnable{
 	
 	/**
 	 * 

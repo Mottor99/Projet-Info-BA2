@@ -14,6 +14,8 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	
 	protected int width; 
 	protected int height;
+	protected boolean selected = false;
+	
 	
 	protected String[] sentences = {"ooga", "booga", "bye bye"};
 	protected String currentSentence;
@@ -24,7 +26,7 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	protected boolean isInMenu = false;
 	protected transient GUIObserver go;
 	
-    private Action currentAction = null;
+    private NPCAction currentAction = null;
 	
 
 	public NPC(int x, int y, int width, int height) {
@@ -47,9 +49,13 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	}
 	@Override
 	public boolean isOpen(){
-		return isInMenu||isTalking;
+		return isInMenu||isTalking||selected;
 	}
-
+	public void statusEvent(){
+		selected = !selected;
+		System.out.println("[NPC] selected " + selected);
+		notifyGUIObserver();
+	}
 	@Override
 	public void activate(Entity p) {
 		this.rotate(this.posX-p.getPosX(), this.posY-p.getPosY());
@@ -112,12 +118,15 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	public Menu getMenu(){
 		return this.menu;
 	}
-	public void setCurrentAction(Action action) {
+	public void setCurrentAction(NPCAction action) {
 		this.currentAction = null;
 			
 	}
 	public boolean isFocused() {
 		return false;
+	}
+	public boolean isSelected() {
+		return selected;
 	}
 
 	

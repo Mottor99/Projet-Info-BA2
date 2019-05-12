@@ -2,7 +2,7 @@ package Model;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class PeeAction extends Action implements Runnable{
+public class PeeAction extends NPCAction implements Runnable{
 	
 	/**
 	 * 

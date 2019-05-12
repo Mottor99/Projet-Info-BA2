@@ -23,9 +23,8 @@ public class Mouse implements Serializable{
 		}
 	}
 	public void inventory(int x, int y) {
-		synchronized(game) {
-			game.inventory(x, y);
-		}
+		game.inventory(x, y);
+		
 	}
 
 	public void placeObject(GameObject o) {

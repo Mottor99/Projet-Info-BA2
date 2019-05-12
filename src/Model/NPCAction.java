@@ -5,7 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public abstract class Action implements Runnable, Serializable{
+public abstract class NPCAction implements Runnable, Serializable{
 	/**
 	 * 
 	 */
@@ -15,7 +15,7 @@ public abstract class Action implements Runnable, Serializable{
 	protected transient volatile boolean running = false;
 	protected transient Thread t;
 
-	public Action(NPC p, Game g) {
+	public NPCAction(NPC p, Game g) {
 		this.p = p;
 		this.g = g;
 		running = true;

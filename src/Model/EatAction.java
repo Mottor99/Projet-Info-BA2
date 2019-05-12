@@ -2,7 +2,7 @@ package Model;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class EatAction extends Action implements Runnable{
+public class EatAction extends NPCAction implements Runnable{
 	
 	/**
 	 * 

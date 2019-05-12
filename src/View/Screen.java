@@ -72,7 +72,7 @@ public class Screen extends JPanel implements DraggableObserver {
 				//mouseController.mapEvent(x, y);
 				mouseController.inventory(x, y);
 				if (draggedItem != null){
-					mouseController.placeObject(draggedItem.getObject());
+				mouseController.placeObject(draggedItem.getObject());
 					draggedItem.notifyDeletableObserver();
 					draggedItem = null;
 				}
@@ -226,8 +226,7 @@ public class Screen extends JPanel implements DraggableObserver {
 				bottom.add(menu);
 				menu.open((MenuActivable)gm);
 				menu.requestFocusInWindow();
-			}
-			else if(gm instanceof Player && ((Player)gm).isInInventory()){
+			}else if(gm instanceof Player && ((Player)gm).isInInventory()){
 				right.add(ibox);
 				right.setPreferredSize(new Dimension(window.getWidth()/3, window.getHeight()));
 				ibox.open((Player)gm, this);

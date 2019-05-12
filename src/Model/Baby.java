@@ -6,6 +6,7 @@ public class Baby extends NPC {
 	/**
 	 * 
 	 */
+	protected String[] babySentences = {"gaga googoo", "*happy baby noises*"};
 	private static final long serialVersionUID = 1L;
 
 	public Baby(int x, int y) {
@@ -17,6 +18,8 @@ public class Baby extends NPC {
 		this.menu.addItem(new MenuItem("give fruit puree"));
 		this.menu.addItem(new MenuItem("clean the baby"));
 		this.menu.addItem(new MenuItem("cancel"));
+		this.sentences = babySentences;
+		
 		
 	}
 	
@@ -43,7 +46,9 @@ public class Baby extends NPC {
 		case "cancel":
 			closeMenu();
 			break;
+		
 		}
+		talk();
 	}
 	public void changeEnergy(Game g) {
     	if (needState == SLEEPING && energy < 100) {

@@ -24,7 +24,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 	private static final long serialVersionUID = 1L;
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
     private ArrayList<Entity> entities = new ArrayList<Entity>();
-    public Player active_player = null;
+    private Player active_player = null;
     private transient AStarThread t = null;
     private transient Loop gameLoop;
     private Level currentLevel;
@@ -38,6 +38,8 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         Player p = new Player(6, 3, 3);
         p.attachGUIObserver(this);
         Adult w = new Adult(2, 2, "female");
+        Baby b = new Baby(10, 10);
+        Child c = new Child(15, 14, "male");
         w.attachGUIObserver(this);
         
         if(currentLevel == null){
@@ -48,8 +50,13 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         
         objects.add(p);
         objects.add(w);
+        objects.add(b);
+        objects.add(c);
         entities.add(p);
         entities.add(w);
+        entities.add(b);
+        entities.add(c);
+        
         active_player = p;
 
         
@@ -214,6 +221,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 		switch(destination){
 			case "map" : currentLevel = new Map(this); break;
 			case "home" : currentLevel = new Home(this); break;
+			case "store" : currentLevel = new Store(this); break;
 		}
 		currentLevel.load();
 		objects.add(active_player);

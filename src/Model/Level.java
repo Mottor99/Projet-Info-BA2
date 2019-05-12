@@ -115,7 +115,15 @@ public abstract class Level implements Serializable{
 					objects.add(map_entrance);
 					
 					break;
-				}
+				case 'H' : 
+					Entrance store_entrance = new Entrance(x, y, "store"); 
+					System.out.println("Entrance added to store");
+					store_entrance.attachLevelSwitch(game);
+					objects.add(store_entrance);
+				
+					break;
+    			
+    			}
     			x++;
     		}
     		

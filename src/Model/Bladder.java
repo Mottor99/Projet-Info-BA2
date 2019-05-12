@@ -1,8 +1,8 @@
 package Model;
 
 public interface Bladder extends Need{
-	void growBladder(Game g);
-	void setBladder(int bladder);
+	void changeBladder(Game g);
+	void setBladder(double bladder);
 	double getBladder();
 
 }

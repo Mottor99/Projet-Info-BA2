@@ -9,7 +9,6 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	protected double mood;
 	
 	protected transient Thread animation;
 	
@@ -122,7 +121,7 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	}
 
 	
-	public void growTire(Game g) {
+	public void changeEnergy(Game g) {
     	if (needState == SLEEPING) {
     		energy = clamp(energy, 1, 100, 0);
     		if(energy>=100) {
@@ -139,7 +138,7 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 			}
 		}	
     }
-    public void growHunger(Game g) {
+    public void changeHunger(Game g) {
     	if (needState == EATING) {
 			hunger = clamp(hunger, 4, 100, 0);
 			if (hunger>=100) {
@@ -157,7 +156,7 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 			}	
 		}
     }
-    public void growBladder(Game g) {
+    public void changeBladder(Game g) {
     	if (needState == PEEING) {
 			bladder = clamp(bladder, 5, 100, 0);
 			if(bladder>=100) {
@@ -174,7 +173,7 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 			}	
 		}
     }
-    public void growDirt(Game g) {
+    public void changeHygiene(Game g) {
     	if (needState == WASHING) {
 			hygiene = clamp(hygiene, 3, 100, 0);
 			if(hygiene>=100) {
@@ -226,31 +225,5 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
     public void animate(){
     	
     }
-    @Override
-	public void setBladder(int bladder) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void setHygiene(int hygiene) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void setHunger(int hunger) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void setEnergy(int energy) {
-		// TODO Auto-generated method stub
-		
-	} 
 
 }

@@ -1,6 +1,6 @@
 WWWWWWWWWWWWWWWWWWWWWWWWW
 W         W             W
-W    C    W             W
+W    C    W       S     W
 W         W             W
 W    T    W             W
 W         W       F     W
@@ -20,6 +20,6 @@ W                       W
 W                       W
 W    $                  W
 W              T        W
-W         E             W
 W                       W
-WWWWWWWWWWWWWWWWWWWWWWWWW
+W                       W
+WWWWWWWWWWEEEWWWWWWWWWWWW

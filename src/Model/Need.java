@@ -6,5 +6,6 @@ public interface Need {
 	final int WASHING = 1;
 	final int EATING = 2;
 	final int PEEING = 3;
+	final int PLAYING = 4;
 	int getNeedState();
 }

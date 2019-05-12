@@ -1,8 +1,8 @@
 package Model;
 
 public interface Hunger extends Need {
-	void growHunger(Game g);
-	void setHunger(int hunger);
+	void changeHunger(Game g);
+	void setHunger(double hunger);
 	double getHunger();
 	
 }

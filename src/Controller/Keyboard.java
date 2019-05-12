@@ -63,38 +63,6 @@ public class Keyboard implements KeyListener, Runnable {
         case KeyEvent.VK_SPACE:
              game.action();
              break;
-             /*try {
-         		FileInputStream fileInputStream = new FileInputStream("bip.mp3");
-         		Player player = new Player(fileInputStream);
-         		player.play();
-         		System.out.println("Song is playing");  
-         		} catch(FileNotFoundException e) {
-         			e.printStackTrace();
-         			
-         		} catch(JavaLayerException e) {
-         			e.printStackTrace();
-         		}
-         	
-             
-            	  new Thread(new Runnable() {
-            	  // The wrapper thread is unnecessary, unless it blocks on the
-            	  // Clip finishing; see comments.
-            	    public void run() {
-            	    	try {
-                     		FileInputStream fileInputStream = new FileInputStream("bop.mp3");
-                     		Player player = new Player(fileInputStream);
-                     		player.play();
-                     		System.out.println("Song is playing");  
-                     		} catch(FileNotFoundException e) {
-                     			e.printStackTrace();
-                     			
-                     		} catch(JavaLayerException e) {
-                     			e.printStackTrace();
-                     		}
-            	    }
-            	  }).start();*/
-             
-             
         case KeyEvent.VK_Q:
              game.stop();
              break;

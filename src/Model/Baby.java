@@ -52,10 +52,10 @@ public class Baby extends NPC {
 	}
 	public void changeEnergy(Game g) {
     	if (needState == SLEEPING && energy < 100) {
-			energy += 0.1;
+			energy = clamp(energy, 0.2, 100, 0);
 		}
 		else{
-			energy -= 0.1; 
+			energy = clamp(energy, -0.1, 100, 0);
 		}
     }
     public void changeHunger(Game g) {
@@ -66,29 +66,29 @@ public class Baby extends NPC {
 			}
 		}
 		else{
-			hunger -= 0.04; 
+			hunger = clamp(hunger, -0.04, 100, 0); 
 		}
     }
     public void changeBladder(Game g) {
     	if (needState == PEEING && bladder <= 100) {
-			bladder += 2;
+			bladder = clamp(bladder, 2, 100, 0);
 			if (bladder >= 100) {
 				stopPeeing();
 			}
 		}
 		else{
-			bladder -= 0.02; 
+			bladder = clamp(bladder, -0.02, 100, 0);
 		}
     }
     public void changeHygiene(Game g) {
     	if (needState == WASHING && hygiene < 100) {
-			hygiene += 1;
+			hygiene = clamp(hygiene, 3, 100, 0);
 			if (hygiene >= 100) {
 				stopWashing();
 			}
 		}
 		else{
-			hygiene -= 0.1; 
+			hygiene = clamp(hygiene, -0.01, 100, 0);
 		}
     }
 }

@@ -138,10 +138,10 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
     		}
 		}
 		else if (energy > 80){
-			energy -= 0.1; 
+			energy = clamp(energy, -0.1, 100, 0); 
 		}
 		else {
-			energy -= 0.1;
+			energy = clamp(energy, -0.1, 100, 0); 
 			if (currentAction == null&& !isOpen()){ 
 				currentAction = new SleepAction(this, g);
 			}
@@ -156,10 +156,10 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 		}
     	
 		else if (hunger > 20){
-			hunger -= 0.04; 
+			hunger = clamp(hunger, -0.04, 100, 0);  
 		}
 		else {
-			hunger -= 0.04;
+			hunger = clamp(hunger, -0.04, 100, 0);  
 			if (currentAction == null && !isOpen()){ 
 				currentAction = new EatAction(this, g);
 			}	
@@ -173,10 +173,10 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 			}
 		}
 		else if (bladder > 30){
-			bladder -= 0.4; 
+			bladder = clamp(bladder, -0.4, 100, 0); 
 		}
 		else {
-			bladder -= 0.4;
+			bladder = clamp(bladder, -0.4, 100, 0); 
 			if (currentAction == null && !isOpen()){ 
 				currentAction = new PeeAction(this, g);
 			}	
@@ -189,10 +189,10 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 				stopWashing();			}
 		}
 		else if (hygiene > 10){
-			hygiene -= 0.1; 
+			hygiene = clamp(hygiene, -0.1, 100, 0);
 		}
 		else {
-			hygiene -= 0.1;
+			hygiene = clamp(hygiene, -0.1, 100, 0);
 			if (currentAction == null && !isOpen()){ 
 				currentAction = new WashAction(this, g);
 			}	

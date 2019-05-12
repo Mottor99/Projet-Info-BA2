@@ -1,4 +1,4 @@
-/*
+
  package View;
  
 
@@ -21,6 +21,7 @@ public class Status extends JPanel {
 	private int BAR_WIDTH = 20;
 
     public Status() {
+    	this.setVisible(false);
         this.setPreferredSize(new Dimension(450, 600));
         this.setBackground(Color.LIGHT_GRAY);
         this.setOpaque(true);
@@ -28,8 +29,9 @@ public class Status extends JPanel {
     
     
     public void paintComponent(Graphics g){
-    	super.paintComponent(g);
+    	//super.paintComponent(g);
     	if(p!=null){
+    		super.paintComponent(g);
 			g.setColor(Color.RED);
 	        g.fillRect(30, 30, BAR_LENGTH, BAR_WIDTH);
 	        g.fillRect(30, 105, BAR_LENGTH, BAR_WIDTH);
@@ -59,12 +61,14 @@ public class Status extends JPanel {
 	        
 		}
     }
+    public void render(){
+    	repaint();
+    }
     
 
 	public void open(NPC npc) {
 		this.p = npc;
-		System.out.println("[Status] "+ p);
 		this.setVisible(true);
 	}
 }
-*/
+

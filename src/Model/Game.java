@@ -39,7 +39,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         p.attachGUIObserver(this);
         Adult w = new Adult(2, 2, "female");
         Baby b = new Baby(10, 10);
-        Child c = new Child(15, 14, "male");
+        Child c = new Child(15, 14, "female");
         w.attachGUIObserver(this);
         
         if(currentLevel == null){
@@ -233,6 +233,10 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 			case "store" : currentLevel = new Store(this); break;
 		}
 		currentLevel.load();
+
+    	window.setBackground(currentLevel.getBackground());
+    	window.setMapSize(currentLevel.getMapSize());
+    	System.out.println("[Game] Background set" + currentLevel.getBackground());
 		active_player.setPosX(spawnX);
 		active_player.setPosY(spawnY);
 		Camera.center(active_player, window.getWidth(), window.getHeight());
@@ -289,5 +293,6 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 		this.entities = entities;
 		
 	}
+	
 
 }

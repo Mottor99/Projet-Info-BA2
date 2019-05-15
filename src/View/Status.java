@@ -10,6 +10,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import Model.Child;
 import Model.NPC;
 import Model.Player;
 
@@ -58,6 +59,17 @@ public class Status extends JPanel {
 	        g.drawString("Hunger", 30, 100);
 	        g.drawString("Bladder", 30, 175);
 	        g.drawString("Hygiene", 30, 250);
+	        if(p instanceof Child){
+	        	int length_ok5 = (int) Math.round(BAR_LENGTH*((Child) p).getFun());
+	        	g.setColor(Color.RED);
+	        	g.fillRect(30, 330, BAR_LENGTH, BAR_WIDTH);
+	        	g.setColor(Color.GREEN);
+	        	g.fillRect(30, 330, length_ok5, BAR_WIDTH);
+	        	g.setColor(Color.GRAY);
+		        g.drawRect(30, 330, BAR_LENGTH, BAR_WIDTH);
+		        g.setColor(Color.WHITE);
+		        g.drawString("Fun", 30, 325);
+	        }
 	        
 		}
     }

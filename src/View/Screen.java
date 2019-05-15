@@ -42,7 +42,7 @@ public class Screen extends JPanel implements DraggableObserver {
 	private transient Mouse mouseController = null;
 	public static int BLOC_SIZE = 40;
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
-	public final int MAP_SIZE = 25;
+	private static int MAP_SIZE = 25;
     private Window window;
     private HUD hud;
     private DialogBox db;
@@ -132,7 +132,6 @@ public class Screen extends JPanel implements DraggableObserver {
 	public void paintComponent(Graphics g){
 		
 		super.paintComponent(g);
-		System.out.println(background);
 		double viewPosX = Camera.getViewPosX();
     	double viewPosY = Camera.getViewPosY();
     	g.drawImage(background, (int)((-viewPosX*BLOC_SIZE)), (int)((-viewPosY*BLOC_SIZE)), MAP_SIZE*BLOC_SIZE, MAP_SIZE*BLOC_SIZE, null);
@@ -269,5 +268,11 @@ public class Screen extends JPanel implements DraggableObserver {
 	}
 	public void setBackground(BufferedImage bgr){
 		this.background = bgr;
+	}
+	public void setMapSize(int size){
+		MAP_SIZE = size;
+	}
+	public int getMAP_SIZE(){
+		return MAP_SIZE;
 	}
 }

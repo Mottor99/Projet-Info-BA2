@@ -16,7 +16,13 @@ public class Home extends Level {
 	@Override
 	public BufferedImage getBackground() {
 		System.out.println("[Home] Background "+ Sprite.home_background.getImage());
-		return Sprite.couch.getImage();
+		return Sprite.home_background.getImage();
+	}
+
+	@Override
+	public int getMapSize() {
+		// TODO Auto-generated method stub
+		return 25;
 	}
 
 }

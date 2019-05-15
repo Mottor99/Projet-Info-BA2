@@ -13,7 +13,13 @@ public class Map extends Level {
 	@Override
 	public BufferedImage getBackground() {
 		// TODO Auto-generated method stub
-		return Sprite.home_background.getImage();
+		return Sprite.map_background.getImage();
+	}
+
+	@Override
+	public int getMapSize() {
+		// TODO Auto-generated method stub
+		return 75;
 	}
 	
     

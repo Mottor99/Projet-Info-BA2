@@ -14,12 +14,12 @@ public class Child extends NPC implements Fun{
 		this.menu = new Menu(this);
 		switch (s) {
 		case "male" : 
-			//sprite = Sprite.boy; 
-			this.menu.addItem(new MenuItem("play soccer"));
+			sprite = Sprite.boy; 
+			this.menu.addItem(new MenuItem("play with cars"));
 			break;
 		case "female" : 
-			//sprite = Sprite.girl; 
-			this.menu.addItem(new MenuItem("play doll"));
+			sprite = Sprite.girl; 
+			this.menu.addItem(new MenuItem("play with doll"));
 			break;
 		}
 		this.menu.addItem(new MenuItem("cancel"));
@@ -30,8 +30,8 @@ public class Child extends NPC implements Fun{
 	@Override 
 	public void menuAction(String action){
 		switch(action){
-		case "play soccer" :
-		case "play doll": 
+		case "play with cars" :
+		case "play with doll": 
 			closeMenu();
 			play();
 			break;
@@ -77,7 +77,7 @@ public class Child extends NPC implements Fun{
 
 	@Override
 	public double getFun() {
-		return fun;
+		return fun/100;
 	}
 
 	

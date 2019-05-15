@@ -113,7 +113,10 @@ public class Window extends JFrame{
     }
 
 	public int getMapSize() {
-		return screen.MAP_SIZE;
+		return screen.getMAP_SIZE();
+	}
+	public void setMapSize(int size){
+		screen.setMapSize(size);
 	}
 	
 	public void setPlayer(Player p) {

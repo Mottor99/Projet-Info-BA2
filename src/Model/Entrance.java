@@ -15,7 +15,7 @@ public class Entrance extends Block implements LevelSwitch {
 		this.destination = destination;
 		this.spawnX = spawnX;
 		this.spawnY = spawnY;
-		// TODO Auto-generated constructor stub
+		this.sprite = Sprite.entrance;
 	}
 
 	@Override

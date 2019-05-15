@@ -12,7 +12,14 @@ public class Store extends Level {
 	@Override
 	public BufferedImage getBackground() {
 		// TODO Auto-generated method stub
-		return null;
+		return Sprite.home_background.getImage();
 	}
+
+	@Override
+	public int getMapSize() {
+		// TODO Auto-generated method stub
+		return 25;
+	}
+	
 
 }

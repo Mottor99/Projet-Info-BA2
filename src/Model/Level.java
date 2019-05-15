@@ -22,7 +22,6 @@ public abstract class Level implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	protected Screen screen;
-	public final int MAP_SIZE = 25;
     public transient static int BLOC_SIZE = 40;
     protected ArrayList<GameObject> objects = new ArrayList<GameObject>();
     protected ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -212,6 +211,7 @@ public abstract class Level implements Serializable{
 		BLOC_SIZE += zoomAmount;
 	}
 	public abstract BufferedImage getBackground();
+	public abstract int getMapSize();
 	
 	
 }

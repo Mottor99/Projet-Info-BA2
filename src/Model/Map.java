@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.image.BufferedImage;
 
 public class Map extends Level {
     
@@ -9,6 +10,12 @@ public class Map extends Level {
     	super(game, "src/map");
     }
 
+	@Override
+	public BufferedImage getBackground() {
+		// TODO Auto-generated method stub
+		return Sprite.home_background.getImage();
+	}
+	
     
 
 	

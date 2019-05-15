@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -45,6 +46,7 @@ public class Screen extends JPanel implements DraggableObserver {
     private Window window;
     private HUD hud;
     private DialogBox db;
+    private BufferedImage background;
 
     private MenuPanel menu;
     private JPanel bottom = new JPanel(new BorderLayout());
@@ -64,6 +66,7 @@ public class Screen extends JPanel implements DraggableObserver {
 		this.window = window;
 		
         this.setFocusable(true);
+        this.setBackground(Color.BLACK);
         this.requestFocusInWindow();
         this.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
         this.addMouseListener(new MouseListener() {
@@ -129,8 +132,11 @@ public class Screen extends JPanel implements DraggableObserver {
 	public void paintComponent(Graphics g){
 		
 		super.paintComponent(g);
+		System.out.println(background);
 		double viewPosX = Camera.getViewPosX();
     	double viewPosY = Camera.getViewPosY();
+    	g.drawImage(background, (int)((-viewPosX*BLOC_SIZE)), (int)((-viewPosY*BLOC_SIZE)), MAP_SIZE*BLOC_SIZE, MAP_SIZE*BLOC_SIZE, null);
+    	/*
     	for(int i = -20; i<45; i++){
     		for(int j = -20; j<45;j++){
     			
@@ -139,6 +145,7 @@ public class Screen extends JPanel implements DraggableObserver {
     			g.drawImage(Sprite.grass.getImage(), (int)Math.round((x*BLOC_SIZE)), (int)Math.round((y*BLOC_SIZE)), BLOC_SIZE, BLOC_SIZE, null);
     		}
     	}
+    	*/
     	Collections.sort(objects);
     	for (GameObject object : this.objects) {
             double x = object.getPosX()-viewPosX;
@@ -234,26 +241,33 @@ public class Screen extends JPanel implements DraggableObserver {
 			}
 			else if(gm instanceof Player && ((Player)gm).isInInventory()){
 				right.add(ibox);
-				right.setPreferredSize(new Dimension(window.getWidth()/3, window.getHeight()));
+				ibox.setPreferredSize(new Dimension(window.getWidth()/3, window.getHeight()));
+				
 				ibox.open((Player)gm, this);
 				ibox.requestFocusInWindow();
 			}
 			else if(gm instanceof ShopCounter && ((ShopCounter) gm).getShop().isOpen()){
 				System.out.println("shop open");
 				right.add(shop);
-				right.setPreferredSize(new Dimension(window.getWidth()/3, window.getHeight()));
+				shop.setPreferredSize(new Dimension(window.getWidth()/3, window.getHeight()));
 				shop.open((ShopCounter)gm, this);
 				shop.requestFocusInWindow();
 			}
 			else if(gm instanceof NPC && ((NPC)gm).isSelected()){
 				right.add(status);
-				right.setPreferredSize(new Dimension(window.getWidth()/5, window.getHeight()));
+				status.setPreferredSize(new Dimension(window.getWidth()/5, window.getHeight()));
 				status.open((NPC)gm);
 				status.requestFocusInWindow();
 			}
 			
+			right.revalidate();
+			bottom.revalidate();
+			
 			
 		}
 		
+	}
+	public void setBackground(BufferedImage bgr){
+		this.background = bgr;
 	}
 }

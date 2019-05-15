@@ -1,6 +1,7 @@
 package Model;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -102,14 +103,14 @@ public abstract class Level implements Serializable{
 				case '$' : objects.add(new ShopCounter(x, y)); break;
 				case 'O' : objects.add(new Computer(x, y)); break;
 				case 'E' : 
-					Entrance home_entrance = new Entrance(x, y, "home", 13, 24); 
+					Entrance home_entrance = new Entrance(x, y, "home", 12, 23); 
 					System.out.println("Entrance added to home");
 					home_entrance.attachLevelSwitch(game);
 					objects.add(home_entrance);
 					
 					break;
 				case 'M' : 
-					Entrance map_entrance = new Entrance(x, y, "map",2 , 12); 
+					Entrance map_entrance = new Entrance(x, y, "map",12, 1); 
 					System.out.println("Entrance added to map");
 					map_entrance.attachLevelSwitch(game);
 					objects.add(map_entrance);
@@ -210,6 +211,7 @@ public abstract class Level implements Serializable{
 	public void zoom(int zoomAmount){
 		BLOC_SIZE += zoomAmount;
 	}
+	public abstract BufferedImage getBackground();
 	
 	
 }

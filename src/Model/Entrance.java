@@ -38,7 +38,7 @@ public class Entrance extends Block implements LevelSwitch {
 	@Override
 	public void notifyLevelSwitchObservers() {
 		for (LevelSwitchObserver o : observers) {
-            o.switchLevel(this, this.destination);
+            o.switchLevel(this, this.destination, spawnX, spawnY);
         }
 	}
 	public String getDestination() {

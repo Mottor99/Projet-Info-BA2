@@ -35,15 +35,15 @@ public class Sprite implements Serializable{
 	public transient static Sprite table = new Sprite("src/table.png");
 	public transient static Sprite couch = new Sprite("src/couch.png");
 	
-	public transient static Sprite baby = new Sprite("src/bebe.png");
+	public transient static Sprite baby = new Sprite("src/baby.png");
 	public transient static Sprite boy = new Sprite("src/garcon.png");
 	public transient static Sprite girl = new Sprite("src/fille.png");
-
 	public transient static Sprite computer = new Sprite("src/computer.png");
 
 	public transient static Sprite[] walking = {new Sprite("src/walking_1.png"), new Sprite("src/walking_2.png"),new Sprite("src/walking_3.png"),new Sprite("src/walking_4.png")};
 	
-	
+
+	public transient static Sprite home_background = new Sprite("src/home");
 	
 	public Sprite(String path) {
 		this.path = path;
@@ -59,6 +59,7 @@ public class Sprite implements Serializable{
 			this.img = ImageIO.read(new File(this.path));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println("[Sprite] "+ this.path);
 			e.printStackTrace();
 		}
 	}

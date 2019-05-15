@@ -43,7 +43,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         w.attachGUIObserver(this);
         
         if(currentLevel == null){
-        	currentLevel = new Map(this);
+        	currentLevel = new Home(this);
         }
         currentLevel.load();
         
@@ -79,6 +79,8 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     	active_player.start();
     	attachObservers();
     	Camera.center(active_player, window.getWidth(), window.getHeight());
+    	window.setBackground(currentLevel.getBackground());
+    	System.out.println("[Game] Background set" + currentLevel.getBackground());
     	window.setPlayer(this.getActivePlayer());
         window.setGameObjects(this.getGameObjects());  //draws GameObjects
         window.setTime(this.time);
@@ -213,7 +215,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 
 
 	@Override
-	public synchronized void switchLevel(LevelSwitch s, String destination) {
+	public synchronized void switchLevel(LevelSwitch s, String destination, int spawnX, int spawnY) {
 		
 		try {
 			Thread.sleep(200);
@@ -231,6 +233,9 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 			case "store" : currentLevel = new Store(this); break;
 		}
 		currentLevel.load();
+		active_player.setPosX(spawnX);
+		active_player.setPosY(spawnY);
+		Camera.center(active_player, window.getWidth(), window.getHeight());
 		objects.add(active_player);
 		entities.add(active_player);
 		attachObservers();

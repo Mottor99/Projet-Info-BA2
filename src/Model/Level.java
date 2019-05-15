@@ -102,21 +102,21 @@ public abstract class Level implements Serializable{
 				case '$' : objects.add(new ShopCounter(x, y)); break;
 				case 'O' : objects.add(new Computer(x, y)); break;
 				case 'E' : 
-					Entrance home_entrance = new Entrance(x, y, "home"); 
+					Entrance home_entrance = new Entrance(x, y, "home", 13, 24); 
 					System.out.println("Entrance added to home");
 					home_entrance.attachLevelSwitch(game);
 					objects.add(home_entrance);
 					
 					break;
 				case 'M' : 
-					Entrance map_entrance = new Entrance(x, y, "map"); 
+					Entrance map_entrance = new Entrance(x, y, "map",2 , 12); 
 					System.out.println("Entrance added to map");
 					map_entrance.attachLevelSwitch(game);
 					objects.add(map_entrance);
 					
 					break;
 				case 'H' : 
-					Entrance store_entrance = new Entrance(x, y, "store"); 
+					Entrance store_entrance = new Entrance(x, y, "store", 13, 24); 
 					System.out.println("Entrance added to store");
 					store_entrance.attachLevelSwitch(game);
 					objects.add(store_entrance);

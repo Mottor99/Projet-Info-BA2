@@ -11,7 +11,7 @@ public class Baby extends NPC {
 
 	public Baby(int x, int y) {
 		super (x, y, 1, 1);
-		//sprite = Sprite.baby;
+		sprite = Sprite.baby;
 		this.menu = new Menu(this);
 		this.menu.addItem(new MenuItem("change baby's diaper"));
 		this.menu.addItem(new MenuItem("cradle the baby to sleep"));

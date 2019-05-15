@@ -234,23 +234,27 @@ public class Screen extends JPanel implements DraggableObserver {
 			}
 			else if(gm instanceof Player && ((Player)gm).isInInventory()){
 				right.add(ibox);
-				right.setPreferredSize(new Dimension(window.getWidth()/3, window.getHeight()));
+				ibox.setPreferredSize(new Dimension(window.getWidth()/3, window.getHeight()));
+				
 				ibox.open((Player)gm, this);
 				ibox.requestFocusInWindow();
 			}
 			else if(gm instanceof ShopCounter && ((ShopCounter) gm).getShop().isOpen()){
 				System.out.println("shop open");
 				right.add(shop);
-				right.setPreferredSize(new Dimension(window.getWidth()/3, window.getHeight()));
+				shop.setPreferredSize(new Dimension(window.getWidth()/3, window.getHeight()));
 				shop.open((ShopCounter)gm, this);
 				shop.requestFocusInWindow();
 			}
 			else if(gm instanceof NPC && ((NPC)gm).isSelected()){
 				right.add(status);
-				right.setPreferredSize(new Dimension(window.getWidth()/5, window.getHeight()));
+				status.setPreferredSize(new Dimension(window.getWidth()/5, window.getHeight()));
 				status.open((NPC)gm);
 				status.requestFocusInWindow();
 			}
+			
+			right.revalidate();
+			bottom.revalidate();
 			
 			
 		}

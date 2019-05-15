@@ -35,7 +35,7 @@ public class Sprite implements Serializable{
 	public transient static Sprite table = new Sprite("src/table.png");
 	public transient static Sprite couch = new Sprite("src/couch.png");
 	
-	public transient static Sprite baby = new Sprite("src/bebe.png");
+	public transient static Sprite baby = new Sprite("src/baby.png");
 	public transient static Sprite boy = new Sprite("src/garcon.png");
 	public transient static Sprite girl = new Sprite("src/fille.png");
 

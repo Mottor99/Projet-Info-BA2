@@ -6,6 +6,7 @@ public class Baby extends NPC {
 	/**
 	 * 
 	 */
+	protected String[] babySentences = {"gaga googoo", "*happy baby noises*"};
 	private static final long serialVersionUID = 1L;
 
 	public Baby(int x, int y) {
@@ -17,6 +18,8 @@ public class Baby extends NPC {
 		this.menu.addItem(new MenuItem("give fruit puree"));
 		this.menu.addItem(new MenuItem("clean the baby"));
 		this.menu.addItem(new MenuItem("cancel"));
+		this.sentences = babySentences;
+		
 		
 	}
 	
@@ -43,14 +46,16 @@ public class Baby extends NPC {
 		case "cancel":
 			closeMenu();
 			break;
+		
 		}
+		talk();
 	}
 	public void changeEnergy(Game g) {
     	if (needState == SLEEPING && energy < 100) {
-			energy += 0.1;
+			energy = clamp(energy, 0.2, 100, 0);
 		}
 		else{
-			energy -= 0.1; 
+			energy = clamp(energy, -0.1, 100, 0);
 		}
     }
     public void changeHunger(Game g) {
@@ -61,29 +66,29 @@ public class Baby extends NPC {
 			}
 		}
 		else{
-			hunger -= 0.04; 
+			hunger = clamp(hunger, -0.04, 100, 0); 
 		}
     }
     public void changeBladder(Game g) {
     	if (needState == PEEING && bladder <= 100) {
-			bladder += 2;
+			bladder = clamp(bladder, 2, 100, 0);
 			if (bladder >= 100) {
 				stopPeeing();
 			}
 		}
 		else{
-			bladder -= 0.02; 
+			bladder = clamp(bladder, -0.02, 100, 0);
 		}
     }
     public void changeHygiene(Game g) {
     	if (needState == WASHING && hygiene < 100) {
-			hygiene += 1;
+			hygiene = clamp(hygiene, 3, 100, 0);
 			if (hygiene >= 100) {
 				stopWashing();
 			}
 		}
 		else{
-			hygiene -= 0.1; 
+			hygiene = clamp(hygiene, -0.01, 100, 0);
 		}
     }
 }

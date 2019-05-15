@@ -1,6 +1,11 @@
 package Model;
 
-
+/* $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+ * 
+ *  code de la boucle venant de : https://www.youtube.com/watch?v=Zh7YiiEuJFw
+ * 
+ * $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+ */
 public class Loop implements Runnable{
 	private Thread t;
 	private boolean running = false;
@@ -8,7 +13,7 @@ public class Loop implements Runnable{
 	
 	public Loop(Game game){
 		this.game = game;
-		t = new Thread(this); //loop tourne en continu, ind�pendamment du reste
+		t = new Thread(this); //loop tourne en continu, independamment du reste
 		running = true;
 		t.start();
 		
@@ -55,6 +60,12 @@ public class Loop implements Runnable{
 			}
 
 			game.render();//aussi vite que possible
+			try {
+				Thread.sleep(2);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			frames++;
 			
 			

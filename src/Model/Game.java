@@ -114,6 +114,13 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     public void inventory(int x, int y) {
     	if (active_player.isAtPosition(x, y)) {
     		active_player.inventoryEvent();
+    	}else {
+	    	for(Entity e : entities){
+	    		if(e instanceof NPC && e.isAtPosition(x, y)){
+	    			System.out.println("[Game] NPC found");
+	    			((NPC)e).statusEvent();
+	    		}
+	    	}
     	}
     }
     

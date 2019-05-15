@@ -1,5 +1,7 @@
 package Model;
 
+import java.awt.Graphics;
+
 public class Shower extends BlockUnbreakable implements Activable, Deletable {
 	
 
@@ -9,9 +11,9 @@ public class Shower extends BlockUnbreakable implements Activable, Deletable {
 	private static final long serialVersionUID = 1L;
 
 	public Shower(int x, int y) {
-		super(x, y, 1, 2);
+		super(x, y, 1, 1);
 		sprite = Sprite.shower; 
-		
+
 	}
 
 	@Override
@@ -44,5 +46,9 @@ public class Shower extends BlockUnbreakable implements Activable, Deletable {
 	public int getPosY() {
 		return this.posY;
 	}
+	@Override
+	public void render(double x, double y, Graphics g, int BLOC_SIZE){
+    	g.drawImage(sprite.getImage(), (int)Math.ceil(x*BLOC_SIZE),(int)Math.ceil((y-1)*BLOC_SIZE), BLOC_SIZE*width, BLOC_SIZE*2, null);
+    }
 
 }

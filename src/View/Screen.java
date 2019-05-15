@@ -54,6 +54,8 @@ public class Screen extends JPanel implements DraggableObserver {
     private InventoryBox ibox;
     private InventoryItem draggedItem = null;
     
+    private Status status;
+    
     private ShopPanel shop;
 
 	
@@ -72,7 +74,7 @@ public class Screen extends JPanel implements DraggableObserver {
 				//mouseController.mapEvent(x, y);
 				mouseController.inventory(x, y);
 				if (draggedItem != null){
-				mouseController.placeObject(draggedItem.getObject());
+					mouseController.placeObject(draggedItem.getObject());
 					draggedItem.notifyDeletableObserver();
 					draggedItem = null;
 				}
@@ -113,6 +115,7 @@ public class Screen extends JPanel implements DraggableObserver {
     	menu = new MenuPanel();
     	shop = new ShopPanel();
     	ibox = new InventoryBox();
+    	status = new Status();
 
     	right.setOpaque(false);
     	bottom.setOpaque(false);
@@ -147,6 +150,8 @@ public class Screen extends JPanel implements DraggableObserver {
         if(draggedItem != null) {
         	draggedItem.getObject().render(draggedItem.getObject().getPosX() - viewPosX, draggedItem.getObject().getPosY() - viewPosY, g, BLOC_SIZE);
         }
+
+    	status.render();
         shop.repaint();
     	ibox.render();
         menu.render();
@@ -226,7 +231,8 @@ public class Screen extends JPanel implements DraggableObserver {
 				bottom.add(menu);
 				menu.open((MenuActivable)gm);
 				menu.requestFocusInWindow();
-			}else if(gm instanceof Player && ((Player)gm).isInInventory()){
+			}
+			else if(gm instanceof Player && ((Player)gm).isInInventory()){
 				right.add(ibox);
 				right.setPreferredSize(new Dimension(window.getWidth()/3, window.getHeight()));
 				ibox.open((Player)gm, this);
@@ -238,6 +244,12 @@ public class Screen extends JPanel implements DraggableObserver {
 				right.setPreferredSize(new Dimension(window.getWidth()/3, window.getHeight()));
 				shop.open((ShopCounter)gm, this);
 				shop.requestFocusInWindow();
+			}
+			else if(gm instanceof NPC && ((NPC)gm).isSelected()){
+				right.add(status);
+				right.setPreferredSize(new Dimension(window.getWidth()/5, window.getHeight()));
+				status.open((NPC)gm);
+				status.requestFocusInWindow();
 			}
 			
 			

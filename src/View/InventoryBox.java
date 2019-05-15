@@ -85,7 +85,7 @@ public class InventoryBox extends JPanel implements DeletableObserver{
 
 
 	public void render() {
-		this.repaint();
+		//this.repaint();
 		
 	}
 

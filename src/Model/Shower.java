@@ -10,7 +10,7 @@ public class Shower extends BlockUnbreakable implements Activable, Deletable {
 
 	public Shower(int x, int y) {
 		super(x, y, 1, 2);
-		sprite = Sprite.couch;
+		sprite = Sprite.shower; 
 		
 	}
 

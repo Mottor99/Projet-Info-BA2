@@ -23,7 +23,7 @@ public class Bed extends BlockUnbreakable implements Activable, Deletable, MenuA
 	}
 
 	public void attachGame(Game game){
-		this.g = game;;
+		this.g = game;
 	}
 
 	@Override

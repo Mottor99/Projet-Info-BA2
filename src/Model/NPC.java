@@ -24,7 +24,7 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	protected boolean isInMenu = false;
 	protected transient GUIObserver go;
 	
-    private Action currentAction = null;
+    private NPCAction currentAction = null;
 	
 
 	public NPC(int x, int y, int width, int height) {
@@ -112,7 +112,7 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	public Menu getMenu(){
 		return this.menu;
 	}
-	public void setCurrentAction(Action action) {
+	public void setCurrentAction(NPCAction action) {
 		this.currentAction = null;
 			
 	}

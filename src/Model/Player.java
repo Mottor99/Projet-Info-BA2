@@ -29,6 +29,7 @@ public class Player extends Entity implements Animation, GUIModifier{
         sprite = Sprite.player[1];
         animation = new Thread(this);
         animation.start();
+        direction = SOUTH;
         //inventory.add(new Couch(1, 1));
         //inventory.add(new Couch(5,5));
     }

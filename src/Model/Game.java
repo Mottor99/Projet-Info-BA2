@@ -35,7 +35,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     public Game(Window window){
 
     	this.window = window;
-        Player p = new Player(6, 3, 3);
+        Player p = new Player(6, 2, 3);
         p.attachGUIObserver(this);
         Adult w = new Adult(2, 2, "female");
         Baby b = new Baby(10, 10);
@@ -236,7 +236,6 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 
     	window.setBackground(currentLevel.getBackground());
     	window.setMapSize(currentLevel.getMapSize());
-    	System.out.println("[Game] Background set" + currentLevel.getBackground());
 		active_player.setPosX(spawnX);
 		active_player.setPosY(spawnY);
 		Camera.center(active_player, window.getWidth(), window.getHeight());

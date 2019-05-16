@@ -1,49 +1,25 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-WWWWWWWWWWMMMWWWWWWWWWWWW
-W                       W
-W                       W
-W                       W
-W                       W
-W                       W
-W                       W
-W                       W
-W                       W
-W                       W
-W                       W
-W          W            W
-W                       W
-W                       W
-W                       W
-W    W                  W
-W                       W
-W                   W   W
-W                       W
-W                       W
-W                       W
-W                       W
-W                       W
-W                       W
 WWWWWWWWWWWWWWWWWWWWWWWWW
+W    C      W           W
+W           W    B      W
+W    T                  W
+W                       W
+W           W           W
+WWWWWWWWWWWWWWWWW  WWWWWW                    
+W P     SW              W
+W        W              W
+W        W             OW
+W        W              W
+W        W              W
+WWWWWWW  WWWWWWWWW  WWWWW
+W                       W
+W                       W
+W   C                 F W
+W                       W
+W   T                   W
+W                       W
+W                       W
+W                       W
+W                       W
+W                       W
+W                       W
+WWWWWWWWWWWMMMWWWWWWWWWWW

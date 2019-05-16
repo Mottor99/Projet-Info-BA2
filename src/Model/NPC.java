@@ -26,7 +26,7 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	protected boolean isInMenu = false;
 	protected transient GUIObserver go;
 	
-    private NPCAction currentAction = null;
+    protected NPCAction currentAction = null;
 	
 
 	public NPC(int x, int y, int width, int height) {
@@ -132,16 +132,16 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 	
 	public void changeEnergy(Game g) {
     	if (needState == SLEEPING) {
-    		energy = clamp(energy, 1, 100, 0);
+    		energy = clamp(energy, 3, 100, 0);
     		if(energy>=100) {
     			stopSleeping();
     		}
 		}
-		else if (energy > 80){
-			energy = clamp(energy, -0.1, 100, 0); 
+		else if (energy > 20){
+			energy = clamp(energy, -0.05, 100, 0); 
 		}
 		else {
-			energy = clamp(energy, -0.1, 100, 0); 
+			energy = clamp(energy, -0.05, 100, 0); 
 			if (currentAction == null&& !isOpen()){ 
 				currentAction = new SleepAction(this, g);
 			}
@@ -156,10 +156,10 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 		}
     	
 		else if (hunger > 20){
-			hunger = clamp(hunger, -0.04, 100, 0);  
+			hunger = clamp(hunger, -0.1, 100, 0);  
 		}
 		else {
-			hunger = clamp(hunger, -0.04, 100, 0);  
+			hunger = clamp(hunger, -0.1, 100, 0);  
 			if (currentAction == null && !isOpen()){ 
 				currentAction = new EatAction(this, g);
 			}	
@@ -172,11 +172,11 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
 				stopPeeing();
 			}
 		}
-		else if (bladder > 30){
-			bladder = clamp(bladder, -0.4, 100, 0); 
+		else if (bladder > 20){
+			bladder = clamp(bladder, -0.2, 100, 0); 
 		}
 		else {
-			bladder = clamp(bladder, -0.4, 100, 0); 
+			bladder = clamp(bladder, -0.2, 100, 0); 
 			if (currentAction == null && !isOpen()){ 
 				currentAction = new PeeAction(this, g);
 			}	
@@ -184,15 +184,15 @@ public abstract class NPC extends Entity implements Activable, Animation, Dialog
     }
     public void changeHygiene(Game g) {
     	if (needState == WASHING) {
-			hygiene = clamp(hygiene, 3, 100, 0);
+			hygiene = clamp(hygiene, 5, 100, 0);
 			if(hygiene>=100) {
 				stopWashing();			}
 		}
-		else if (hygiene > 10){
-			hygiene = clamp(hygiene, -0.1, 100, 0);
+		else if (hygiene > 20){
+			hygiene = clamp(hygiene, -0.05, 100, 0);
 		}
 		else {
-			hygiene = clamp(hygiene, -0.1, 100, 0);
+			hygiene = clamp(hygiene, -0.05, 100, 0);
 			if (currentAction == null && !isOpen()){ 
 				currentAction = new WashAction(this, g);
 			}	

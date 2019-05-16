@@ -25,7 +25,6 @@ public class SleepAction extends NPCAction implements Runnable{
 				break;
 			}
 		}	
-		System.out.println(target.getPosX());
 		while(direction != -1 && running) {
 			direction = (new AStar(p.getAX(), p.getAY(), target.getPosX(), target.getPosY()-1, copy)).getNextStep();
 				

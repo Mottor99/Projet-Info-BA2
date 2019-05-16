@@ -35,15 +35,15 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     public Game(Window window){
 
     	this.window = window;
-        Player p = new Player(6, 3, 3);
+        Player p = new Player(6, 2, 3);
         p.attachGUIObserver(this);
         Adult w = new Adult(2, 2, "female");
-        Baby b = new Baby(10, 10);
-        Child c = new Child(15, 14, "male");
+        Baby b = new Baby(23, 1);
+        Child c = new Child(15, 14, "female");
         w.attachGUIObserver(this);
         
         if(currentLevel == null){
-        	currentLevel = new Map(this);
+        	currentLevel = new Home(this);
         }
         currentLevel.load();
         
@@ -79,6 +79,8 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
     	active_player.start();
     	attachObservers();
     	Camera.center(active_player, window.getWidth(), window.getHeight());
+    	window.setBackground(currentLevel.getBackground());
+    	System.out.println("[Game] Background set" + currentLevel.getBackground());
     	window.setPlayer(this.getActivePlayer());
         window.setGameObjects(this.getGameObjects());  //draws GameObjects
         window.setTime(this.time);
@@ -213,7 +215,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 
 
 	@Override
-	public synchronized void switchLevel(LevelSwitch s, String destination) {
+	public synchronized void switchLevel(LevelSwitch s, String destination, int spawnX, int spawnY) {
 		
 		try {
 			Thread.sleep(200);
@@ -231,6 +233,12 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 			case "store" : currentLevel = new Store(this); break;
 		}
 		currentLevel.load();
+
+    	window.setBackground(currentLevel.getBackground());
+    	window.setMapSize(currentLevel.getMapSize());
+		active_player.setPosX(spawnX);
+		active_player.setPosY(spawnY);
+		Camera.center(active_player, window.getWidth(), window.getHeight());
 		objects.add(active_player);
 		entities.add(active_player);
 		attachObservers();
@@ -284,5 +292,6 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
 		this.entities = entities;
 		
 	}
+	
 
 }

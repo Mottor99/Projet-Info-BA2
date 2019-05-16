@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -112,7 +113,10 @@ public class Window extends JFrame{
     }
 
 	public int getMapSize() {
-		return screen.MAP_SIZE;
+		return screen.getMAP_SIZE();
+	}
+	public void setMapSize(int size){
+		screen.setMapSize(size);
 	}
 	
 	public void setPlayer(Player p) {
@@ -166,6 +170,9 @@ public class Window extends JFrame{
 		screen.notifyGUI(gm);
 		
 		
+	}
+	public void setBackground(BufferedImage bgr){
+		screen.setBackground(bgr);
 	}
 
 	

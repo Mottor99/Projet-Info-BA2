@@ -1,6 +1,7 @@
 package Model;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,7 +22,6 @@ public abstract class Level implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	protected Screen screen;
-	public final int MAP_SIZE = 25;
     public transient static int BLOC_SIZE = 40;
     protected ArrayList<GameObject> objects = new ArrayList<GameObject>();
     protected ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -102,24 +102,31 @@ public abstract class Level implements Serializable{
 				case '$' : objects.add(new ShopCounter(x, y)); break;
 				case 'O' : objects.add(new Computer(x, y)); break;
 				case 'E' : 
-					Entrance home_entrance = new Entrance(x, y, "home"); 
+					Entrance home_entrance = new Entrance(x, y, "home", 12, 23); 
 					System.out.println("Entrance added to home");
 					home_entrance.attachLevelSwitch(game);
 					objects.add(home_entrance);
 					
 					break;
 				case 'M' : 
-					Entrance map_entrance = new Entrance(x, y, "map"); 
+					Entrance map_entrance = new Entrance(x, y, "map",15, 14); 
 					System.out.println("Entrance added to map");
 					map_entrance.attachLevelSwitch(game);
 					objects.add(map_entrance);
 					
 					break;
 				case 'H' : 
-					Entrance store_entrance = new Entrance(x, y, "store"); 
+					Entrance store_entrance = new Entrance(x, y, "store", 12, 23); 
 					System.out.println("Entrance added to store");
 					store_entrance.attachLevelSwitch(game);
 					objects.add(store_entrance);
+				
+					break;
+				case 'm' : 
+					Entrance m_entrance = new Entrance(x, y, "map", 25, 14); 
+					System.out.println("Entrance added to map");
+					m_entrance.attachLevelSwitch(game);
+					objects.add(m_entrance);
 				
 					break;
     			
@@ -210,6 +217,8 @@ public abstract class Level implements Serializable{
 	public void zoom(int zoomAmount){
 		BLOC_SIZE += zoomAmount;
 	}
+	public abstract BufferedImage getBackground();
+	public abstract int getMapSize();
 	
 	
 }

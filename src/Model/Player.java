@@ -26,9 +26,10 @@ public class Player extends Entity implements Animation, GUIModifier{
     public Player(int x, int y, int maxBomb) {
         super(x, y, 1, 1);
         setFocused(true);
-        sprite = Sprite.player;
+        sprite = Sprite.player[1];
         animation = new Thread(this);
         animation.start();
+        direction = SOUTH;
         //inventory.add(new Couch(1, 1));
         //inventory.add(new Couch(5,5));
     }
@@ -36,6 +37,16 @@ public class Player extends Entity implements Animation, GUIModifier{
    public void start() {
 	   animation = new Thread(this);
        animation.start();
+   }
+   public void rotate(int x, int y) {
+       if(x == 0 && y == -1)
+           direction = NORTH;
+       else if(x == 0 && y == 1)
+           direction = SOUTH;
+       else if(x == 1 && y == 0)
+           direction = EAST;
+       else if(x == -1 && y == 0)
+           direction = WEST;
    }
 
     
@@ -77,7 +88,7 @@ public class Player extends Entity implements Animation, GUIModifier{
 				while(state>-1){
 
 					if(state==IDLE){
-						this.sprite = Sprite.player;
+						this.sprite = Sprite.player[direction];
 						
 					}
 					else if(state==MOVING){
@@ -99,7 +110,7 @@ public class Player extends Entity implements Animation, GUIModifier{
 		
 		for(int i = 0; i<4; i++){
 			if(state == MOVING){
-			this.sprite = Sprite.walking[i];
+			this.sprite = Sprite.walking[direction][i];
 			
 			try {
 				

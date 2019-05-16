@@ -27,9 +27,8 @@ public class PeeAction extends NPCAction implements Runnable{
 				break;
 			}
 		}	
-		System.out.println(target.getPosX());
 		while(direction != -1 && running) {
-			direction = (new AStar(p.getAX(), p.getAY(), target.getPosX(), target.getPosY()-1, copy)).getNextStep();
+			direction = (new AStar(p.getAX(), p.getAY(), target.getPosX(), target.getPosY()+1, copy)).getNextStep();
 				
 			switch (direction) {
 					case 0 : g.moveEntity(1,0, p); break;
@@ -46,9 +45,25 @@ public class PeeAction extends NPCAction implements Runnable{
 		}
 
 		g.moveEntity(0, 0, p);
-		if(p.getPosX()==target.getPosX()&&p.getPosY()==target.getPosY()-1) {
+		if(p.getAX()==target.getPosX()&&p.getAY()==target.getPosY()+1) {
 			p.pee();
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			g.moveEntity(1, 0, p);
+			try {
+				Thread.sleep(110);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			g.moveEntity(0, 0, p);
 		}else stop();
+		
+		
 		
 	}
 	public void stop(){

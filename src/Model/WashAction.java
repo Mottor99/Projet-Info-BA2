@@ -26,9 +26,8 @@ public class WashAction extends NPCAction implements Runnable{
 				break;
 			}
 		}	
-		System.out.println(target.getPosX());
 		while(direction != -1 && running) {
-			direction = (new AStar(p.getAX(), p.getAY(), target.getPosX(), target.getPosY()-1, copy)).getNextStep();
+			direction = (new AStar(p.getAX(), p.getAY(), target.getPosX(), target.getPosY()+1, copy)).getNextStep();
 				
 			switch (direction) {
 					case 0 : g.moveEntity(1,0, p); break;
@@ -45,8 +44,9 @@ public class WashAction extends NPCAction implements Runnable{
 		}
 
 		g.moveEntity(0, 0, p);
-		target.activate(p);
-		stop();
+		if(p.getAX()==target.getPosX()&&p.getAY()==target.getPosY()+1){ 
+			target.activate(p);
+		}else stop();
 		
 	}
 	public void stop(){

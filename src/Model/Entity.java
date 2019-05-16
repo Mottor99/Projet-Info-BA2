@@ -190,21 +190,21 @@ public abstract class Entity extends GameObject implements Directable, Animation
 	
     public void changeEnergy(Game g) {
     	if (needState == SLEEPING && energy < 100) {
-			energy = clamp(energy, 0.1, 100, 0);
+			energy = clamp(energy, 0.5, 100, 0);
 		}
 		else{
-			energy = clamp(energy, -0.1, 100, 0);
+			energy = clamp(energy, -0.025, 100, 0);
 		}
     }
     public void changeHunger(Game g) {
     	if (needState == EATING && hunger < 100) {
-    		hunger = clamp(hunger, 1, 100, 0);
+    		hunger = clamp(hunger, 4, 100, 0);
 			if (hunger >= 100) {
 				stopEating();
 			}
 		}
 		else{
-			hunger = clamp(hunger, -0.04, 100, 0); 
+			hunger = clamp(hunger, -0.1, 100, 0); 
 		}
     }
     public void changeBladder(Game g) {
@@ -215,18 +215,18 @@ public abstract class Entity extends GameObject implements Directable, Animation
 			}
 		}
 		else{
-			bladder = clamp(bladder, -0.2, 100, 0); 
+			bladder = clamp(bladder, -0.15, 100, 0); 
 		}
     }
     public void changeHygiene(Game g) {
     	if (needState == WASHING && hygiene < 100) {
-    		hygiene = clamp(hygiene, 1, 100, 0);
+    		hygiene = clamp(hygiene, 4, 100, 0);
 			if (hygiene >= 100) {
 				stopWashing();
 			}
 		}
 		else{
-			hygiene = clamp(hygiene, -0.1, 100, 0);
+			hygiene = clamp(hygiene, -0.05, 100, 0);
 		}
     }
     

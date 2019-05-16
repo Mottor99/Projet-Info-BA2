@@ -8,11 +8,14 @@ public class Entrance extends Block implements LevelSwitch {
 	 */
 	private static final long serialVersionUID = 1L;
 	private transient ArrayList<LevelSwitchObserver> observers = new ArrayList<LevelSwitchObserver>();
+	private int spawnX, spawnY;
 	private String destination;
-	public Entrance(int x, int y, String destination) {
+	public Entrance(int x, int y, String destination, int spawnX, int spawnY) {
 		super(x, y, 1, 1);
 		this.destination = destination;
-		// TODO Auto-generated constructor stub
+		this.spawnX = spawnX;
+		this.spawnY = spawnY;
+		this.sprite = Sprite.entrance;
 	}
 
 	@Override
@@ -35,7 +38,7 @@ public class Entrance extends Block implements LevelSwitch {
 	@Override
 	public void notifyLevelSwitchObservers() {
 		for (LevelSwitchObserver o : observers) {
-            o.switchLevel(this, this.destination);
+            o.switchLevel(this, this.destination, spawnX, spawnY);
         }
 	}
 	public String getDestination() {

@@ -1,5 +1,7 @@
 package Model;
 
+import java.awt.Graphics;
+
 public class Toilet extends BlockUnbreakable implements Deletable, Activable {
 
 	/**
@@ -12,6 +14,10 @@ public class Toilet extends BlockUnbreakable implements Deletable, Activable {
 		sprite = Sprite.toilet;
 		
 	}
+	@Override
+	public void render(double x, double y, Graphics g, int BLOC_SIZE){
+    	g.drawImage(sprite.getImage(), (int)Math.ceil(x*BLOC_SIZE),(int)Math.ceil((y-1)*BLOC_SIZE), BLOC_SIZE*width, BLOC_SIZE*2, null);
+    }
 
 	@Override
 	public void attachDeletable(DeletableObserver po) {

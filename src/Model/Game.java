@@ -38,7 +38,7 @@ public class Game implements DeletableObserver, LevelSwitchObserver, Serializabl
         Player p = new Player(6, 2, 3);
         p.attachGUIObserver(this);
         Adult w = new Adult(2, 2, "female");
-        Baby b = new Baby(10, 10);
+        Baby b = new Baby(23, 1);
         Child c = new Child(15, 14, "female");
         w.attachGUIObserver(this);
         
